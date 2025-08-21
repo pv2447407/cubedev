@@ -9,7 +9,8 @@ views:
           - total_revenue
           - total_revenue_incl_vat
           - total_outstanding
-          - count
+          - name: count
+            alias: invoice_count
           - overdue_amount
           - days_sales_outstanding
           - unique_customers
@@ -22,7 +23,8 @@ views:
           
       - join_path: customers
         includes:
-          - count
+          - name: count
+            alias: customer_count
           - active_count
           - total_credit_limit
           
@@ -89,6 +91,7 @@ views:
     
     cubes:
       - join_path: sales_invoices
+        prefix: true
         includes:
           - total_revenue
           - total_outstanding
@@ -99,6 +102,7 @@ views:
           - overdue_invoices
           
       - join_path: purchase_invoices
+        prefix: true
         includes:
           - total_purchases
           - total_outstanding

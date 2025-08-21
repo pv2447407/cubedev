@@ -463,9 +463,10 @@ cubes:
         sql: "{CUBE}.VENDOR_ID = {vendors}.SYSTEMID"
         relationship: many_to_one
         
-      - name: purchase_invoice_lines
-        sql: "{CUBE}.SYSTEMID = {purchase_invoice_lines}.DOCUMENT_ID"
-        relationship: one_to_many
+      # - name: purchase_invoice_lines
+      #   sql: "{CUBE}.SYSTEMID = {purchase_invoice_lines}.DOCUMENT_ID"
+      #   relationship: one_to_many
+      # Note: purchase_invoice_lines cube needs to be defined
     
     dimensions:
       - name: system_id
