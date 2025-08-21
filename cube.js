@@ -3,7 +3,7 @@ const fs = require('fs');
 
 module.exports = {
   contextToAppId: ({ securityContext }) => {
-    return `CUBEJS_APP_${securityContext.company || 'DEFAULT'}`;
+    return `CUBEJS_APP_${securityContext?.company || 'DEFAULT'}`;
   },
   
   // Snowflake connection with key pair authentication
@@ -46,7 +46,7 @@ module.exports = {
   
   // Pre-aggregation configuration
   preAggregationsSchema: ({ securityContext }) => {
-    return `pre_aggregations_${securityContext.company || 'default'}`.toLowerCase();
+    return `pre_aggregations_${securityContext?.company || 'default'}`.toLowerCase();
   },
   
   // Logging
