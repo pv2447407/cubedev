@@ -183,17 +183,17 @@ cube(`customers`, {
   pre_aggregations: {
     customer_summary: {
       measures: [
-        `count`,
-        `active_count`,
-        `blocked_count`,
-        `total_credit_limit`
+        `customers.count`,
+        `customers.active_count`,
+        `customers.blocked_count`,
+        `customers.total_credit_limit`
       ],
       dimensions: [
-        `country_region_code`,
-        `customer_posting_group`,
-        `company_id`
+        `customers.country_region_code`,
+        `customers.customer_posting_group`,
+        `customers.company_id`
       ],
-      time_dimension: `created_datetime`,
+      time_dimension: `customers.created_datetime`,
       granularity: `month`,
       refresh_key: {
         every: `1 hour`
