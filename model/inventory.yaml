@@ -1,6 +1,6 @@
 cubes:
   - name: items
-    sql_table: ITEM
+    sql_table: "${CUBEJS_DB_NAME}.${CUBEJS_DB_SNOWFLAKE_SCHEMA}.ITEM"
     title: Items
     description: Item master data and inventory analytics
     
@@ -199,7 +199,7 @@ cubes:
           every: 1 hour
           
   - name: item_ledger_entries
-    sql_table: ITEM_LEDGER_ENTRY
+    sql_table: "${CUBEJS_DB_NAME}.${CUBEJS_DB_SNOWFLAKE_SCHEMA}.ITEM_LEDGER_ENTRY"
     title: Item Ledger Entries
     description: Inventory transactions and movements
     
@@ -364,7 +364,7 @@ cubes:
           - sql: "{CUBE}.ENTRY_TYPE = 'Transfer'"
           
   - name: item_categories
-    sql_table: ITEM_CATEGORY
+    sql_table: "${CUBEJS_DB_NAME}.${CUBEJS_DB_SNOWFLAKE_SCHEMA}.ITEM_CATEGORY"
     title: Item Categories
     description: Item category master data
     

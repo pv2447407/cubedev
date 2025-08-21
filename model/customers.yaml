@@ -1,6 +1,6 @@
 cubes:
   - name: customers
-    sql_table: CUSTOMER
+    sql_table: "${CUBEJS_DB_NAME}.${CUBEJS_DB_SNOWFLAKE_SCHEMA}.CUSTOMER"
     title: Customers
     description: Customer master data and analytics
     
