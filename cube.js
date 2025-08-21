@@ -9,16 +9,18 @@ module.exports = {
   preAggregationsSchema: process.env.CUBEJS_PRE_AGGREGATIONS_SCHEMA || 'CUBE_PRE_AGG',
   
   // Security context function - can be used to pass user-specific context
-  contextToAppId: ({ securityContext }) => {
+  contextToAppId: ({ securityContext } = {}) => {
     // You can use this to implement multi-tenancy or user-specific data filtering
-    return `CUBEJS_APP_${securityContext.tenant || 'default'}`;
+    // Handle cases where securityContext might be undefined
+    const tenant = securityContext?.tenant || 'default';
+    return `CUBEJS_APP_${tenant}`;
   },
   
   // Query rewrite for security and multi-tenancy
-  queryRewrite: (query, { securityContext }) => {
+  queryRewrite: (query, { securityContext } = {}) => {
     // Add any query-level security filters here
     // For example, filter by company_id if in multi-tenant setup
-    if (securityContext && securityContext.company_id) {
+    if (securityContext?.company_id) {
       // Add company_id filter to all queries
       if (!query.filters) {
         query.filters = [];
