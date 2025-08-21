@@ -1,0 +1,328 @@
+cubes:
+  - name: sales_headers
+    sql_table: FIVETRAN_DATABASE.BUSINESS_CENTRAL.SALES_HEADER
+    title: Sales Orders
+    description: Sales order headers and statistics
+    
+    joins:
+      - name: customers
+        sql: "{CUBE}.CUSTOMER_ID = {customers}.SYSTEMID"
+        relationship: many_to_one
+        
+      - name: sales_lines
+        sql: "{CUBE}.SYSTEMID = {sales_lines}.DOCUMENT_ID"
+        relationship: one_to_many
+    
+    dimensions:
+      - name: system_id
+        sql: SYSTEMID
+        type: string
+        primary_key: true
+        
+      - name: document_type
+        sql: DOCUMENT_TYPE
+        type: string
+        
+      - name: no
+        sql: NO
+        type: string
+        title: Document No.
+        
+      - name: customer_id
+        sql: CUSTOMER_ID
+        type: string
+        
+      - name: customer_no
+        sql: SELL_TO_CUSTOMER_NO
+        type: string
+        title: Customer No.
+        
+      - name: customer_name
+        sql: SELL_TO_CUSTOMER_NAME
+        type: string
+        title: Customer Name
+        
+      - name: posting_date
+        sql: POSTING_DATE
+        type: time
+        
+      - name: document_date
+        sql: DOCUMENT_DATE
+        type: time
+        
+      - name: due_date
+        sql: DUE_DATE
+        type: time
+        
+      - name: requested_delivery_date
+        sql: REQUESTED_DELIVERY_DATE
+        type: time
+        
+      - name: status
+        sql: STATUS
+        type: string
+        
+      - name: currency_code
+        sql: CURRENCY_CODE
+        type: string
+        
+      - name: salesperson_code
+        sql: SALESPERSON_CODE
+        type: string
+        
+      - name: payment_terms_code
+        sql: PAYMENT_TERMS_CODE
+        type: string
+        
+      - name: shipment_method_code
+        sql: SHIPMENT_METHOD_CODE
+        type: string
+        
+      - name: location_code
+        sql: LOCATION_CODE
+        type: string
+        
+      - name: company_id
+        sql: COMPANY_ID
+        type: string
+        
+      - name: amount
+        sql: AMOUNT
+        type: number
+        format: currency
+        
+      - name: amount_including_vat
+        sql: AMOUNT_INCLUDING_VAT
+        type: number
+        format: currency
+    
+    measures:
+      - name: count
+        type: count
+        title: Total Orders
+        
+      - name: quote_count
+        type: count
+        title: Quotes
+        filters:
+          - sql: "{CUBE}.DOCUMENT_TYPE = 'Quote'"
+          
+      - name: order_count
+        type: count
+        title: Sales Orders
+        filters:
+          - sql: "{CUBE}.DOCUMENT_TYPE = 'Order'"
+          
+      - name: invoice_count
+        type: count
+        title: Invoices
+        filters:
+          - sql: "{CUBE}.DOCUMENT_TYPE = 'Invoice'"
+          
+      - name: credit_memo_count
+        type: count
+        title: Credit Memos
+        filters:
+          - sql: "{CUBE}.DOCUMENT_TYPE = 'Credit Memo'"
+          
+      - name: total_amount
+        sql: AMOUNT
+        type: sum
+        title: Total Amount
+        format: currency
+        
+      - name: total_amount_incl_vat
+        sql: AMOUNT_INCLUDING_VAT
+        type: sum
+        title: Total Amount (Incl. VAT)
+        format: currency
+        
+      - name: avg_order_value
+        sql: AMOUNT
+        type: avg
+        title: Average Order Value
+        format: currency
+        filters:
+          - sql: "{CUBE}.DOCUMENT_TYPE = 'Order'"
+          
+      - name: open_orders_count
+        type: count
+        title: Open Orders
+        filters:
+          - sql: "{CUBE}.STATUS = 'Open'"
+          - sql: "{CUBE}.DOCUMENT_TYPE = 'Order'"
+          
+      - name: open_orders_value
+        sql: AMOUNT
+        type: sum
+        title: Open Orders Value
+        format: currency
+        filters:
+          - sql: "{CUBE}.STATUS = 'Open'"
+          - sql: "{CUBE}.DOCUMENT_TYPE = 'Order'"
+          
+      - name: unique_customers
+        sql: CUSTOMER_ID
+        type: count_distinct
+        title: Unique Customers
+    
+    pre_aggregations:
+      - name: sales_summary_daily
+        measures:
+          - count
+          - order_count
+          - total_amount
+          - total_amount_incl_vat
+          - unique_customers
+        dimensions:
+          - document_type
+          - status
+          - company_id
+        time_dimension: posting_date
+        granularity: day
+        refresh_key:
+          every: 30 minutes
+          
+  - name: sales_lines
+    sql_table: FIVETRAN_DATABASE.BUSINESS_CENTRAL.SALES_LINE
+    title: Sales Lines
+    description: Sales order line details
+    
+    joins:
+      - name: sales_headers
+        sql: "{CUBE}.DOCUMENT_ID = {sales_headers}.SYSTEMID"
+        relationship: many_to_one
+        
+    
+    dimensions:
+      - name: system_id
+        sql: SYSTEMID
+        type: string
+        primary_key: true
+        
+      - name: document_id
+        sql: DOCUMENT_ID
+        type: string
+        
+      - name: document_type
+        sql: DOCUMENT_TYPE
+        type: string
+        
+      - name: document_no
+        sql: DOCUMENT_NO
+        type: string
+        
+      - name: line_no
+        sql: LINE_NO
+        type: number
+        
+      - name: type
+        sql: TYPE
+        type: string
+        
+      - name: no
+        sql: NO
+        type: string
+        title: Item/Account No.
+        
+      - name: description
+        sql: DESCRIPTION
+        type: string
+        
+      - name: location_code
+        sql: LOCATION_CODE
+        type: string
+        
+      - name: unit_of_measure_code
+        sql: UNIT_OF_MEASURE_CODE
+        type: string
+        
+      - name: quantity
+        sql: QUANTITY
+        type: number
+        
+      - name: unit_price
+        sql: UNIT_PRICE
+        type: number
+        format: currency
+        
+      - name: unit_cost_lcy
+        sql: UNIT_COST_LCY
+        type: number
+        format: currency
+        
+      - name: line_discount_percent
+        sql: LINE_DISCOUNT_PERCENT
+        type: number
+        format: percent
+        
+      - name: line_amount
+        sql: LINE_AMOUNT
+        type: number
+        format: currency
+        
+      - name: amount
+        sql: AMOUNT
+        type: number
+        format: currency
+        
+      - name: amount_including_vat
+        sql: AMOUNT_INCLUDING_VAT
+        type: number
+        format: currency
+        
+      - name: company_id
+        sql: COMPANY_ID
+        type: string
+    
+    measures:
+      - name: count
+        type: count
+        title: Total Lines
+        
+      - name: total_quantity
+        sql: QUANTITY
+        type: sum
+        title: Total Quantity
+        
+      - name: total_line_amount
+        sql: LINE_AMOUNT
+        type: sum
+        title: Total Line Amount
+        format: currency
+        
+      - name: total_amount
+        sql: AMOUNT
+        type: sum
+        title: Total Amount
+        format: currency
+        
+      - name: avg_unit_price
+        sql: UNIT_PRICE
+        type: avg
+        title: Average Unit Price
+        format: currency
+        
+      - name: avg_discount_percent
+        sql: LINE_DISCOUNT_PERCENT
+        type: avg
+        title: Average Discount %
+        format: percent
+        
+      - name: total_cost
+        sql: "QUANTITY * UNIT_COST_LCY"
+        type: sum
+        title: Total Cost
+        format: currency
+        
+      - name: gross_profit
+        sql: "AMOUNT - (QUANTITY * UNIT_COST_LCY)"
+        type: sum
+        title: Gross Profit
+        format: currency
+        
+      - name: gross_margin_percent
+        sql: "CASE WHEN SUM(AMOUNT) > 0 THEN (SUM(AMOUNT) - SUM(QUANTITY * UNIT_COST_LCY)) / SUM(AMOUNT) * 100 ELSE 0 END"
+        type: number
+        title: Gross Margin %
+        format: percent

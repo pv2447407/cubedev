@@ -1,0 +1,421 @@
+cubes:
+  - name: items
+    sql_table: FIVETRAN_DATABASE.BUSINESS_CENTRAL.ITEM
+    title: Items
+    description: Item master data and inventory analytics
+    
+    joins:
+      - name: item_ledger_entries
+        sql: "{CUBE}.NO = {item_ledger_entries}.ITEM_NO"
+        relationship: one_to_many
+        
+      - name: item_categories
+        sql: "{CUBE}.ITEM_CATEGORY_CODE = {item_categories}.CODE"
+        relationship: many_to_one
+    
+    dimensions:
+      - name: system_id
+        sql: SYSTEMID
+        type: string
+        primary_key: true
+        
+      - name: no
+        sql: NO
+        type: string
+        title: Item No.
+        
+      - name: no_2
+        sql: NO_2
+        type: string
+        title: Item No. 2
+        
+      - name: description
+        sql: DESCRIPTION
+        type: string
+        
+      - name: description_2
+        sql: DESCRIPTION_2
+        type: string
+        
+      - name: search_description
+        sql: SEARCH_DESCRIPTION
+        type: string
+        
+      - name: base_unit_of_measure
+        sql: BASE_UNIT_OF_MEASURE
+        type: string
+        
+      - name: type
+        sql: TYPE
+        type: string
+        title: Item Type
+        
+      - name: inventory_posting_group
+        sql: INVENTORY_POSTING_GROUP
+        type: string
+        
+      - name: item_category_code
+        sql: ITEM_CATEGORY_CODE
+        type: string
+        
+      - name: blocked
+        sql: BLOCKED
+        type: boolean
+        
+      - name: unit_price
+        sql: UNIT_PRICE
+        type: number
+        format: currency
+        
+      - name: unit_cost
+        sql: UNIT_COST
+        type: number
+        format: currency
+        
+      - name: standard_cost
+        sql: STANDARD_COST
+        type: number
+        format: currency
+        
+      - name: last_direct_cost
+        sql: LAST_DIRECT_COST
+        type: number
+        format: currency
+        
+      - name: costing_method
+        sql: COSTING_METHOD
+        type: string
+        
+      - name: inventory
+        sql: INVENTORY
+        type: number
+        title: Current Inventory
+        
+      - name: reorder_point
+        sql: REORDER_POINT
+        type: number
+        
+      - name: reorder_quantity
+        sql: REORDER_QUANTITY
+        type: number
+        
+      - name: vendor_no
+        sql: VENDOR_NO
+        type: string
+        
+      - name: vendor_item_no
+        sql: VENDOR_ITEM_NO
+        type: string
+        
+      - name: lead_time_calculation
+        sql: LEAD_TIME_CALCULATION
+        type: string
+        
+      - name: safety_stock_quantity
+        sql: SAFETY_STOCK_QUANTITY
+        type: number
+        
+      - name: company_id
+        sql: COMPANY_ID
+        type: string
+        
+      - name: last_date_modified
+        sql: LAST_DATE_MODIFIED
+        type: time
+    
+    measures:
+      - name: count
+        type: count
+        title: Total Items
+        
+      - name: active_items
+        type: count
+        title: Active Items
+        filters:
+          - sql: "NOT {CUBE}.BLOCKED"
+          
+      - name: total_inventory_value
+        sql: "INVENTORY * UNIT_COST"
+        type: sum
+        title: Total Inventory Value
+        format: currency
+        
+      - name: total_inventory_qty
+        sql: INVENTORY
+        type: sum
+        title: Total Inventory Quantity
+        
+      - name: avg_unit_cost
+        sql: UNIT_COST
+        type: avg
+        title: Average Unit Cost
+        format: currency
+        
+      - name: avg_unit_price
+        sql: UNIT_PRICE
+        type: avg
+        title: Average Unit Price
+        format: currency
+        
+      - name: items_below_reorder
+        type: count
+        title: Items Below Reorder Point
+        filters:
+          - sql: "{CUBE}.INVENTORY < {CUBE}.REORDER_POINT"
+          - sql: "{CUBE}.REORDER_POINT > 0"
+          
+      - name: items_out_of_stock
+        type: count
+        title: Items Out of Stock
+        filters:
+          - sql: "{CUBE}.INVENTORY <= 0"
+          
+      - name: inventory_turns
+        sql: |
+          CASE 
+            WHEN SUM(INVENTORY * UNIT_COST) > 0 
+            THEN 365.0 / (SUM(INVENTORY * UNIT_COST) / NULLIF(SUM(INVENTORY), 0))
+            ELSE 0 
+          END
+        type: number
+        title: Inventory Turnover
+        format: number
+    
+    pre_aggregations:
+      - name: inventory_summary
+        measures:
+          - count
+          - active_items
+          - total_inventory_value
+          - total_inventory_qty
+          - items_below_reorder
+          - items_out_of_stock
+        dimensions:
+          - type
+          - item_category_code
+          - inventory_posting_group
+          - company_id
+        refresh_key:
+          every: 1 hour
+          
+  - name: item_ledger_entries
+    sql_table: FIVETRAN_DATABASE.BUSINESS_CENTRAL.ITEM_LEDGER_ENTRY
+    title: Item Ledger Entries
+    description: Inventory transactions and movements
+    
+    joins:
+      - name: items
+        sql: "{CUBE}.ITEM_NO = {items}.NO"
+        relationship: many_to_one
+        
+    
+    dimensions:
+      - name: entry_no
+        sql: ENTRY_NO
+        type: number
+        primary_key: true
+        
+      - name: item_no
+        sql: ITEM_NO
+        type: string
+        
+      - name: posting_date
+        sql: POSTING_DATE
+        type: time
+        
+      - name: entry_type
+        sql: ENTRY_TYPE
+        type: string
+        
+      - name: source_type
+        sql: SOURCE_TYPE
+        type: string
+        
+      - name: source_no
+        sql: SOURCE_NO
+        type: string
+        
+      - name: document_type
+        sql: DOCUMENT_TYPE
+        type: string
+        
+      - name: document_no
+        sql: DOCUMENT_NO
+        type: string
+        
+      - name: description
+        sql: DESCRIPTION
+        type: string
+        
+      - name: location_code
+        sql: LOCATION_CODE
+        type: string
+        
+      - name: quantity
+        sql: QUANTITY
+        type: number
+        
+      - name: remaining_quantity
+        sql: REMAINING_QUANTITY
+        type: number
+        
+      - name: invoiced_quantity
+        sql: INVOICED_QUANTITY
+        type: number
+        
+      - name: cost_amount_actual
+        sql: COST_AMOUNT_ACTUAL
+        type: number
+        format: currency
+        
+      - name: cost_amount_expected
+        sql: COST_AMOUNT_EXPECTED
+        type: number
+        format: currency
+        
+      - name: sales_amount_actual
+        sql: SALES_AMOUNT_ACTUAL
+        type: number
+        format: currency
+        
+      - name: sales_amount_expected
+        sql: SALES_AMOUNT_EXPECTED
+        type: number
+        format: currency
+        
+      - name: positive
+        sql: POSITIVE
+        type: boolean
+        
+      - name: open
+        sql: OPEN
+        type: boolean
+        
+      - name: unit_of_measure_code
+        sql: UNIT_OF_MEASURE_CODE
+        type: string
+        
+      - name: variant_code
+        sql: VARIANT_CODE
+        type: string
+        
+      - name: company_id
+        sql: COMPANY_ID
+        type: string
+    
+    measures:
+      - name: count
+        type: count
+        title: Total Entries
+        
+      - name: total_quantity
+        sql: QUANTITY
+        type: sum
+        title: Total Quantity
+        
+      - name: quantity_in
+        sql: QUANTITY
+        type: sum
+        title: Quantity In
+        filters:
+          - sql: "{CUBE}.QUANTITY > 0"
+          
+      - name: quantity_out
+        sql: "ABS(QUANTITY)"
+        type: sum
+        title: Quantity Out
+        filters:
+          - sql: "{CUBE}.QUANTITY < 0"
+          
+      - name: total_cost
+        sql: COST_AMOUNT_ACTUAL
+        type: sum
+        title: Total Cost
+        format: currency
+        
+      - name: total_sales
+        sql: SALES_AMOUNT_ACTUAL
+        type: sum
+        title: Total Sales
+        format: currency
+        
+      - name: purchase_entries
+        type: count
+        title: Purchase Entries
+        filters:
+          - sql: "{CUBE}.ENTRY_TYPE = 'Purchase'"
+          
+      - name: sales_entries
+        type: count
+        title: Sales Entries
+        filters:
+          - sql: "{CUBE}.ENTRY_TYPE = 'Sale'"
+          
+      - name: adjustment_entries
+        type: count
+        title: Adjustment Entries
+        filters:
+          - sql: "{CUBE}.ENTRY_TYPE IN ('Positive Adjmt.', 'Negative Adjmt.')"
+          
+      - name: transfer_entries
+        type: count
+        title: Transfer Entries
+        filters:
+          - sql: "{CUBE}.ENTRY_TYPE = 'Transfer'"
+          
+  - name: item_categories
+    sql_table: FIVETRAN_DATABASE.BUSINESS_CENTRAL.ITEM_CATEGORY
+    title: Item Categories
+    description: Item category master data
+    
+    dimensions:
+      - name: system_id
+        sql: SYSTEMID
+        type: string
+        primary_key: true
+        
+      - name: code
+        sql: CODE
+        type: string
+        title: Category Code
+        
+      - name: parent_category
+        sql: PARENT_CATEGORY
+        type: string
+        
+      - name: description
+        sql: DESCRIPTION
+        type: string
+        
+      - name: indentation
+        sql: INDENTATION
+        type: number
+        
+      - name: presentation_order
+        sql: PRESENTATION_ORDER
+        type: number
+        
+      - name: has_children
+        sql: HAS_CHILDREN
+        type: boolean
+        
+      - name: company_id
+        sql: COMPANY_ID
+        type: string
+    
+    measures:
+      - name: count
+        type: count
+        title: Total Categories
+        
+      - name: parent_categories
+        type: count
+        title: Parent Categories
+        filters:
+          - sql: "{CUBE}.HAS_CHILDREN = TRUE"
+          
+      - name: leaf_categories
+        type: count
+        title: Leaf Categories
+        filters:
+          - sql: "{CUBE}.HAS_CHILDREN = FALSE"
