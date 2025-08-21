@@ -1,6 +1,6 @@
 cubes:
   - name: vendors
-    sql_table: "{{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') }}.VENDOR"
+    sql_table: {{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') }}.VENDOR
     title: Vendors
     description: Vendor master data and analytics
     
@@ -128,7 +128,7 @@ cubes:
           every: 2 hours
           
   - name: purchase_headers
-    sql_table: "{{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') }}.PURCHASE_HEADER"
+    sql_table: {{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') }}.PURCHASE_HEADER
     title: Purchase Orders
     description: Purchase order headers
     
@@ -311,7 +311,7 @@ cubes:
           every: 1 hour
           
   - name: purchase_lines
-    sql_table: "{{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') }}.PURCHASE_LINE"
+    sql_table: {{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') }}.PURCHASE_LINE
     title: Purchase Lines
     description: Purchase order line details
     
@@ -454,7 +454,7 @@ cubes:
           - sql: "{CUBE}.TYPE = 'Item'"
           
   - name: purchase_invoices
-    sql_table: "{{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') }}.PURCH_INV_HEADER"
+    sql_table: {{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') }}.PURCH_INV_HEADER
     title: Posted Purchase Invoices
     description: Posted purchase invoice headers
     
