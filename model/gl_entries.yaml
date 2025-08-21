@@ -1,6 +1,6 @@
 cubes:
   - name: g_l_entries
-    sql_table: FIVETRAN_DATABASE.BUSINESS_CENTRAL.G_L_ENTRY
+    sql_table: G_L_ENTRY
     title: General Ledger Entries
     description: Financial transactions and accounting entries
     
@@ -182,7 +182,7 @@ cubes:
           every: 1 hour
           
   - name: g_l_accounts
-    sql_table: FIVETRAN_DATABASE.BUSINESS_CENTRAL.G_L_ACCOUNT
+    sql_table: G_L_ACCOUNT
     title: Chart of Accounts
     description: General ledger account master data
     
