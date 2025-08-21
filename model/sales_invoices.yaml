@@ -1,6 +1,6 @@
 cubes:
   - name: sales_invoices
-    sql_table: SALES_INVOICE_HEADER
+    sql_table: "{{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') }}.SALES_INVOICE_HEADER"
     title: Posted Sales Invoices
     description: Posted sales invoice headers with revenue metrics
     
@@ -212,7 +212,7 @@ cubes:
           every: 30 minutes
           
   - name: sales_invoice_lines
-    sql_table: SALES_INVOICE_LINE
+    sql_table: "{{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') }}.SALES_INVOICE_LINE"
     title: Posted Sales Invoice Lines
     description: Posted sales invoice line details with product analytics
     

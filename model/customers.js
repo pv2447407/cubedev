@@ -1,5 +1,7 @@
+const { tablePrefix } = require('../tablePrefix');
+
 cube(`customers`, {
-  sql_table: `CUSTOMER`,
+  sql_table: `${tablePrefix()}.CUSTOMER`,
   title: `Customers`,
   description: `Customer master data and analytics`,
   
