@@ -1,6 +1,6 @@
 cubes:
   - name: sales_headers
-    sql_table: {{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') }}.SALES_HEADER
+    sql_table: "{{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') | safe }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') | safe }}.SALES_HEADER"
     title: Sales Orders
     description: Sales order headers and statistics
     
@@ -184,7 +184,7 @@ cubes:
           every: 30 minutes
           
   - name: sales_lines
-    sql_table: {{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') }}.SALES_LINE
+    sql_table: "{{ env_var('CUBEJS_DB_NAME', 'FIVETRAN_DATABASE') | safe }}.{{ env_var('CUBEJS_DB_SNOWFLAKE_SCHEMA', 'BUSINESS_CENTRAL') | safe }}.SALES_LINE"
     title: Sales Lines
     description: Sales order line details
     
