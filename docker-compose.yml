@@ -1,0 +1,45 @@
+services:
+  cube:
+    build: .
+    ports:
+      - "4000:4000"  # API endpoint
+      - "3000:3000"  # Playground (dev mode)
+    environment:
+      - CUBEJS_DEV_MODE=${CUBEJS_DEV_MODE}
+      - CUBEJS_DB_TYPE=snowflake
+      - CUBEJS_DB_SNOWFLAKE_ACCOUNT=${SNOWFLAKE_ACCOUNT}
+      - CUBEJS_DB_SNOWFLAKE_WAREHOUSE=${SNOWFLAKE_WAREHOUSE}
+      - CUBEJS_DB_NAME=${SNOWFLAKE_DATABASE}
+      - CUBEJS_DB_USER=${SNOWFLAKE_USER}
+      - CUBEJS_DB_SNOWFLAKE_AUTHENTICATOR=SNOWFLAKE_JWT
+      - CUBEJS_DB_SNOWFLAKE_PRIVATE_KEY_PATH=/cube/conf/keys/rsa_key.p8
+      - CUBEJS_DB_SNOWFLAKE_PRIVATE_KEY_PASS=${SNOWFLAKE_PRIVATE_KEY_PASSPHRASE}
+      - CUBEJS_DB_SNOWFLAKE_ROLE=${SNOWFLAKE_ROLE}
+      - CUBEJS_API_SECRET=${CUBEJS_API_SECRET}
+    env_file: .env
+    volumes:
+      - ./model:/cube/conf/model
+      - ./cube.js:/cube/conf/cube.js
+      - ./keys:/cube/conf/keys:ro
+      - ./src:/cube/conf/src
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/readyz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      - cubestore
+
+  cubestore:
+    image: cubejs/cubestore:latest
+    platform: linux/amd64
+    environment:
+      - CUBESTORE_SERVER_NAME=cubestore:9999
+      - CUBESTORE_META_PORT=9999
+      - CUBESTORE_REMOTE_DIR=/cube/data
+    volumes:
+      - cubestore_data:/cube/data
+
+volumes:
+  cubestore_data:

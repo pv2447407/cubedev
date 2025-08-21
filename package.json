@@ -1,0 +1,21 @@
+{
+  "name": "cube-bc-snowflake",
+  "version": "1.0.0",
+  "description": "Cube.js integration with Snowflake for Microsoft Business Central data",
+  "main": "index.js",
+  "scripts": {
+    "dev": "docker-compose up",
+    "generate-schema": "node src/schema-discovery.js",
+    "test-connection": "node scripts/test-connection.js",
+    "generate-keys": "bash keys/generate-keys.sh"
+  },
+  "dependencies": {
+    "@cubejs-backend/server": "^0.36.0",
+    "@cubejs-backend/snowflake-driver": "^0.36.0",
+    "snowflake-sdk": "^1.9.0",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
