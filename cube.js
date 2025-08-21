@@ -58,5 +58,18 @@ module.exports = {
   orchestratorOptions: {
     continueWaitTimeout: 60,
     redisPrefix: 'CUBE_BC'
+  },
+  
+  // Scheduled refresh contexts for multitenancy
+  // This ensures background refresh jobs have proper security context
+  scheduledRefreshContexts: async () => {
+    // Return an array of security contexts for all companies
+    // In production, you might fetch this from a database
+    return [
+      { securityContext: { company: 'DEFAULT' } },
+      // Add more companies as needed:
+      // { securityContext: { company: 'COMPANY_A' } },
+      // { securityContext: { company: 'COMPANY_B' } },
+    ];
   }
 };
