@@ -1,0 +1,214 @@
+{
+  "queries": [
+    {
+      "name": "Total Revenue Overview",
+      "description": "Shows total revenue, invoice count, and outstanding amounts",
+      "query": {
+        "measures": [
+          "sales_invoices.total_revenue",
+          "sales_invoices.count",
+          "sales_invoices.total_outstanding"
+        ]
+      }
+    },
+    {
+      "name": "Revenue by Customer",
+      "description": "Top customers by revenue",
+      "query": {
+        "measures": ["sales_invoices.total_revenue"],
+        "dimensions": ["customers.name"],
+        "order": {
+          "sales_invoices.total_revenue": "desc"
+        },
+        "limit": 10
+      }
+    },
+    {
+      "name": "Monthly Revenue Trend",
+      "description": "Revenue trend over time",
+      "query": {
+        "measures": ["sales_invoices.total_revenue"],
+        "timeDimensions": [
+          {
+            "dimension": "sales_invoices.posting_date",
+            "granularity": "month"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Outstanding Invoices",
+      "description": "Invoices with remaining balance",
+      "query": {
+        "measures": [
+          "sales_invoices.count",
+          "sales_invoices.total_outstanding"
+        ],
+        "dimensions": ["customers.name"],
+        "filters": [
+          {
+            "member": "sales_invoices.remaining_amount",
+            "operator": "gt",
+            "values": ["0"]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Overdue Invoices",
+      "description": "Invoices past due date",
+      "query": {
+        "measures": [
+          "sales_invoices.overdue_invoices",
+          "sales_invoices.overdue_amount"
+        ],
+        "dimensions": ["customers.name"]
+      }
+    },
+    {
+      "name": "Sales by Product",
+      "description": "Product performance analysis",
+      "query": {
+        "measures": [
+          "sales_invoice_lines.total_revenue",
+          "sales_invoice_lines.total_quantity_sold",
+          "sales_invoice_lines.gross_profit"
+        ],
+        "dimensions": ["items.description"],
+        "order": {
+          "sales_invoice_lines.total_revenue": "desc"
+        },
+        "limit": 20
+      }
+    },
+    {
+      "name": "Customer Profitability",
+      "description": "Gross margin by customer",
+      "query": {
+        "measures": [
+          "sales_invoice_lines.total_revenue",
+          "sales_invoice_lines.gross_profit",
+          "sales_invoice_lines.gross_margin_percent"
+        ],
+        "dimensions": ["customers.name"],
+        "filters": [
+          {
+            "member": "sales_invoice_lines.gross_profit",
+            "operator": "gt",
+            "values": ["0"]
+          }
+        ],
+        "order": {
+          "sales_invoice_lines.gross_profit": "desc"
+        }
+      }
+    },
+    {
+      "name": "Inventory Status",
+      "description": "Current inventory levels and value",
+      "query": {
+        "measures": [
+          "items.count",
+          "items.total_inventory_value",
+          "items.items_out_of_stock",
+          "items.items_below_reorder"
+        ]
+      }
+    },
+    {
+      "name": "Purchase Analysis",
+      "description": "Vendor purchases and outstanding payables",
+      "query": {
+        "measures": [
+          "purchase_invoices.total_purchases",
+          "purchase_invoices.total_outstanding",
+          "purchase_invoices.count"
+        ],
+        "dimensions": ["vendors.name"],
+        "order": {
+          "purchase_invoices.total_purchases": "desc"
+        }
+      }
+    },
+    {
+      "name": "Cash Flow Summary",
+      "description": "Receivables vs Payables",
+      "query": {
+        "measures": [
+          "sales_invoices.total_outstanding",
+          "sales_invoices.days_sales_outstanding",
+          "purchase_invoices.total_outstanding",
+          "purchase_invoices.days_payable_outstanding"
+        ]
+      }
+    },
+    {
+      "name": "Date Range Filter Example",
+      "description": "Revenue for specific date range",
+      "query": {
+        "measures": ["sales_invoices.total_revenue"],
+        "dimensions": ["sales_invoices.sell_to_customer_name"],
+        "filters": [
+          {
+            "member": "sales_invoices.posting_date",
+            "operator": "inDateRange",
+            "values": ["2024-01-01", "2024-12-31"]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Multiple Filters Example",
+      "description": "Complex filtering with multiple conditions",
+      "query": {
+        "measures": ["sales_invoices.total_revenue"],
+        "dimensions": ["customers.name", "customers.country_region_code"],
+        "filters": [
+          {
+            "member": "sales_invoices.amount",
+            "operator": "gte",
+            "values": ["1000"]
+          },
+          {
+            "member": "customers.blocked",
+            "operator": "equals",
+            "values": [""]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Executive Dashboard View",
+      "description": "Using pre-defined view for executive metrics",
+      "query": {
+        "measures": [
+          "executive_dashboard.sales_invoices_total_revenue",
+          "executive_dashboard.invoice_count",
+          "executive_dashboard.customer_count",
+          "executive_dashboard.sales_invoice_lines_gross_profit"
+        ],
+        "timeDimensions": [
+          {
+            "dimension": "executive_dashboard.sales_invoices_posting_date",
+            "granularity": "quarter"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Revenue Analytics View",
+      "description": "Detailed revenue analysis using view",
+      "query": {
+        "measures": [
+          "revenue_analytics.sales_invoices_total_revenue",
+          "revenue_analytics.sales_invoice_lines_gross_profit",
+          "revenue_analytics.sales_invoice_lines_gross_margin_percent"
+        ],
+        "dimensions": [
+          "revenue_analytics.customers_name",
+          "revenue_analytics.customers_country_region_code"
+        ]
+      }
+    }
+  ]
+}
