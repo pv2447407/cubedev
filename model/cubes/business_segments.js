@@ -1,6 +1,7 @@
 // Business Segments for Multi-Dimensional Analysis
 
-// Customer Segments
+// Note: Segments are defined as extensions of base cubes
+// They cannot be directly joined but can be used in queries
 cube(`customer_segments`, {
   extends: customer,
   

@@ -104,6 +104,8 @@ cube(`customer_preaggregations`, {
     },
     
     // Customer Segmentation Analysis
+    // Note: Segments cannot be used in preAggregations as they create join issues
+    // Use dimensions instead for filtering
     customer_segmentation: {
       sqlAlias: `cust_segments`,
       type: `rollup`,
@@ -119,12 +121,6 @@ cube(`customer_preaggregations`, {
         customer.customer_price_group,
         customer.tax_liable,
         customer.prices_including_vat
-      ],
-      segments: [
-        customer_segments.high_value_customers,
-        customer_segments.vip_customers,
-        customer_segments.domestic_customers,
-        customer_segments.international_customers
       ],
       refreshKey: {
         every: `12 hours`
@@ -327,6 +323,7 @@ cube(`employee_preaggregations`, {
     },
     
     // Manager Hierarchy Analysis
+    // Note: Segments removed to avoid join issues
     manager_hierarchy: {
       sqlAlias: `emp_hierarchy`,
       type: `rollup`,
@@ -339,10 +336,6 @@ cube(`employee_preaggregations`, {
         employee.job_title,
         employee.cost_center_code
       ],
-      segments: [
-        employee_segments.managers,
-        employee_segments.individual_contributors
-      ],
       refreshKey: {
         every: `24 hours`
       },
@@ -354,6 +347,7 @@ cube(`employee_preaggregations`, {
     },
     
     // Employee Tenure Analysis
+    // Note: Segments removed to avoid join issues
     tenure_analysis: {
       sqlAlias: `emp_tenure`,
       type: `rollup`,
@@ -363,12 +357,6 @@ cube(`employee_preaggregations`, {
       dimensions: [
         employee.company_id,
         employee.status
-      ],
-      segments: [
-        employee_segments.active_employees,
-        employee_segments.terminated_employees,
-        employee_segments.new_employees,
-        employee_segments.long_tenure_employees
       ],
       timeDimension: employee.employment_date,
       granularity: `month`,
