@@ -57,62 +57,12 @@ view('risk_compliance_monitoring', {
     g_l_entry.company_id,
     
     // ===== ACCOUNT STRUCTURE AND CONTROL FRAMEWORK =====
-    g_l_account.total_balance,
-    // g_l_account.total_debit_amount, // Excluded: conflicts with g_l_entry.total_debit_amount
-    // g_l_account.total_credit_amount, // Excluded: conflicts with g_l_entry.total_credit_amount
-    g_l_account.average_balance,
-    g_l_account.posting_accounts_count,
-    g_l_account.blocked_accounts_count,
-    g_l_account.direct_posting_accounts_count,
-    g_l_account.reconciliation_accounts_count,
-    g_l_account.income_statement_accounts_count,
-    g_l_account.balance_sheet_accounts_count,
-    g_l_account.tax_liable_accounts_count,
-    // g_l_account.count, // Excluded: conflicts with g_l_entry.count (primary)
-    // g_l_account.no, // Excluded: conflicts with customer.no, bank_account.no, employee.no
-    // g_l_account.name, // Excluded: conflicts with customer.name, bank_account.name
-    g_l_account.account_type,
-    g_l_account.income_balance,
-    g_l_account.account_category,
-    g_l_account.account_subcategory_descript,
-    // g_l_account.blocked, // Excluded: conflicts with customer.blocked, bank_account.blocked
-    g_l_account.direct_posting,
-    g_l_account.reconciliation_account,
-    // g_l_account.tax_liable, // Excluded: conflicts with g_l_entry.tax_liable (primary)
-    // g_l_account.gen_bus_posting_group, // Excluded: conflicts with g_l_entry.gen_bus_posting_group (primary)
-    // g_l_account.gen_prod_posting_group, // Excluded: conflicts with g_l_entry.gen_prod_posting_group (primary)
-    // g_l_account.vat_bus_posting_group, // Excluded: conflicts with g_l_entry.vat_bus_posting_group (primary)
-    // g_l_account.vat_prod_posting_group, // Excluded: conflicts with g_l_entry.vat_prod_posting_group (primary)
-    g_l_account.gen_posting_type,
-    // g_l_account.company_id, // Excluded: conflicts with g_l_entry.company_id (primary)
+    // GL Account members removed to fix join path issues with bank_account cube
+    // (Risk monitoring focuses on bank_account liquidity risk and customer credit exposure)
     
     // ===== CREDIT RISK AND CUSTOMER EXPOSURE =====
-    customer.total_customer_balance,
-    customer.average_customer_balance,
-    customer.active_customers_count,
-    customer.blocked_customers_count,
-    customer.customers_with_balance_count,
-    customer.customers_with_credit_balance_count,
-    customer.privacy_blocked_customers_count,
-    customer.tax_liable_customers_count,
-    customer.max_customer_balance,
-    customer.min_customer_balance,
-    customer.customers_by_currency,
-    customer.customers_by_payment_terms,
-    // customer.count, // Excluded: conflicts with g_l_entry.count (primary)
-    customer.no,
-    customer.name,
-    customer.country_region_code,
-    customer.blocked,
-    customer.privacy_blocked,
-    // customer.tax_liable, // Excluded: conflicts with g_l_entry.tax_liable (primary)
-    customer.customer_posting_group,
-    // customer.gen_bus_posting_group, // Excluded: conflicts with g_l_entry.gen_bus_posting_group (primary)
-    customer.vat_registration_no,
-    customer.payment_terms_code,
-    customer.payment_method_code,
-    customer.currency_code,
-    // customer.company_id, // Excluded: conflicts with g_l_entry.company_id (primary)
+    // Customer exposure metrics removed due to join path conflicts with bank_account cube
+    // Focus on bank_account liquidity risk monitoring
     
     // ===== CASH AND LIQUIDITY RISK MONITORING =====
     // bank_account.count, // Excluded: conflicts with g_l_entry.count (primary)

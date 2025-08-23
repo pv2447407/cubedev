@@ -40,15 +40,9 @@ view('operational_efficiency_metrics', {
     g_l_entry.dimension_set_id,
     g_l_entry.company_id,
 
-    // Journal Line Processing - Journal entry volume and pattern analysis
-    // gen_journal_line.count, // Excluded: conflicts with g_l_entry.count
-    gen_journal_line.line_no,
-    // gen_journal_line.company_id, // Excluded: conflicts with g_l_entry.company_id
-
-    // Employee Productivity - Staff performance and activity metrics
-    // employee.count, // Excluded: conflicts with g_l_entry.count
-    employee.no,
-    // employee.company_id, // Excluded: conflicts with g_l_entry.company_id
+    // Removed gen_journal_line.* members - no direct join path from g_l_entry to gen_journal_line
+    // Removed employee.* members - no direct join path from g_l_entry to employee
+    // These cubes only join through company but don't have business relationships with g_l_entry
 
     // Dimension Set Analysis - Multi-dimensional business performance
     // dimension_set_entry.count, // Excluded: conflicts with g_l_entry.count
@@ -66,11 +60,7 @@ view('operational_efficiency_metrics', {
     // dimension_value.blocked, // Excluded: conflicts with dimension.blocked
     // dimension_value.company_id, // Excluded: conflicts with g_l_entry.company_id
 
-    // Base Dimensions - Dimension structure and organization
-    // dimension.count, // Excluded: conflicts with g_l_entry.count
-    dimension.code,
-    dimension.name,
-    dimension.blocked,
-    // dimension.company_id // Excluded: conflicts with g_l_entry.company_id
+    // Removed dimension.* members - no direct join path from g_l_entry to dimension
+    // g_l_entry already contains dimensional fields: global_dimension_1_code, global_dimension_2_code, business_unit_code
   ]
 });

@@ -56,21 +56,11 @@ view('dimensional_performance', {
     dimension_value.blocked,
     // Excluded: dimension_value.company_id (conflicts with g_l_entry.company_id)
 
-    // Base Dimensions - Dimension structure and hierarchy (excluding conflicting members)
-    // Excluded: dimension.count (conflicts with g_l_entry.count)
-    // Excluded: dimension.code (conflicts with dimension_value.code)
-    dimension.name,
-    // Excluded: dimension.blocked (conflicts with dimension_value.blocked)
-    // Excluded: dimension.company_id (conflicts with g_l_entry.company_id)
+    // Removed dimension.* members - no direct join path from g_l_entry to dimension
+    // g_l_entry already contains dimensional fields: global_dimension_1_code, global_dimension_2_code, business_unit_code
 
-    // Employee Dimensional Performance - Staff performance by dimensions (excluding conflicting members)
-    // Excluded: employee.count (conflicts with g_l_entry.count)
-    employee.no,
-    // Excluded: employee.company_id (conflicts with g_l_entry.company_id)
-
-    // Journal Line Dimensional Analysis - Journal processing by dimensions (excluding conflicting members)
-    // Excluded: gen_journal_line.count (conflicts with g_l_entry.count)
-    gen_journal_line.line_no
-    // Excluded: gen_journal_line.company_id (conflicts with g_l_entry.company_id)
+    // Removed employee.* members - no direct join path from g_l_entry to employee
+    // Removed gen_journal_line.* members - no direct join path from g_l_entry to gen_journal_line
+    // These cubes only join through company but don't have business relationships with g_l_entry
   ]
 });
