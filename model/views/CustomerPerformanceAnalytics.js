@@ -16,7 +16,7 @@ view('customer_performance_analytics', {
   description: 'Executive customer analytics combining customer profiles, transaction patterns, geographic distribution, and payment behavior for strategic customer relationship management',
   
   includes: [
-    // Core Customer Data - Demographics and account information
+    // Core Customer Data - Demographics and account information (primary cube)
     customer.count,
     customer.total_customer_balance,
     customer.average_customer_balance,
@@ -60,20 +60,20 @@ view('customer_performance_analytics', {
     customer.vat_registration_no,
     customer.company_id,
     
-    // Geographic Context - Country and regional information
-    country_region.count,
+    // Geographic Context - Country and regional information (excluding conflicting members)
+    // Excluded: country_region.count (conflicts with customer.count)
     country_region.code,
-    country_region.name,
-    country_region.company_id,
+    // Excluded: country_region.name (conflicts with customer.name)
+    // Excluded: country_region.company_id (conflicts with customer.company_id)
     
-    // Contact Information - Enhanced customer relationship data
-    contact.count,
-    contact.no,
-    contact.name,
-    contact.company_id,
+    // Contact Information - Enhanced customer relationship data (excluding conflicting members)
+    // Excluded: contact.count (conflicts with customer.count)
+    // Excluded: contact.no (conflicts with customer.no)
+    // Excluded: contact.name (conflicts with customer.name)
+    // Excluded: contact.company_id (conflicts with customer.company_id)
     
-    // Financial Transaction History - Customer payment and transaction patterns
-    g_l_entry.count,
+    // Financial Transaction History - Customer payment and transaction patterns (excluding conflicting members)
+    // Excluded: g_l_entry.count (conflicts with customer.count)
     g_l_entry.posting_date,
     g_l_entry.document_date,
     g_l_entry.document_type,
@@ -84,7 +84,7 @@ view('customer_performance_analytics', {
     g_l_entry.g_laccount_name,
     g_l_entry.description,
     g_l_entry.global_dimension_1_code,
-    g_l_entry.global_dimension_2_code,
-    g_l_entry.company_id
+    g_l_entry.global_dimension_2_code
+    // Excluded: g_l_entry.company_id (conflicts with customer.company_id)
   ]
 });

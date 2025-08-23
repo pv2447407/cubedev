@@ -58,8 +58,8 @@ view('risk_compliance_monitoring', {
     
     // ===== ACCOUNT STRUCTURE AND CONTROL FRAMEWORK =====
     g_l_account.total_balance,
-    g_l_account.total_debit_amount,
-    g_l_account.total_credit_amount,
+    // g_l_account.total_debit_amount, // Excluded: conflicts with g_l_entry.total_debit_amount
+    // g_l_account.total_credit_amount, // Excluded: conflicts with g_l_entry.total_credit_amount
     g_l_account.average_balance,
     g_l_account.posting_accounts_count,
     g_l_account.blocked_accounts_count,
@@ -68,23 +68,23 @@ view('risk_compliance_monitoring', {
     g_l_account.income_statement_accounts_count,
     g_l_account.balance_sheet_accounts_count,
     g_l_account.tax_liable_accounts_count,
-    g_l_account.count,
-    g_l_account.no,
-    g_l_account.name,
+    // g_l_account.count, // Excluded: conflicts with g_l_entry.count (primary)
+    // g_l_account.no, // Excluded: conflicts with customer.no, bank_account.no, employee.no
+    // g_l_account.name, // Excluded: conflicts with customer.name, bank_account.name
     g_l_account.account_type,
     g_l_account.income_balance,
     g_l_account.account_category,
     g_l_account.account_subcategory_descript,
-    g_l_account.blocked,
+    // g_l_account.blocked, // Excluded: conflicts with customer.blocked, bank_account.blocked
     g_l_account.direct_posting,
     g_l_account.reconciliation_account,
-    g_l_account.tax_liable,
-    g_l_account.gen_bus_posting_group,
-    g_l_account.gen_prod_posting_group,
-    g_l_account.vat_bus_posting_group,
-    g_l_account.vat_prod_posting_group,
+    // g_l_account.tax_liable, // Excluded: conflicts with g_l_entry.tax_liable (primary)
+    // g_l_account.gen_bus_posting_group, // Excluded: conflicts with g_l_entry.gen_bus_posting_group (primary)
+    // g_l_account.gen_prod_posting_group, // Excluded: conflicts with g_l_entry.gen_prod_posting_group (primary)
+    // g_l_account.vat_bus_posting_group, // Excluded: conflicts with g_l_entry.vat_bus_posting_group (primary)
+    // g_l_account.vat_prod_posting_group, // Excluded: conflicts with g_l_entry.vat_prod_posting_group (primary)
     g_l_account.gen_posting_type,
-    g_l_account.company_id,
+    // g_l_account.company_id, // Excluded: conflicts with g_l_entry.company_id (primary)
     
     // ===== CREDIT RISK AND CUSTOMER EXPOSURE =====
     customer.total_customer_balance,
@@ -99,49 +99,50 @@ view('risk_compliance_monitoring', {
     customer.min_customer_balance,
     customer.customers_by_currency,
     customer.customers_by_payment_terms,
-    customer.count,
+    // customer.count, // Excluded: conflicts with g_l_entry.count (primary)
     customer.no,
     customer.name,
     customer.country_region_code,
     customer.blocked,
     customer.privacy_blocked,
-    customer.tax_liable,
+    // customer.tax_liable, // Excluded: conflicts with g_l_entry.tax_liable (primary)
     customer.customer_posting_group,
-    customer.gen_bus_posting_group,
+    // customer.gen_bus_posting_group, // Excluded: conflicts with g_l_entry.gen_bus_posting_group (primary)
     customer.vat_registration_no,
     customer.payment_terms_code,
     customer.payment_method_code,
     customer.currency_code,
-    customer.company_id,
+    // customer.company_id, // Excluded: conflicts with g_l_entry.company_id (primary)
     
     // ===== CASH AND LIQUIDITY RISK MONITORING =====
-    bank_account.count,
-    bank_account.no,
-    bank_account.name,
+    // bank_account.count, // Excluded: conflicts with g_l_entry.count (primary)
+    // bank_account.no, // Excluded: conflicts with customer.no
+    // bank_account.name, // Excluded: conflicts with customer.name
     bank_account.balance,
     bank_account.balance_lcy,
     bank_account.balance_last_statement,
     bank_account.net_change,
     bank_account.net_change_lcy,
     bank_account.min_balance,
-    bank_account.currency_code,
+    // bank_account.currency_code, // Excluded: conflicts with customer.currency_code
     bank_account.bank_account_no,
     bank_account.iban,
     bank_account.swift_code,
-    bank_account.blocked,
+    // bank_account.blocked, // Excluded: conflicts with customer.blocked
     bank_account.bank_acc_posting_group,
-    bank_account.country_region_code,
-    bank_account.company_id,
+    // bank_account.country_region_code, // Excluded: conflicts with customer.country_region_code
+    // bank_account.company_id, // Excluded: conflicts with g_l_entry.company_id (primary)
     
     // ===== EMPLOYEE ACCESS AND AUTHORIZATION CONTROL =====
-    employee.count,
-    employee.no,
-    employee.company_id,
+    // employee.count, // Excluded: conflicts with g_l_entry.count (primary)
+    // employee.no, // Excluded: conflicts with customer.no
+    // employee.company_id, // Excluded: conflicts with g_l_entry.company_id (primary)
     
     // ===== COMPANY GOVERNANCE STRUCTURE =====
-    company.count,
+    // company.count, // Excluded: conflicts with g_l_entry.count (primary)
     company.id,
-    company.display_name,
-    company.company_id
+    company.display_name
+    // Removed: company.company_id (does not exist in Company cube)
+    // Removed: company.name (conflicts with customer.name)
   ]
 });

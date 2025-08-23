@@ -371,6 +371,11 @@ cube(`gl_entry_dimensional_preaggregations`, {
     global_dimension_2_code: {
       sql: `${CUBE}."GLOBAL_DIMENSION_2_CODE"`,
       type: `string`
+    },
+    
+    business_unit_code: {
+      sql: `${CUBE}."BUSINESS_UNIT_CODE"`,
+      type: `string`
     }
   },
   

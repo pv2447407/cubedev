@@ -16,7 +16,7 @@ view('customer_segmentation', {
   description: 'Advanced customer segmentation combining value categorization, risk assessment, regional performance, and industry analysis for strategic customer portfolio management',
   
   includes: [
-    // Customer Portfolio Data - Core business relationship metrics
+    // Customer Portfolio Data - Core business relationship metrics (primary cube)
     customer.count,
     customer.total_customer_balance,
     customer.average_customer_balance,
@@ -60,20 +60,20 @@ view('customer_segmentation', {
     customer.vat_registration_no,
     customer.company_id,
     
-    // Geographic Intelligence - Regional market analysis
-    country_region.count,
+    // Geographic Intelligence - Regional market analysis (excluding conflicting members)
+    // Excluded: country_region.count (conflicts with customer.count)
     country_region.code,
-    country_region.name,
-    country_region.company_id,
+    // Excluded: country_region.name (conflicts with customer.name)
+    // Excluded: country_region.company_id (conflicts with customer.company_id)
     
-    // Contact Network Analysis - Relationship depth and engagement
-    contact.count,
-    contact.no,
-    contact.name,
-    contact.company_id,
+    // Contact Network Analysis - Relationship depth and engagement (excluding conflicting members)
+    // Excluded: contact.count (conflicts with customer.count)
+    // Excluded: contact.no (conflicts with customer.no)
+    // Excluded: contact.name (conflicts with customer.name)
+    // Excluded: contact.company_id (conflicts with customer.company_id)
     
-    // Transaction Pattern Analysis - Financial behavior indicators
-    g_l_entry.count,
+    // Transaction Pattern Analysis - Financial behavior indicators (excluding conflicting members)
+    // Excluded: g_l_entry.count (conflicts with customer.count)
     g_l_entry.posting_date,
     g_l_entry.document_date,
     g_l_entry.document_type,
@@ -84,7 +84,7 @@ view('customer_segmentation', {
     g_l_entry.g_laccount_name,
     g_l_entry.description,
     g_l_entry.global_dimension_1_code,
-    g_l_entry.global_dimension_2_code,
-    g_l_entry.company_id
+    g_l_entry.global_dimension_2_code
+    // Excluded: g_l_entry.company_id (conflicts with customer.company_id)
   ]
 });

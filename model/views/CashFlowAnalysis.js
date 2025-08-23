@@ -15,7 +15,7 @@ view('cash_flow_analysis', {
   description: 'Executive cash flow and liquidity analysis focusing on cash position, receivables, payables, and working capital management',
   
   includes: [
-    // Bank Account Cash Positions
+    // Bank Account Cash Positions (using primary cube)
     bank_account.count,
     bank_account.no,
     bank_account.name,
@@ -32,7 +32,7 @@ view('cash_flow_analysis', {
     bank_account.swift_code,
     bank_account.company_id,
 
-    // Customer Receivables Analysis
+    // Customer Receivables Analysis (excluding conflicting members)
     customer.total_customer_balance,
     customer.average_customer_balance,
     customer.customers_with_balance_count,
@@ -43,20 +43,18 @@ view('cash_flow_analysis', {
     customer.min_customer_balance,
     customer.customers_by_currency,
     customer.customers_by_payment_terms,
-    customer.count,
-    customer.no,
-    customer.name,
+    // Excluded: customer.count, customer.no, customer.name (conflicts with bank_account)
     customer.city,
     customer.country_region_code,
-    customer.blocked,
+    // Excluded: customer.blocked (conflicts with bank_account.blocked)
     customer.customer_posting_group,
     customer.payment_terms_code,
     customer.payment_method_code,
-    customer.currency_code,
+    // Excluded: customer.currency_code (conflicts with bank_account.currency_code)
     customer.salesperson_code,
-    customer.company_id,
+    // Excluded: customer.company_id (conflicts with bank_account.company_id)
 
-    // GL Entry Cash Flow Related Transactions
+    // GL Entry Cash Flow Related Transactions (excluding conflicting members)
     g_l_entry.total_amount,
     g_l_entry.total_debit_amount,
     g_l_entry.total_credit_amount, 
@@ -64,7 +62,7 @@ view('cash_flow_analysis', {
     g_l_entry.average_transaction_amount,
     g_l_entry.debit_transaction_count,
     g_l_entry.credit_transaction_count,
-    g_l_entry.count,
+    // Excluded: g_l_entry.count (conflicts with bank_account.count)
     g_l_entry.entry_no,
     g_l_entry.posting_date,
     g_l_entry.document_date,
@@ -79,23 +77,23 @@ view('cash_flow_analysis', {
     g_l_entry.global_dimension_1_code,
     g_l_entry.global_dimension_2_code,
     g_l_entry.business_unit_code,
-    g_l_entry.company_id,
+    // Excluded: g_l_entry.company_id (conflicts with bank_account.company_id)
 
-    // GL Account Cash-Related Accounts
+    // GL Account Cash-Related Accounts (excluding conflicting members)
     g_l_account.total_balance,
-    g_l_account.total_debit_amount,
-    g_l_account.total_credit_amount,
+    // Excluded: g_l_account.total_debit_amount (conflicts with g_l_entry.total_debit_amount)
+    // Excluded: g_l_account.total_credit_amount (conflicts with g_l_entry.total_credit_amount)
     g_l_account.average_balance,
-    g_l_account.count,
-    g_l_account.no,
-    g_l_account.name,
+    // Excluded: g_l_account.count (conflicts with bank_account.count)
+    // Excluded: g_l_account.no (conflicts with bank_account.no)
+    // Excluded: g_l_account.name (conflicts with bank_account.name)
     g_l_account.account_type,
     g_l_account.income_balance,
     g_l_account.account_category,
     g_l_account.account_subcategory_descript,
     g_l_account.reconciliation_account,
-    g_l_account.blocked,
-    g_l_account.direct_posting,
-    g_l_account.company_id
+    // Excluded: g_l_account.blocked (conflicts with bank_account.blocked)
+    g_l_account.direct_posting
+    // Excluded: g_l_account.company_id (conflicts with bank_account.company_id)
   ]
 });

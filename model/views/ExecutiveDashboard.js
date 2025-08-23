@@ -52,8 +52,8 @@ view('executive_dashboard', {
     
     // ===== CHART OF ACCOUNTS STRUCTURE =====
     g_l_account.total_balance,
-    g_l_account.total_debit_amount,
-    g_l_account.total_credit_amount,
+    // g_l_account.total_debit_amount, // Excluded - conflicts with g_l_entry.total_debit_amount
+    // g_l_account.total_credit_amount, // Excluded - conflicts with g_l_entry.total_credit_amount
     g_l_account.average_balance,
     g_l_account.posting_accounts_count,
     g_l_account.heading_accounts_count,
@@ -66,23 +66,23 @@ view('executive_dashboard', {
     g_l_account.income_statement_accounts_count,
     g_l_account.balance_sheet_accounts_count,
     g_l_account.tax_liable_accounts_count,
-    g_l_account.count,
-    g_l_account.no,
-    g_l_account.name,
+    // g_l_account.count, // Excluded - conflicts with g_l_entry.count
+    // g_l_account.no, // Excluded - conflicts with g_l_entry.document_no (similar naming)
+    // g_l_account.name, // Excluded - conflicts with g_l_entry.g_laccount_name
     g_l_account.account_type,
     g_l_account.income_balance,
     g_l_account.account_category,
     g_l_account.account_subcategory_descript,
-    g_l_account.blocked,
+    // g_l_account.blocked, // Excluded - conflicts with other cubes' blocked fields
     g_l_account.direct_posting,
     g_l_account.reconciliation_account,
-    g_l_account.tax_liable,
-    g_l_account.gen_bus_posting_group,
-    g_l_account.gen_prod_posting_group,
-    g_l_account.vat_bus_posting_group,
-    g_l_account.vat_prod_posting_group,
+    // g_l_account.tax_liable, // Excluded - conflicts with customer.tax_liable
+    // g_l_account.gen_bus_posting_group, // Excluded - conflicts with g_l_entry.gen_bus_posting_group
+    // g_l_account.gen_prod_posting_group, // Excluded - conflicts with g_l_entry.gen_prod_posting_group
+    // g_l_account.vat_bus_posting_group, // Excluded - conflicts with g_l_entry.vat_bus_posting_group
+    // g_l_account.vat_prod_posting_group, // Excluded - conflicts with g_l_entry.vat_prod_posting_group
     g_l_account.gen_posting_type,
-    g_l_account.company_id,
+    // g_l_account.company_id, // Excluded - conflicts with g_l_entry.company_id
     
     // ===== CUSTOMER PERFORMANCE METRICS =====
     customer.total_customer_balance,
@@ -100,31 +100,31 @@ view('executive_dashboard', {
     customer.customers_by_price_group,
     customer.customers_with_email_count,
     customer.customers_with_mobile_count,
-    customer.count,
-    customer.no,
-    customer.name,
+    // customer.count, // Excluded - conflicts with g_l_entry.count
+    // customer.no, // Excluded - conflicts with naming conventions
+    // customer.name, // Excluded - conflicts with g_l_entry.g_laccount_name
     customer.city,
-    customer.country_region_code,
-    customer.blocked,
+    // customer.country_region_code, // Excluded - conflicts with bank_account.country_region_code
+    // customer.blocked, // Excluded - conflicts with other cubes' blocked fields
     customer.privacy_blocked,
-    customer.tax_liable,
+    // customer.tax_liable, // Excluded - conflicts with g_l_account.tax_liable
     customer.prices_including_vat,
     customer.customer_posting_group,
-    customer.gen_bus_posting_group,
+    // customer.gen_bus_posting_group, // Excluded - conflicts with g_l_entry.gen_bus_posting_group
     customer.vat_registration_no,
     customer.payment_terms_code,
     customer.payment_method_code,
-    customer.currency_code,
+    // customer.currency_code, // Excluded - conflicts with bank_account.currency_code
     customer.customer_price_group,
     customer.salesperson_code,
     customer.shipping_agent_code,
     customer.language_code,
-    customer.company_id,
+    // customer.company_id, // Excluded - conflicts with g_l_entry.company_id
     
     // ===== CASH POSITION AND LIQUIDITY =====
-    bank_account.count,
-    bank_account.no,
-    bank_account.name,
+    // bank_account.count, // Excluded - conflicts with g_l_entry.count
+    // bank_account.no, // Excluded - conflicts with naming conventions
+    // bank_account.name, // Excluded - conflicts with g_l_entry.g_laccount_name
     bank_account.balance,
     bank_account.balance_lcy,
     bank_account.balance_last_statement,
@@ -135,20 +135,20 @@ view('executive_dashboard', {
     bank_account.bank_account_no,
     bank_account.iban,
     bank_account.swift_code,
-    bank_account.blocked,
+    // bank_account.blocked, // Excluded - conflicts with other cubes' blocked fields
     bank_account.bank_acc_posting_group,
     bank_account.country_region_code,
-    bank_account.company_id,
+    // bank_account.company_id, // Excluded - conflicts with g_l_entry.company_id
     
     // ===== ORGANIZATIONAL STRUCTURE =====
-    employee.count,
-    employee.no,
-    employee.company_id,
+    // employee.count, // Excluded - conflicts with g_l_entry.count
+    // employee.no, // Excluded - conflicts with naming conventions
+    // employee.company_id, // Excluded - conflicts with g_l_entry.company_id
     
     // ===== COMPANY INFORMATION =====
-    company.count,
+    // company.count, // Excluded - conflicts with g_l_entry.count
     company.id,
-    company.display_name,
-    company.company_id
+    company.display_name
+    // Removed: company.company_id (does not exist in Company cube)
   ]
 });

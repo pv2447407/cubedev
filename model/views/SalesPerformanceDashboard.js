@@ -35,7 +35,7 @@ view('sales_performance_dashboard', {
     g_l_entry.total_credit_amount,
     g_l_entry.net_amount,
     g_l_entry.average_transaction_amount,
-    g_l_entry.count,
+    // g_l_entry.count, // Excluded: conflicts with customer.count (primary)
     g_l_entry.posting_date,
     g_l_entry.document_date,
     g_l_entry.document_type,
@@ -48,20 +48,20 @@ view('sales_performance_dashboard', {
     g_l_entry.global_dimension_1_code,
     g_l_entry.global_dimension_2_code,
     g_l_entry.business_unit_code,
-    g_l_entry.gen_bus_posting_group,
+    // g_l_entry.gen_bus_posting_group, // Excluded: conflicts with customer.gen_bus_posting_group (primary)
     g_l_entry.gen_prod_posting_group,
-    g_l_entry.company_id,
+    // g_l_entry.company_id, // Excluded: conflicts with customer.company_id (primary)
     
     // GL Account Sales Classification
-    g_l_account.count,
-    g_l_account.no,
-    g_l_account.name,
+    // g_l_account.count, // Excluded: conflicts with customer.count (primary)
+    // g_l_account.no, // Excluded: conflicts with customer.no (primary)
+    // g_l_account.name, // Excluded: conflicts with customer.name (primary)
     g_l_account.account_type,
     g_l_account.income_balance,
     g_l_account.account_category,
     g_l_account.account_subcategory_descript,
-    g_l_account.gen_bus_posting_group,
-    g_l_account.gen_prod_posting_group,
-    g_l_account.company_id
+    // g_l_account.gen_bus_posting_group, // Excluded: conflicts with customer.gen_bus_posting_group (primary)
+    // g_l_account.gen_prod_posting_group, // Excluded: conflicts with g_l_entry.gen_prod_posting_group
+    // g_l_account.company_id // Excluded: conflicts with customer.company_id (primary)
   ]
 });
