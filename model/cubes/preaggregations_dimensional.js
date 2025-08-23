@@ -1,7 +1,46 @@
 // Dimensional Analysis Pre-aggregations
 
 cube(`dimension_preaggregations`, {
-  extends: dimension,
+  sql: `SELECT * FROM BUSINESS_CENTRAL.DIMENSION`,
+  
+  measures: {
+    count: {
+      type: `count`
+    }
+  },
+  
+  dimensions: {
+    company_id: {
+      sql: `${CUBE}."COMPANY_ID"`,
+      type: `string`
+    },
+    
+    code: {
+      sql: `${CUBE}."CODE"`,
+      type: `string`,
+      primaryKey: true
+    },
+    
+    name: {
+      sql: `${CUBE}."NAME"`,
+      type: `string`
+    },
+    
+    blocked: {
+      sql: `${CUBE}."BLOCKED"`,
+      type: `boolean`
+    },
+    
+    code_caption: {
+      sql: `${CUBE}."CODE_CAPTION"`,
+      type: `string`
+    },
+    
+    filter_caption: {
+      sql: `${CUBE}."FILTER_CAPTION"`,
+      type: `string`
+    }
+  },
   
   preAggregations: {
     // Dimension Master Data
@@ -9,15 +48,15 @@ cube(`dimension_preaggregations`, {
       sqlAlias: `dim_master`,
       type: `rollup`,
       measures: [
-        dimension.count
+        count
       ],
       dimensions: [
-        dimension.company_id,
-        dimension.code,
-        dimension.name,
-        dimension.blocked,
-        dimension.code_caption,
-        dimension.filter_caption
+        company_id,
+        code,
+        name,
+        blocked,
+        code_caption,
+        filter_caption
       ],
       refreshKey: {
         every: `24 hours`
@@ -32,7 +71,61 @@ cube(`dimension_preaggregations`, {
 });
 
 cube(`dimension_value_preaggregations`, {
-  extends: dimension_value,
+  sql: `SELECT * FROM BUSINESS_CENTRAL.DIMENSION_VALUE`,
+  
+  measures: {
+    count: {
+      type: `count`
+    }
+  },
+  
+  dimensions: {
+    company_id: {
+      sql: `${CUBE}."COMPANY_ID"`,
+      type: `string`
+    },
+    
+    dimension_code: {
+      sql: `${CUBE}."DIMENSION_CODE"`,
+      type: `string`
+    },
+    
+    code: {
+      sql: `${CUBE}."CODE"`,
+      type: `string`,
+      primaryKey: true
+    },
+    
+    name: {
+      sql: `${CUBE}."NAME"`,
+      type: `string`
+    },
+    
+    dimension_value_type: {
+      sql: `${CUBE}."DIMENSION_VALUE_TYPE"`,
+      type: `string`
+    },
+    
+    totaling: {
+      sql: `${CUBE}."TOTALING"`,
+      type: `string`
+    },
+    
+    indentation: {
+      sql: `${CUBE}."INDENTATION"`,
+      type: `number`
+    },
+    
+    global_dimension_no: {
+      sql: `${CUBE}."GLOBAL_DIMENSION_NO"`,
+      type: `number`
+    },
+    
+    blocked: {
+      sql: `${CUBE}."BLOCKED"`,
+      type: `boolean`
+    }
+  },
   
   preAggregations: {
     // Dimension Value Hierarchy
@@ -40,18 +133,18 @@ cube(`dimension_value_preaggregations`, {
       sqlAlias: `dim_val_hierarchy`,
       type: `rollup`,
       measures: [
-        dimension_value.count
+        count
       ],
       dimensions: [
-        dimension_value.company_id,
-        dimension_value.dimension_code,
-        dimension_value.code,
-        dimension_value.name,
-        dimension_value.dimension_value_type,
-        dimension_value.totaling,
-        dimension_value.indentation,
-        dimension_value.global_dimension_no,
-        dimension_value.blocked
+        company_id,
+        dimension_code,
+        code,
+        name,
+        dimension_value_type,
+        totaling,
+        indentation,
+        global_dimension_no,
+        blocked
       ],
       refreshKey: {
         every: `12 hours`
@@ -74,19 +167,14 @@ cube(`dimension_value_preaggregations`, {
       sqlAlias: `dim_val_global`,
       type: `rollup`,
       measures: [
-        dimension_value.count
+        count
       ],
       dimensions: [
-        dimension_value.company_id,
-        dimension_value.dimension_code,
-        dimension_value.code,
-        dimension_value.name,
-        dimension_value.global_dimension_no
-      ],
-      filters: [
-        {
-          sql: `${dimension_value}."GLOBAL_DIMENSION_NO" IN (1, 2)`
-        }
+        company_id,
+        dimension_code,
+        code,
+        name,
+        global_dimension_no
       ],
       refreshKey: {
         every: `6 hours`
@@ -101,7 +189,51 @@ cube(`dimension_value_preaggregations`, {
 });
 
 cube(`dimension_set_entry_preaggregations`, {
-  extends: dimension_set_entry,
+  sql: `SELECT * FROM BUSINESS_CENTRAL.DIMENSION_SET_ENTRY`,
+  
+  measures: {
+    count: {
+      type: `count`
+    }
+  },
+  
+  dimensions: {
+    company_id: {
+      sql: `${CUBE}."COMPANY_ID"`,
+      type: `string`
+    },
+    
+    dimension_set_id: {
+      sql: `${CUBE}."DIMENSION_SET_ID"`,
+      type: `number`,
+      primaryKey: true
+    },
+    
+    dimension_code: {
+      sql: `${CUBE}."DIMENSION_CODE"`,
+      type: `string`
+    },
+    
+    dimension_value_code: {
+      sql: `${CUBE}."DIMENSION_VALUE_CODE"`,
+      type: `string`
+    },
+    
+    dimension_value_name: {
+      sql: `${CUBE}."DIMENSION_VALUE_NAME"`,
+      type: `string`
+    },
+    
+    dimension_name: {
+      sql: `${CUBE}."DIMENSION_NAME"`,
+      type: `string`
+    },
+    
+    global_dimension_no: {
+      sql: `${CUBE}."GLOBAL_DIMENSION_NO"`,
+      type: `number`
+    }
+  },
   
   preAggregations: {
     // Dimension Set Combinations
@@ -109,16 +241,16 @@ cube(`dimension_set_entry_preaggregations`, {
       sqlAlias: `dim_set_combo`,
       type: `rollup`,
       measures: [
-        dimension_set_entry.count
+        count
       ],
       dimensions: [
-        dimension_set_entry.company_id,
-        dimension_set_entry.dimension_set_id,
-        dimension_set_entry.dimension_code,
-        dimension_set_entry.dimension_value_code,
-        dimension_set_entry.dimension_value_name,
-        dimension_set_entry.dimension_name,
-        dimension_set_entry.global_dimension_no
+        company_id,
+        dimension_set_id,
+        dimension_code,
+        dimension_value_code,
+        dimension_value_name,
+        dimension_name,
+        global_dimension_no
       ],
       refreshKey: {
         every: `4 hours`
@@ -141,12 +273,12 @@ cube(`dimension_set_entry_preaggregations`, {
       sqlAlias: `dim_usage`,
       type: `rollup`,
       measures: [
-        dimension_set_entry.count
+        count
       ],
       dimensions: [
-        dimension_set_entry.company_id,
-        dimension_set_entry.dimension_code,
-        dimension_set_entry.dimension_name
+        company_id,
+        dimension_code,
+        dimension_name
       ],
       refreshKey: {
         every: `12 hours`
@@ -163,21 +295,11 @@ cube(`dimension_set_entry_preaggregations`, {
       sqlAlias: `dim_multi_cube`,
       type: `rollup`,
       measures: [
-        dimension_set_entry.count
+        count
       ],
       dimensions: [
-        dimension_set_entry.company_id,
-        dimension_set_entry.dimension_set_id
-      ],
-      segments: [
-        dimension_segments.cost_center_a,
-        dimension_segments.cost_center_b,
-        dimension_segments.sales_department,
-        dimension_segments.finance_department,
-        dimension_segments.operations_department,
-        dimension_segments.project_based,
-        dimension_segments.north_region,
-        dimension_segments.south_region
+        company_id,
+        dimension_set_id
       ],
       refreshKey: {
         every: `6 hours`
@@ -193,7 +315,64 @@ cube(`dimension_set_entry_preaggregations`, {
 
 // GL Entry with Dimensional Analysis
 cube(`gl_entry_dimensional_preaggregations`, {
-  extends: g_l_entry,
+  sql: `SELECT * FROM BUSINESS_CENTRAL.G_L_ENTRY`,
+  
+  measures: {
+    count: {
+      type: `count`
+    },
+    
+    total_amount: {
+      sql: `CAST(${CUBE}."AMOUNT" AS DECIMAL(19,4))`,
+      type: `sum`,
+      format: `currency`
+    },
+    
+    total_debit_amount: {
+      sql: `CAST(${CUBE}."DEBIT_AMOUNT" AS DECIMAL(19,4))`,
+      type: `sum`,
+      format: `currency`
+    },
+    
+    total_credit_amount: {
+      sql: `CAST(${CUBE}."CREDIT_AMOUNT" AS DECIMAL(19,4))`,
+      type: `sum`,
+      format: `currency`
+    },
+    
+    net_amount: {
+      sql: `CAST(${CUBE}."DEBIT_AMOUNT" AS DECIMAL(19,4)) - CAST(${CUBE}."CREDIT_AMOUNT" AS DECIMAL(19,4))`,
+      type: `sum`,
+      format: `currency`
+    }
+  },
+  
+  dimensions: {
+    company_id: {
+      sql: `${CUBE}."COMPANY_ID"`,
+      type: `string`
+    },
+    
+    posting_date: {
+      sql: `${CUBE}."POSTING_DATE"`,
+      type: `time`
+    },
+    
+    dimension_set_id: {
+      sql: `${CUBE}."DIMENSION_SET_ID"`,
+      type: `number`
+    },
+    
+    global_dimension_1_code: {
+      sql: `${CUBE}."GLOBAL_DIMENSION_1_CODE"`,
+      type: `string`
+    },
+    
+    global_dimension_2_code: {
+      sql: `${CUBE}."GLOBAL_DIMENSION_2_CODE"`,
+      type: `string`
+    }
+  },
   
   preAggregations: {
     // Financial Data by Dimensions
@@ -201,24 +380,24 @@ cube(`gl_entry_dimensional_preaggregations`, {
       sqlAlias: `gl_fin_dims`,
       type: `rollup`,
       measures: [
-        g_l_entry.total_amount,
-        g_l_entry.total_debit_amount,
-        g_l_entry.total_credit_amount,
-        g_l_entry.count
+        total_amount,
+        total_debit_amount,
+        total_credit_amount,
+        count
       ],
       dimensions: [
-        g_l_entry.company_id,
-        g_l_entry.dimension_set_id,
-        g_l_entry.global_dimension_1_code,
-        g_l_entry.global_dimension_2_code
+        company_id,
+        dimension_set_id,
+        global_dimension_1_code,
+        global_dimension_2_code
       ],
-      timeDimension: g_l_entry.posting_date,
+      timeDimension: posting_date,
       granularity: `month`,
       partitionGranularity: `quarter`,
       refreshKey: {
         every: `2 hours`,
         incremental: true,
-        updateWindow: `1 month`
+        updateWindow: `30 day`
       },
       indexes: {
         main: {
@@ -235,16 +414,16 @@ cube(`gl_entry_dimensional_preaggregations`, {
       sqlAlias: `gl_cost_centers`,
       type: `rollup`,
       measures: [
-        g_l_entry.total_amount,
-        g_l_entry.total_debit_amount,
-        g_l_entry.total_credit_amount,
-        g_l_entry.count
+        total_amount,
+        total_debit_amount,
+        total_credit_amount,
+        count
       ],
       dimensions: [
-        g_l_entry.company_id,
-        g_l_entry.global_dimension_1_code
+        company_id,
+        global_dimension_1_code
       ],
-      timeDimension: g_l_entry.posting_date,
+      timeDimension: posting_date,
       granularity: `week`,
       filters: [
         {
@@ -268,17 +447,17 @@ cube(`gl_entry_dimensional_preaggregations`, {
       sqlAlias: `gl_dept_perf`,
       type: `rollup`,
       measures: [
-        g_l_entry.total_amount,
-        g_l_entry.total_debit_amount,
-        g_l_entry.total_credit_amount,
-        g_l_entry.net_amount,
-        g_l_entry.count
+        total_amount,
+        total_debit_amount,
+        total_credit_amount,
+        net_amount,
+        count
       ],
       dimensions: [
-        g_l_entry.company_id,
-        g_l_entry.global_dimension_2_code
+        company_id,
+        global_dimension_2_code
       ],
-      timeDimension: g_l_entry.posting_date,
+      timeDimension: posting_date,
       granularity: `month`,
       filters: [
         {
@@ -288,7 +467,7 @@ cube(`gl_entry_dimensional_preaggregations`, {
       refreshKey: {
         every: `2 hours`,
         incremental: true,
-        updateWindow: `1 month`
+        updateWindow: `30 day`
       },
       indexes: {
         main: {
@@ -302,16 +481,16 @@ cube(`gl_entry_dimensional_preaggregations`, {
       sqlAlias: `gl_bus_unit`,
       type: `rollup`,
       measures: [
-        g_l_entry.total_amount,
-        g_l_entry.total_debit_amount,
-        g_l_entry.total_credit_amount,
-        g_l_entry.count
+        total_amount,
+        total_debit_amount,
+        total_credit_amount,
+        count
       ],
       dimensions: [
-        g_l_entry.company_id,
-        g_l_entry.business_unit_code
+        company_id,
+        business_unit_code
       ],
-      timeDimension: g_l_entry.posting_date,
+      timeDimension: posting_date,
       granularity: `day`,
       partitionGranularity: `month`,
       refreshKey: {
@@ -322,64 +501,6 @@ cube(`gl_entry_dimensional_preaggregations`, {
       indexes: {
         main: {
           columns: [`company_id`, `business_unit_code`, `posting_date`]
-        }
-      }
-    },
-    
-    // Hierarchical Dimension Rollup
-    hierarchical_dimension_rollup: {
-      sqlAlias: `gl_hier_rollup`,
-      type: `rollupJoin`,
-      measures: [
-        g_l_entry.total_amount,
-        g_l_entry.count
-      ],
-      dimensions: [
-        dimension_value.dimension_code,
-        dimension_value.code,
-        dimension_value.name,
-        dimension_value.dimension_value_type,
-        dimension_value.totaling,
-        dimension_value.indentation
-      ],
-      timeDimension: g_l_entry.posting_date,
-      granularity: `month`,
-      rollupJoin: {
-        g_l_entry: {
-          includes: [
-            g_l_entry.total_amount,
-            g_l_entry.count,
-            g_l_entry.company_id,
-            g_l_entry.dimension_set_id
-          ]
-        },
-        dimension_set_entry: {
-          includes: [
-            dimension_set_entry.dimension_code,
-            dimension_set_entry.dimension_value_code
-          ]
-        },
-        dimension_value: {
-          includes: [
-            dimension_value.code,
-            dimension_value.name,
-            dimension_value.dimension_value_type,
-            dimension_value.totaling,
-            dimension_value.indentation
-          ]
-        }
-      },
-      refreshKey: {
-        every: `4 hours`,
-        incremental: true,
-        updateWindow: `1 month`
-      },
-      indexes: {
-        main: {
-          columns: [`dimension_code`, `code`, `posting_date`]
-        },
-        hierarchy: {
-          columns: [`dimension_value_type`, `indentation`]
         }
       }
     }
@@ -517,7 +638,7 @@ cube(`cross_dimensional_analysis`, {
       refreshKey: {
         every: `2 hours`,
         incremental: true,
-        updateWindow: `1 month`
+        updateWindow: `30 day`
       },
       indexes: {
         main: {
