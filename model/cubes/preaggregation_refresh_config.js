@@ -11,10 +11,12 @@
  */
 
 // Global Pre-aggregation Settings
+// Global Pre-aggregation Settings
+// This is a configuration reference, not an actual cube
+/*
 cube(`preaggregation_config`, {
-  sql: `SELECT 1 as dummy`, // Dummy cube for configuration
+  sql: `SELECT 1 as dummy`,
   
-  // Global refresh configuration
   scheduledRefreshContexts: [
     {
       // Real-time operational context (5-minute refresh)
@@ -246,6 +248,7 @@ cube(`preaggregation_config`, {
     }
   ]
 });
+*/
 
 // Refresh Strategy Optimizer
 cube(`refresh_optimizer`, {
@@ -360,12 +363,15 @@ cube(`refresh_optimizer`, {
  */
 
 // Monitoring and Maintenance Configuration
+// Monitoring and Maintenance Configuration
+// This is a reference configuration, not an actual cube
+/*
 cube(`preaggregation_monitoring`, {
   sql: `SELECT 1 as dummy`,
   
   measures: {
     refresh_health_score: {
-      sql: `100`, // Placeholder for actual health score calculation
+      sql: `100`,
       type: `number`,
       title: `Pre-aggregation Health Score`,
       description: `Overall health score of pre-aggregation system (0-100)`
@@ -378,32 +384,6 @@ cube(`preaggregation_monitoring`, {
       type: `string`,
       title: `Monitoring Status`
     }
-  },
-  
-  // Alerting thresholds
-  alerts: {
-    refresh_failure: {
-      condition: `refresh_failure_count > 3`,
-      severity: `critical`,
-      message: `Pre-aggregation refresh failed multiple times`
-    },
-    
-    slow_refresh: {
-      condition: `avg_refresh_time > 300`, // 5 minutes
-      severity: `warning`,
-      message: `Pre-aggregation refresh taking longer than expected`
-    },
-    
-    storage_limit: {
-      condition: `total_storage_size > 100000`, // 100GB
-      severity: `warning`,
-      message: `Pre-aggregation storage exceeding limits`
-    },
-    
-    low_hit_ratio: {
-      condition: `cache_hit_ratio < 0.5`, // 50%
-      severity: `info`,
-      message: `Pre-aggregation cache hit ratio is low`
-    }
   }
 });
+*/

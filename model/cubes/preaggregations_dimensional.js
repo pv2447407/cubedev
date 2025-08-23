@@ -422,58 +422,96 @@ cube(`cross_dimensional_analysis`, {
       AND gle."COMPANY_ID" = dse4."COMPANY_ID"
   `,
   
+  measures: {
+    total_amount: {
+      sql: `amount`,
+      type: `sum`,
+      format: `currency`
+    },
+    
+    total_debit: {
+      sql: `debit_amount`,
+      type: `sum`,
+      format: `currency`
+    },
+    
+    total_credit: {
+      sql: `credit_amount`,
+      type: `sum`,
+      format: `currency`
+    },
+    
+    transaction_count: {
+      type: `count`
+    }
+  },
+  
+  dimensions: {
+    company_id: {
+      sql: `"COMPANY_ID"`,
+      type: `string`
+    },
+    
+    posting_date: {
+      sql: `"POSTING_DATE"`,
+      type: `time`
+    },
+    
+    cost_center: {
+      sql: `cost_center`,
+      type: `string`
+    },
+    
+    department: {
+      sql: `department`,
+      type: `string`
+    },
+    
+    project: {
+      sql: `project`,
+      type: `string`
+    },
+    
+    region: {
+      sql: `region`,
+      type: `string`
+    },
+    
+    global_dimension_1_code: {
+      sql: `"GLOBAL_DIMENSION_1_CODE"`,
+      type: `string`
+    },
+    
+    global_dimension_2_code: {
+      sql: `"GLOBAL_DIMENSION_2_CODE"`,
+      type: `string`
+    },
+    
+    business_unit_code: {
+      sql: `"BUSINESS_UNIT_CODE"`,
+      type: `string`
+    }
+  },
+  
   preAggregations: {
     // Cross-Dimensional Matrix
     cross_dimensional_matrix: {
       sqlAlias: `cross_dim_matrix`,
       type: `rollup`,
       measures: [
-        {
-          name: `total_amount`,
-          sql: `amount`,
-          type: `sum`
-        },
-        {
-          name: `total_debit`,
-          sql: `debit_amount`,
-          type: `sum`
-        },
-        {
-          name: `total_credit`,
-          sql: `credit_amount`,
-          type: `sum`
-        },
-        {
-          name: `transaction_count`,
-          type: `count`
-        }
+        total_amount,
+        total_debit,
+        total_credit,
+        transaction_count
       ],
       dimensions: [
-        {
-          name: `company_id`,
-          sql: `"COMPANY_ID"`
-        },
-        {
-          name: `cost_center`,
-          sql: `cost_center`
-        },
-        {
-          name: `department`,
-          sql: `department`
-        },
-        {
-          name: `project`,
-          sql: `project`
-        },
-        {
-          name: `region`,
-          sql: `region`
-        }
+        company_id,
+        cost_center,
+        department,
+        project,
+        region
       ],
-      timeDimension: {
-        name: `posting_date`,
-        sql: `"POSTING_DATE"`
-      },
+      timeDimension: posting_date,
       granularity: `month`,
       partitionGranularity: `quarter`,
       refreshKey: {
@@ -496,38 +534,16 @@ cube(`cross_dimensional_analysis`, {
       sqlAlias: `olap_dim_cube`,
       type: `rollup`,
       measures: [
-        {
-          name: `total_amount`,
-          sql: `amount`,
-          type: `sum`
-        },
-        {
-          name: `transaction_count`,
-          type: `count`
-        }
+        total_amount,
+        transaction_count
       ],
       dimensions: [
-        {
-          name: `company_id`,
-          sql: `"COMPANY_ID"`
-        },
-        {
-          name: `global_dimension_1`,
-          sql: `"GLOBAL_DIMENSION_1_CODE"`
-        },
-        {
-          name: `global_dimension_2`,
-          sql: `"GLOBAL_DIMENSION_2_CODE"`
-        },
-        {
-          name: `business_unit`,
-          sql: `"BUSINESS_UNIT_CODE"`
-        }
+        company_id,
+        global_dimension_1_code,
+        global_dimension_2_code,
+        business_unit_code
       ],
-      timeDimension: {
-        name: `posting_date`,
-        sql: `"POSTING_DATE"`
-      },
+      timeDimension: posting_date,
       granularity: `day`,
       partitionGranularity: `month`,
       refreshKey: {

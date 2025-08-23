@@ -229,11 +229,6 @@ cube(`customer_preaggregations`, {
         customer.currency_code,
         customer.payment_terms_code
       ],
-      filters: [
-        {
-          sql: `CAST(${customer}."BALANCE" AS DECIMAL(19,4)) > 25000`
-        }
-      ],
       refreshKey: {
         every: `30 minute`
       },

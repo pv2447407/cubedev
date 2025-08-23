@@ -63,7 +63,7 @@ cube(`g_l_entry_preaggregations`, {
       refreshKey: {
         every: `4 hours`,
         incremental: true,
-        updateWindow: `1 month`
+        updateWindow: `30 day`
       },
       indexes: {
         main: {
@@ -101,7 +101,7 @@ cube(`g_l_entry_preaggregations`, {
       refreshKey: {
         every: `6 hours`,
         incremental: true,
-        updateWindow: `1 quarter`
+        updateWindow: `90 day`
       },
       indexes: {
         main: {
@@ -207,15 +207,10 @@ cube(`g_l_entry_preaggregations`, {
       ],
       timeDimension: g_l_entry.posting_date,
       granularity: `day`,
-      filters: [
-        {
-          sql: `ABS(CAST(${g_l_entry}."AMOUNT" AS DECIMAL(19,4))) > 10000`
-        }
-      ],
       refreshKey: {
         every: `30 minute`,
         incremental: true,
-        updateWindow: `1 month`
+        updateWindow: `30 day`
       },
       indexes: {
         main: {
@@ -274,15 +269,10 @@ cube(`g_l_entry_preaggregations`, {
       ],
       timeDimension: g_l_entry.posting_date,
       granularity: `month`,
-      filters: [
-        {
-          sql: `${g_l_entry}."VAT_AMOUNT" IS NOT NULL AND CAST(${g_l_entry}."VAT_AMOUNT" AS DECIMAL(19,4)) != 0`
-        }
-      ],
       refreshKey: {
         every: `4 hours`,
         incremental: true,
-        updateWindow: `1 month`
+        updateWindow: `30 day`
       },
       indexes: {
         main: {
@@ -444,7 +434,7 @@ cube(`gen_journal_line_preaggregations`, {
       refreshKey: {
         every: `2 hours`,
         incremental: true,
-        updateWindow: `1 month`
+        updateWindow: `30 day`
       },
       indexes: {
         main: {

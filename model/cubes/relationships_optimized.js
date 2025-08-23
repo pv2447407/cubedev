@@ -83,13 +83,6 @@ cube(`g_l_entry_optimized`, {
             AND ${CUBE}."COMPANY_ID" = ${dimension_set_consolidated}."COMPANY_ID"`
     },
     
-    // Conditional joins for source entities
-    customer_source: {
-      relationship: `many_to_one`,
-      sql: `${CUBE}."SOURCE_NO" = ${customer_optimized}."NO" 
-            AND ${CUBE}."SOURCE_TYPE" = 'Customer' 
-            AND ${CUBE}."COMPANY_ID" = ${customer_optimized}."COMPANY_ID"`
-    }
   },
   
   measures: {
@@ -380,12 +373,6 @@ cube(`currency_optimized`, {
       sql: `${CUBE}."COMPANY_ID" = ${company_hub}."ID"`
     },
     
-    // Join to current exchange rate only
-    current_exchange_rate: {
-      relationship: `one_to_one`,
-      sql: `${CUBE}."CODE" = ${currency_exchange_rate_current}."CURRENCY_CODE" 
-            AND ${CUBE}."COMPANY_ID" = ${currency_exchange_rate_current}."COMPANY_ID"`
-    }
   },
   
   measures: {
