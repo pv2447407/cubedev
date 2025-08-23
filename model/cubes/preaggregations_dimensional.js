@@ -425,11 +425,6 @@ cube(`gl_entry_dimensional_preaggregations`, {
       ],
       timeDimension: posting_date,
       granularity: `week`,
-      filters: [
-        {
-          sql: `${g_l_entry}."GLOBAL_DIMENSION_1_CODE" LIKE 'COST%'`
-        }
-      ],
       refreshKey: {
         every: `1 hour`,
         incremental: true,
@@ -459,11 +454,6 @@ cube(`gl_entry_dimensional_preaggregations`, {
       ],
       timeDimension: posting_date,
       granularity: `month`,
-      filters: [
-        {
-          sql: `${g_l_entry}."GLOBAL_DIMENSION_2_CODE" IN ('SALES', 'FINANCE', 'OPS', 'HR', 'IT', 'MARKETING')`
-        }
-      ],
       refreshKey: {
         every: `2 hours`,
         incremental: true,
