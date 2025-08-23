@@ -72,19 +72,7 @@ view('customer_performance_analytics', {
     // Excluded: contact.name (conflicts with customer.name)
     // Excluded: contact.company_id (conflicts with customer.company_id)
     
-    // Financial Transaction History - Customer payment and transaction patterns (excluding conflicting members)
-    // Excluded: g_l_entry.count (conflicts with customer.count)
-    g_l_entry.posting_date,
-    g_l_entry.document_date,
-    g_l_entry.document_type,
-    g_l_entry.document_no,
-    g_l_entry.source_type,
-    g_l_entry.source_no,
-    g_l_entry.g_laccount_no,
-    g_l_entry.g_laccount_name,
-    g_l_entry.description,
-    g_l_entry.global_dimension_1_code,
-    g_l_entry.global_dimension_2_code
-    // Excluded: g_l_entry.company_id (conflicts with customer.company_id)
+    // Financial Transaction History removed due to join path conflicts with customer cube
+    // Customer performance analytics now focuses exclusively on customer data and relationships
   ]
 });

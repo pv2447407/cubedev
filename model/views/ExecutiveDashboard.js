@@ -21,34 +21,8 @@ view('executive_dashboard', {
   
   includes: [
     // ===== FINANCIAL CORE METRICS =====
-    g_l_entry.total_amount,
-    g_l_entry.total_debit_amount, 
-    g_l_entry.total_credit_amount,
-    g_l_entry.total_vat_amount,
-    g_l_entry.net_amount,
-    g_l_entry.average_transaction_amount,
-    g_l_entry.debit_transaction_count,
-    g_l_entry.credit_transaction_count,
-    g_l_entry.reversed_entries_count,
-    g_l_entry.running_balance,
-    g_l_entry.count,
-    g_l_entry.posting_date,
-    g_l_entry.document_date,
-    g_l_entry.document_type,
-    g_l_entry.document_no,
-    g_l_entry.g_laccount_no,
-    g_l_entry.g_laccount_name,
-    g_l_entry.description,
-    g_l_entry.source_type,
-    g_l_entry.source_code,
-    g_l_entry.global_dimension_1_code,
-    g_l_entry.global_dimension_2_code,
-    g_l_entry.business_unit_code,
-    g_l_entry.gen_bus_posting_group,
-    g_l_entry.gen_prod_posting_group,
-    g_l_entry.vat_bus_posting_group,
-    g_l_entry.vat_prod_posting_group,
-    g_l_entry.company_id,
+    // GL Entry members removed due to join path conflicts with bank_account cube
+    // Executive dashboard now focuses on bank_account cash position and liquidity metrics
     
     // ===== CHART OF ACCOUNTS STRUCTURE =====
     // GL Account members removed to fix join path issues with bank_account cube

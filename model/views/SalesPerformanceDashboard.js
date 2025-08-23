@@ -29,28 +29,8 @@ view('sales_performance_dashboard', {
     customer.payment_terms_code,
     customer.company_id,
     
-    // GL Entry Sales Transactions - Revenue and sales transaction data
-    g_l_entry.total_amount,
-    g_l_entry.total_debit_amount, 
-    g_l_entry.total_credit_amount,
-    g_l_entry.net_amount,
-    g_l_entry.average_transaction_amount,
-    // g_l_entry.count, // Excluded: conflicts with customer.count (primary)
-    g_l_entry.posting_date,
-    g_l_entry.document_date,
-    g_l_entry.document_type,
-    g_l_entry.document_no,
-    g_l_entry.g_laccount_no,
-    g_l_entry.g_laccount_name,
-    g_l_entry.description,
-    g_l_entry.source_type,
-    g_l_entry.source_no,
-    g_l_entry.global_dimension_1_code,
-    g_l_entry.global_dimension_2_code,
-    g_l_entry.business_unit_code,
-    // g_l_entry.gen_bus_posting_group, // Excluded: conflicts with customer.gen_bus_posting_group (primary)
-    g_l_entry.gen_prod_posting_group,
-    // g_l_entry.company_id, // Excluded: conflicts with customer.company_id (primary)
+    // GL Entry Sales Transactions removed due to join path conflicts with customer cube
+    // Sales performance dashboard now focuses on customer sales data and GL account classifications
     
     // GL Account Sales Classification
     // g_l_account.count, // Excluded: conflicts with customer.count (primary)
