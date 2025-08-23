@@ -61,11 +61,7 @@ view('revenue_growth_analysis', {
     customer.currency_code,
     customer.payment_terms_code,
     customer.salesperson_code,
-    customer.territory_code,
-    customer.customer_disc_group,
     customer.customer_price_group,
-    customer.global_dimension_1_code,
-    customer.global_dimension_2_code,
     customer.company_id
   ]
 });

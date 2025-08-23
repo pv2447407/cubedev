@@ -21,21 +21,12 @@ view('sales_performance_dashboard', {
     customer.name,
     customer.city,
     customer.country_region_code,
-    customer.territory_code,
     customer.salesperson_code,
     customer.customer_posting_group,
-    customer.customer_disc_group,
     customer.customer_price_group,
     customer.gen_bus_posting_group,
     customer.currency_code,
     customer.payment_terms_code,
-    customer.payment_method_code,
-    customer.credit_limit_lcy,
-    customer.blocked,
-    customer.last_date_modified,
-    customer.system_created_at,
-    customer.global_dimension_1_code,
-    customer.global_dimension_2_code,
     customer.company_id,
     
     // GL Entry Sales Transactions - Revenue and sales transaction data
@@ -69,6 +60,8 @@ view('sales_performance_dashboard', {
     g_l_account.income_balance,
     g_l_account.account_category,
     g_l_account.account_subcategory_descript,
+    g_l_account.gen_bus_posting_group,
+    g_l_account.gen_prod_posting_group,
     g_l_account.company_id
   ]
 });
