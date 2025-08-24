@@ -1,0 +1,80 @@
+cube(`dimension_set_entry`, {
+  sql_table: `"BUSINESS_CENTRAL"."DIMENSION_SET_ENTRY"`,
+  
+  data_source: `default`,
+  
+  joins: {
+    company: {
+      sql: `${CUBE}."COMPANY_ID" = ${company}."ID"`,
+      relationship: `many_to_one`
+    },
+    
+    dimension_value: {
+      sql: `${CUBE}."DIMENSION_VALUE_ID" = ${dimension_value}."DIMENSION_VALUE_ID"`,
+      relationship: `many_to_one`
+    }
+  },
+  
+  dimensions: {
+    dimension_value_code: {
+      sql: `${CUBE}."DIMENSION_VALUE_CODE"`,
+      type: `string`
+    },
+    
+    system_created_by: {
+      sql: `${CUBE}."SYSTEM_CREATED_BY"`,
+      type: `string`
+    },
+    
+    dimension_name: {
+      sql: `${CUBE}."DIMENSION_NAME"`,
+      type: `string`
+    },
+    
+    dimension_value_name: {
+      sql: `${CUBE}."DIMENSION_VALUE_NAME"`,
+      type: `string`
+    },
+    
+    company_id: {
+      sql: `${CUBE}."COMPANY_ID"`,
+      type: `string`
+    },
+    
+    dimension_code: {
+      sql: `${CUBE}."DIMENSION_CODE"`,
+      type: `string`
+    },
+    
+    system_id: {
+      sql: `${CUBE}."SYSTEM_ID"`,
+      type: `string`
+    },
+    
+    system_modified_by: {
+      sql: `${CUBE}."SYSTEM_MODIFIED_BY"`,
+      type: `string`
+    },
+    
+    system_created_at: {
+      sql: `${CUBE}."SYSTEM_CREATED_AT"`,
+      type: `time`
+    },
+    
+    system_modified_at: {
+      sql: `${CUBE}."SYSTEM_MODIFIED_AT"`,
+      type: `time`
+    }
+  },
+  
+  measures: {
+    count: {
+      type: `count`
+    }
+  },
+  
+  pre_aggregations: {
+    // Pre-aggregation definitions go here.
+    // Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+  }
+});
