@@ -19,7 +19,41 @@
 view('executive_dashboard', {
   description: 'Comprehensive C-suite executive dashboard with key financial KPIs, customer metrics, operational performance, and strategic indicators',
   
-  includes: [
+  cubes: [
+    {
+      join_path: bank_account,
+      includes: [
+        // ===== CASH POSITION AND LIQUIDITY =====
+        // bank_account.count, // Excluded - conflicts with g_l_entry.count
+        // bank_account.no, // Excluded - conflicts with naming conventions
+        // bank_account.name, // Excluded - conflicts with g_l_entry.g_laccount_name
+        'balance',
+        'balance_lcy',
+        'balance_last_statement',
+        'net_change',
+        'net_change_lcy',
+        'min_balance',
+        'currency_code',
+        'bank_account_no',
+        'iban',
+        'swift_code',
+        // bank_account.blocked, // Excluded - conflicts with other cubes' blocked fields
+        'bank_acc_posting_group',
+        'country_region_code'
+        // bank_account.company_id, // Excluded - conflicts with g_l_entry.company_id
+      ]
+    },
+    {
+      join_path: company,
+      includes: [
+        // ===== COMPANY INFORMATION =====
+        // company.count, // Excluded - conflicts with g_l_entry.count
+        'id',
+        'display_name'
+        // Removed: company.company_id (does not exist in Company cube)
+      ]
+    }
+
     // ===== FINANCIAL CORE METRICS =====
     // GL Entry members removed due to join path conflicts with bank_account cube
     // Executive dashboard now focuses on bank_account cash position and liquidity metrics
@@ -32,34 +66,9 @@ view('executive_dashboard', {
     // Customer metrics removed due to join path conflicts with bank_account cube
     // Focus on bank_account cash position and liquidity metrics for executive dashboard
     
-    // ===== CASH POSITION AND LIQUIDITY =====
-    // bank_account.count, // Excluded - conflicts with g_l_entry.count
-    // bank_account.no, // Excluded - conflicts with naming conventions
-    // bank_account.name, // Excluded - conflicts with g_l_entry.g_laccount_name
-    bank_account.balance,
-    bank_account.balance_lcy,
-    bank_account.balance_last_statement,
-    bank_account.net_change,
-    bank_account.net_change_lcy,
-    bank_account.min_balance,
-    bank_account.currency_code,
-    bank_account.bank_account_no,
-    bank_account.iban,
-    bank_account.swift_code,
-    // bank_account.blocked, // Excluded - conflicts with other cubes' blocked fields
-    bank_account.bank_acc_posting_group,
-    bank_account.country_region_code,
-    // bank_account.company_id, // Excluded - conflicts with g_l_entry.company_id
-    
     // ===== ORGANIZATIONAL STRUCTURE =====
     // employee.count, // Excluded - conflicts with g_l_entry.count
     // employee.no, // Excluded - conflicts with naming conventions
     // employee.company_id, // Excluded - conflicts with g_l_entry.company_id
-    
-    // ===== COMPANY INFORMATION =====
-    // company.count, // Excluded - conflicts with g_l_entry.count
-    company.id,
-    company.display_name
-    // Removed: company.company_id (does not exist in Company cube)
   ]
 });

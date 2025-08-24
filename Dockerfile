@@ -1,4 +1,4 @@
-FROM cubejs/cube:latest
+FROM cubejs/cube:v0.36.0
 
 # Install additional dependencies for schema generation
 RUN apt-get update && apt-get install -y \

@@ -14,28 +14,33 @@
 view('cash_flow_analysis', {
   description: 'Executive cash flow and liquidity analysis focusing on cash position, receivables, payables, and working capital management',
   
-  includes: [
-    // Bank Account Cash Positions (using primary cube)
-    bank_account.count,
-    bank_account.no,
-    bank_account.name,
-    bank_account.balance,
-    bank_account.balance_lcy,
-    bank_account.balance_last_statement,
-    bank_account.net_change,
-    bank_account.net_change_lcy,
-    bank_account.currency_code,
-    bank_account.min_balance,
-    bank_account.blocked,
-    bank_account.bank_acc_posting_group,
-    bank_account.iban,
-    bank_account.swift_code,
-    bank_account.company_id,
+  cubes: [
+    {
+      join_path: bank_account,
+      includes: [
+        // Bank Account Cash Positions (using primary cube)
+        'count',
+        'no',
+        'name',
+        'balance',
+        'balance_lcy',
+        'balance_last_statement',
+        'net_change',
+        'net_change_lcy',
+        'currency_code',
+        'min_balance',
+        'blocked',
+        'bank_acc_posting_group',
+        'iban',
+        'swift_code',
+        'company_id',
 
-    // Customer Receivables Analysis removed due to join path conflicts with bank_account cube
-    // Focus on bank_account data for cash flow analysis
+        // Customer Receivables Analysis removed due to join path conflicts with bank_account cube
+        // Focus on bank_account data for cash flow analysis
 
-    // GL Entry members removed due to join path conflicts with bank_account cube
-    // Cash flow analysis now focuses exclusively on bank_account data for liquidity management
+        // GL Entry members removed due to join path conflicts with bank_account cube
+        // Cash flow analysis now focuses exclusively on bank_account data for liquidity management
+      ]
+    }
   ]
 });
