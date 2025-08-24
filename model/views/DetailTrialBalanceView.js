@@ -510,17 +510,6 @@ view(`detail_trial_balance_view`, {
       title: `Accounts with Balance`
     },
     
-    // Fiscal Period Segments
-    seg_current_fiscal_year: {
-      sql: `1=1`, // Always true as view is filtered to current period
-      title: `Current Fiscal Year`
-    },
-    
-    seg_current_period: {
-      sql: `1=1`, // Always true as view is filtered to current period
-      title: `Current Period`
-    },
-    
     // Reconciliation Segments
     unreconciled_accounts: {
       sql: `${g_l_account.reconciliation_account} = true`,

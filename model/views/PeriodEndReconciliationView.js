@@ -472,11 +472,6 @@ view(`period_end_reconciliation_view`, {
       title: `Has Period-End Adjustments`
     },
     
-    seg_unusual_activity: {
-      sql: `1=1`, // Placeholder - would use the unusual_activity_flag calculation
-      title: `Has Unusual Activity Detected`
-    },
-    
     // Closing Required
     requires_closing: {
       sql: `${g_l_account.account_category} IN ('Income', 'Expense', 'Cost of Goods Sold') 
