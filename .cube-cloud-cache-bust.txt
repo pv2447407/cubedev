@@ -1,0 +1,2 @@
+Cache bust: 2025-08-24T02:17:00Z
+This file forces Cube Cloud to reload the schema.
