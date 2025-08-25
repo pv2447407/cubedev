@@ -48,7 +48,8 @@ cube(`dimension_set_entry`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     system_modified_by: {

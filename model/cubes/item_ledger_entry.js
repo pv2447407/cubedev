@@ -108,7 +108,8 @@ cube(`item_ledger_entry`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     originally_ordered_var_code: {

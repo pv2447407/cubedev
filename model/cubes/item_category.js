@@ -33,7 +33,8 @@ cube(`item_category`, {
     
     code: {
       sql: `${CUBE}."CODE"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     system_modified_by: {

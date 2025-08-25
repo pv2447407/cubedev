@@ -128,7 +128,8 @@ cube(`job`, {
     
     no: {
       sql: `${CUBE}."NO"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     over_budget: {

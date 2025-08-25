@@ -1,6 +1,7 @@
 cube(`sales_shipment_line`, {
   sql_table: `"BUSINESS_CENTRAL"."SALES_SHIPMENT_LINE"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -363,7 +364,8 @@ cube(`sales_shipment_line`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     tax_group_code: {

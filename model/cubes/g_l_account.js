@@ -188,7 +188,8 @@ cube(`g_l_account`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     company_id: {

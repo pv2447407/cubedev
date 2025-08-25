@@ -1,6 +1,7 @@
 cube(`company_information`, {
   sql_table: `"BUSINESS_CENTRAL"."COMPANY_INFORMATION"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -68,7 +69,8 @@ cube(`company_information`, {
     
     primary_key: {
       sql: `${CUBE}."PRIMARY_KEY"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     tax_scheme: {

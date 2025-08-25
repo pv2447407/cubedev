@@ -953,7 +953,8 @@ cube(`gen_journal_line`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     bal_tax_liable: {

@@ -1,6 +1,7 @@
 cube(`currency`, {
   sql_table: `"BUSINESS_CENTRAL"."CURRENCY"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -58,7 +59,8 @@ cube(`currency`, {
     
     code: {
       sql: `${CUBE}."CODE"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     vendor_ledg_entries_in_filter: {

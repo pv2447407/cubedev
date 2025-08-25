@@ -143,7 +143,8 @@ cube(`sales_cr_memo_header`, {
     
     no: {
       sql: `${CUBE}."NO"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     amount: {

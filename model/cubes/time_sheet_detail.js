@@ -1,6 +1,7 @@
 cube(`time_sheet_detail`, {
   sql_table: `"BUSINESS_CENTRAL"."TIME_SHEET_DETAIL"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -83,7 +84,8 @@ cube(`time_sheet_detail`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     job_task_no: {

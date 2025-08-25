@@ -1,6 +1,7 @@
 cube(`unit_of_measure`, {
   sql_table: `"BUSINESS_CENTRAL"."UNIT_OF_MEASURE"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -38,7 +39,8 @@ cube(`unit_of_measure`, {
     
     code: {
       sql: `${CUBE}."CODE"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     system_id: {

@@ -98,7 +98,8 @@ cube(`purch_inv_line`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     job_line_type: {

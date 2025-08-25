@@ -1,6 +1,7 @@
 cube(`sales_shipment_header`, {
   sql_table: `"BUSINESS_CENTRAL"."SALES_SHIPMENT_HEADER"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -353,7 +354,8 @@ cube(`sales_shipment_header`, {
     
     no: {
       sql: `${CUBE}."NO"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     posting_description: {

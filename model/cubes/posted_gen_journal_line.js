@@ -423,7 +423,8 @@ cube(`posted_gen_journal_line`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     journal_template_name: {

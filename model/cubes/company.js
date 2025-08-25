@@ -1,6 +1,7 @@
 cube(`company`, {
   sql_table: `"BUSINESS_CENTRAL"."COMPANY"`,
   
+  
   data_source: `default`,
   
   joins: {

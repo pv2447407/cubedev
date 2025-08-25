@@ -1,6 +1,7 @@
 cube(`bank_account`, {
   sql_table: `"BUSINESS_CENTRAL"."BANK_ACCOUNT"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -408,7 +409,8 @@ cube(`bank_account`, {
     
     no: {
       sql: `${CUBE}."NO"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     total_on_checks: {

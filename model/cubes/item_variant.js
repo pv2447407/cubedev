@@ -13,12 +13,14 @@ cube(`item_variant`, {
   dimensions: {
     item_no: {
       sql: `${CUBE}."ITEM_NO"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     code: {
       sql: `${CUBE}."CODE"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     system_modified_by: {

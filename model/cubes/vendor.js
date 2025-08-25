@@ -1,6 +1,7 @@
 cube(`vendor`, {
   sql_table: `"BUSINESS_CENTRAL"."VENDOR"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -173,7 +174,8 @@ cube(`vendor`, {
     
     no: {
       sql: `${CUBE}."NO"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     pmt_disc_tolerance_lcy: {

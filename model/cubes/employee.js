@@ -13,7 +13,8 @@ cube(`employee`, {
   dimensions: {
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     cost_center_code: {

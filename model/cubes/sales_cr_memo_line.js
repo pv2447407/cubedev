@@ -318,7 +318,8 @@ cube(`sales_cr_memo_line`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     amount_including_vat: {

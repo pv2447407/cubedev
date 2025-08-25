@@ -1,6 +1,7 @@
 cube(`contact`, {
   sql_table: `"BUSINESS_CENTRAL"."CONTACT"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -358,7 +359,8 @@ cube(`contact`, {
     
     no: {
       sql: `${CUBE}."NO"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     currency_code: {

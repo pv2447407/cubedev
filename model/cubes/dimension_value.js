@@ -58,7 +58,8 @@ cube(`dimension_value`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     map_to_icdimension_value_code: {

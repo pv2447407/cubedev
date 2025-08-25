@@ -223,7 +223,8 @@ cube(`purch_rcpt_line`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     line_discount: {

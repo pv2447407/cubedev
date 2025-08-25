@@ -1,6 +1,7 @@
 cube(`currency_exchange_rate`, {
   sql_table: `"BUSINESS_CENTRAL"."CURRENCY_EXCHANGE_RATE"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -28,7 +29,8 @@ cube(`currency_exchange_rate`, {
     
     currency_code: {
       sql: `${CUBE}."CURRENCY_CODE"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     system_modified_by: {
@@ -48,7 +50,8 @@ cube(`currency_exchange_rate`, {
     
     company_id: {
       sql: `${CUBE}."COMPANY_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     fix_exchange_rate_amount: {
@@ -73,7 +76,8 @@ cube(`currency_exchange_rate`, {
     
     starting_date: {
       sql: `${CUBE}."STARTING_DATE"`,
-      type: `time`
+      type: `time`,
+      primary_key: true
     },
     
     system_modified_at: {

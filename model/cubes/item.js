@@ -783,7 +783,8 @@ cube(`item`, {
     
     no: {
       sql: `${CUBE}."NO"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     replenishment_system: {

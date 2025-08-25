@@ -33,7 +33,8 @@ cube(`reason_code`, {
     
     code: {
       sql: `${CUBE}."CODE"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     company_id: {

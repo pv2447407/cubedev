@@ -73,7 +73,8 @@ cube(`opportunity`, {
     
     no: {
       sql: `${CUBE}."NO"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     no_series: {

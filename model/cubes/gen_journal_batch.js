@@ -38,7 +38,8 @@ cube(`gen_journal_batch`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     no_series: {

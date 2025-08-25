@@ -88,7 +88,8 @@ cube(`location`, {
     
     code: {
       sql: `${CUBE}."CODE"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     require_receive: {

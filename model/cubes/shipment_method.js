@@ -1,6 +1,7 @@
 cube(`shipment_method`, {
   sql_table: `"BUSINESS_CENTRAL"."SHIPMENT_METHOD"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -18,7 +19,8 @@ cube(`shipment_method`, {
     
     code: {
       sql: `${CUBE}."CODE"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     company_id: {

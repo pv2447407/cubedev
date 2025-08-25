@@ -723,7 +723,8 @@ cube(`purchase_header`, {
     
     no: {
       sql: `${CUBE}."NO"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     amount: {

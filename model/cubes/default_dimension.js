@@ -1,6 +1,7 @@
 cube(`default_dimension`, {
   sql_table: `"BUSINESS_CENTRAL"."DEFAULT_DIMENSION"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -18,7 +19,8 @@ cube(`default_dimension`, {
   dimensions: {
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     company_id: {

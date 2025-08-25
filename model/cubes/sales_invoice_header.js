@@ -293,7 +293,8 @@ cube(`sales_invoice_header`, {
     
     no: {
       sql: `${CUBE}."NO"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     sat_international_trade_term: {

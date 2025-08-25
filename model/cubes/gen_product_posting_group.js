@@ -43,7 +43,8 @@ cube(`gen_product_posting_group`, {
     
     code: {
       sql: `${CUBE}."CODE"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     system_modified_by: {

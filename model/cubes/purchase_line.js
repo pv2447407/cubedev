@@ -543,7 +543,8 @@ cube(`purchase_line`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     prepayment_tax_liable: {

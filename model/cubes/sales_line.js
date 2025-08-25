@@ -698,7 +698,8 @@ cube(`sales_line`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     shipped_not_invoiced_lcy: {

@@ -63,7 +63,8 @@ cube(`payment_method`, {
     
     code: {
       sql: `${CUBE}."CODE"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     system_created_by: {

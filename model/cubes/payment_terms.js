@@ -23,7 +23,8 @@ cube(`payment_terms`, {
     
     code: {
       sql: `${CUBE}."CODE"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     company_id: {

@@ -1,6 +1,7 @@
 cube(`customer`, {
   sql_table: `"BUSINESS_CENTRAL"."CUSTOMER"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -608,7 +609,8 @@ cube(`customer`, {
     
     no: {
       sql: `${CUBE}."NO"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     search_name: {

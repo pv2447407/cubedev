@@ -1,6 +1,7 @@
 cube(`dimension`, {
   sql_table: `"BUSINESS_CENTRAL"."DIMENSION"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -53,7 +54,8 @@ cube(`dimension`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     blocked: {

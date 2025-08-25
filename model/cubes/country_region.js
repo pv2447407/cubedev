@@ -1,6 +1,7 @@
 cube(`country_region`, {
   sql_table: `"BUSINESS_CENTRAL"."COUNTRY_REGION"`,
   
+  
   data_source: `default`,
   
   joins: {
@@ -53,7 +54,8 @@ cube(`country_region`, {
     
     code: {
       sql: `${CUBE}."CODE"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     name: {

@@ -43,7 +43,8 @@ cube(`posted_gen_journal_batch`, {
     
     journal_template_name: {
       sql: `${CUBE}."JOURNAL_TEMPLATE_NAME"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     copy_vatsetup_to_jnl_lines: {
@@ -78,7 +79,8 @@ cube(`posted_gen_journal_batch`, {
     
     name: {
       sql: `${CUBE}."NAME"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     system_created_by: {

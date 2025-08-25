@@ -103,7 +103,8 @@ cube(`g_l_entry`, {
     
     system_id: {
       sql: `${CUBE}."SYSTEM_ID"`,
-      type: `string`
+      type: `string`,
+      primary_key: true
     },
     
     fa_entry_type: {
