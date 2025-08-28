@@ -431,6 +431,159 @@ cubes:
         filters:
           - sql: "DATE_TRUNC('quarter', {CUBE}.\"POSTING_DATE\") = DATE_TRUNC('quarter', CURRENT_DATE())"
         format: currency
+      
+      # Year-over-Year Comparison Measures
+      # Current Year Measures
+      - name: cy_total_amount
+        type: sum
+        sql: "{CUBE}.\"AMOUNT\""
+        title: Current Year Total Amount
+        filters:
+          - sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE())"
+        format: currency
+        description: Total amount for current fiscal year
+      
+      - name: cy_debit_amount
+        type: sum
+        sql: "{CUBE}.\"DEBIT_AMOUNT\""
+        title: Current Year Debit Amount
+        filters:
+          - sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE())"
+        format: currency
+        description: Total debits for current fiscal year
+      
+      - name: cy_credit_amount
+        type: sum
+        sql: "{CUBE}.\"CREDIT_AMOUNT\""
+        title: Current Year Credit Amount
+        filters:
+          - sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE())"
+        format: currency
+        description: Total credits for current fiscal year
+      
+      - name: cy_net_change
+        type: number
+        sql: "SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) THEN {CUBE}.\"DEBIT_AMOUNT\" - {CUBE}.\"CREDIT_AMOUNT\" ELSE 0 END)"
+        title: Current Year Net Change
+        format: currency
+        description: Net change for current year (Debits minus Credits)
+      
+      - name: cy_opening_balance
+        type: sum
+        sql: "{CUBE}.\"AMOUNT\""
+        title: Current Year Opening Balance
+        filters:
+          - sql: "{CUBE}.\"POSTING_DATE\" < DATE_TRUNC('year', CURRENT_DATE())"
+        format: currency
+        description: Opening balance at start of current fiscal year
+      
+      - name: cy_closing_balance
+        type: number
+        sql: "SUM(CASE WHEN {CUBE}.\"POSTING_DATE\" <= CURRENT_DATE() THEN {CUBE}.\"AMOUNT\" ELSE 0 END)"
+        title: Current Year Closing Balance
+        format: currency
+        description: Closing balance as of today
+      
+      # Previous Year Measures
+      - name: py_total_amount
+        type: sum
+        sql: "{CUBE}.\"AMOUNT\""
+        title: Previous Year Total Amount
+        filters:
+          - sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1"
+        format: currency
+        description: Total amount for previous fiscal year
+      
+      - name: py_debit_amount
+        type: sum
+        sql: "{CUBE}.\"DEBIT_AMOUNT\""
+        title: Previous Year Debit Amount
+        filters:
+          - sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1"
+        format: currency
+        description: Total debits for previous fiscal year
+      
+      - name: py_credit_amount
+        type: sum
+        sql: "{CUBE}.\"CREDIT_AMOUNT\""
+        title: Previous Year Credit Amount
+        filters:
+          - sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1"
+        format: currency
+        description: Total credits for previous fiscal year
+      
+      - name: py_net_change
+        type: number
+        sql: "SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1 THEN {CUBE}.\"DEBIT_AMOUNT\" - {CUBE}.\"CREDIT_AMOUNT\" ELSE 0 END)"
+        title: Previous Year Net Change
+        format: currency
+        description: Net change for previous year (Debits minus Credits)
+      
+      - name: py_opening_balance
+        type: sum
+        sql: "{CUBE}.\"AMOUNT\""
+        title: Previous Year Opening Balance
+        filters:
+          - sql: "{CUBE}.\"POSTING_DATE\" < DATE_TRUNC('year', DATEADD('year', -1, CURRENT_DATE()))"
+        format: currency
+        description: Opening balance at start of previous fiscal year
+      
+      - name: py_closing_balance
+        type: sum
+        sql: "{CUBE}.\"AMOUNT\""
+        title: Previous Year Closing Balance
+        filters:
+          - sql: "{CUBE}.\"POSTING_DATE\" < DATE_TRUNC('year', CURRENT_DATE())"
+        format: currency
+        description: Closing balance at end of previous fiscal year
+      
+      # Variance Calculations
+      - name: yoy_amount_variance
+        type: number
+        sql: "SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) THEN {CUBE}.\"AMOUNT\" ELSE 0 END) - SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1 THEN {CUBE}.\"AMOUNT\" ELSE 0 END)"
+        title: YoY Amount Variance
+        format: currency
+        description: Absolute variance in amount (Current Year - Previous Year)
+      
+      - name: yoy_amount_variance_pct
+        type: number
+        sql: "100.0 * (SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) THEN {CUBE}.\"AMOUNT\" ELSE 0 END) - SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1 THEN {CUBE}.\"AMOUNT\" ELSE 0 END)) / NULLIF(ABS(SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1 THEN {CUBE}.\"AMOUNT\" ELSE 0 END)), 0)"
+        title: YoY Amount Variance %
+        format: percent
+        description: Percentage change in amount year-over-year
+      
+      - name: yoy_net_change_variance
+        type: number
+        sql: "(SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) THEN {CUBE}.\"DEBIT_AMOUNT\" - {CUBE}.\"CREDIT_AMOUNT\" ELSE 0 END)) - (SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1 THEN {CUBE}.\"DEBIT_AMOUNT\" - {CUBE}.\"CREDIT_AMOUNT\" ELSE 0 END))"
+        title: YoY Net Change Variance
+        format: currency
+        description: Variance in net change between years
+      
+      - name: yoy_net_change_variance_pct
+        type: number
+        sql: "100.0 * ((SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) THEN {CUBE}.\"DEBIT_AMOUNT\" - {CUBE}.\"CREDIT_AMOUNT\" ELSE 0 END)) - (SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1 THEN {CUBE}.\"DEBIT_AMOUNT\" - {CUBE}.\"CREDIT_AMOUNT\" ELSE 0 END))) / NULLIF(ABS(SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1 THEN {CUBE}.\"DEBIT_AMOUNT\" - {CUBE}.\"CREDIT_AMOUNT\" ELSE 0 END)), 0)"
+        title: YoY Net Change Variance %
+        format: percent
+        description: Percentage change in net change year-over-year
+      
+      # Two-Year Comparison Measures
+      - name: two_year_ago_amount
+        type: sum
+        sql: "{CUBE}.\"AMOUNT\""
+        title: Two Years Ago Amount
+        filters:
+          - sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 2"
+        format: currency
+        description: Total amount from two years ago
+      
+      - name: three_year_ago_amount
+        type: sum
+        sql: "{CUBE}.\"AMOUNT\""
+        title: Three Years Ago Amount
+        filters:
+          - sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 3"
+        format: currency
+        description: Total amount from three years ago
 
     segments:
       # Fiscal Year Segments
@@ -528,6 +681,49 @@ cubes:
         sql: "{CUBE}.\"REVERSED\" = true"
         title: Reversed Entries
         description: Reversed entries only
+      
+      # Extended Fiscal Year Segments
+      - name: two_years_ago
+        sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 2"
+        title: Two Years Ago
+        description: Filter for transactions from two years ago
+      
+      - name: three_years_ago
+        sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 3"
+        title: Three Years Ago
+        description: Filter for transactions from three years ago
+      
+      # Specific Fiscal Year Segments
+      - name: fiscal_year_2023
+        sql: "YEAR({CUBE}.\"POSTING_DATE\") = 2023"
+        title: Fiscal Year 2023
+        description: Filter for fiscal year 2023 transactions
+      
+      - name: fiscal_year_2024
+        sql: "YEAR({CUBE}.\"POSTING_DATE\") = 2024"
+        title: Fiscal Year 2024
+        description: Filter for fiscal year 2024 transactions
+      
+      - name: fiscal_year_2025
+        sql: "YEAR({CUBE}.\"POSTING_DATE\") = 2025"
+        title: Fiscal Year 2025
+        description: Filter for fiscal year 2025 transactions
+      
+      # Comparative Period Segments
+      - name: comparative_period
+        sql: "YEAR({CUBE}.\"POSTING_DATE\") >= YEAR(CURRENT_DATE()) - 1 AND YEAR({CUBE}.\"POSTING_DATE\") <= YEAR(CURRENT_DATE())"
+        title: Comparative Period
+        description: Current and prior year combined for comparison
+      
+      - name: three_year_period
+        sql: "YEAR({CUBE}.\"POSTING_DATE\") >= YEAR(CURRENT_DATE()) - 2 AND YEAR({CUBE}.\"POSTING_DATE\") <= YEAR(CURRENT_DATE())"
+        title: Three Year Period
+        description: Current year and two prior years for trend analysis
+      
+      - name: five_year_period
+        sql: "YEAR({CUBE}.\"POSTING_DATE\") >= YEAR(CURRENT_DATE()) - 4 AND YEAR({CUBE}.\"POSTING_DATE\") <= YEAR(CURRENT_DATE())"
+        title: Five Year Period
+        description: Five year period for long-term trend analysis
 
     pre_aggregations:
       # Monthly Trial Balance Summary
@@ -674,4 +870,173 @@ cubes:
             columns:
               - g_l_entry__g_laccount_no
               - g_l_entry__company_id
+      
+      # Annual Comparative Balance Pre-Aggregations
+      - name: annual_comparative_balances
+        measures:
+          - cy_total_amount
+          - cy_debit_amount
+          - cy_credit_amount
+          - cy_net_change
+          - py_total_amount
+          - py_debit_amount
+          - py_credit_amount
+          - py_net_change
+          - yoy_amount_variance
+          - yoy_amount_variance_pct
+          - yoy_net_change_variance
+          - yoy_net_change_variance_pct
+        dimensions:
+          - g_laccount_no
+          - g_laccount_name
+          - global_dimension_1_code
+          - global_dimension_2_code
+          - business_unit_code
+          - source_type
+          - company_id
+        time_dimension: posting_date
+        granularity: year
+        refresh_key:
+          every: 1 hour
+        indexes:
+          - name: annual_account_idx
+            columns:
+              - g_l_entry__g_laccount_no
+              - g_l_entry__posting_date_year
+          - name: annual_dimension_idx
+            columns:
+              - g_l_entry__global_dimension_1_code
+              - g_l_entry__global_dimension_2_code
+              - g_l_entry__posting_date_year
+      
+      # Quarterly Year-over-Year Comparison
+      - name: quarterly_yoy_comparison
+        measures:
+          - cy_total_amount
+          - cy_debit_amount
+          - cy_credit_amount
+          - py_total_amount
+          - py_debit_amount
+          - py_credit_amount
+          - yoy_amount_variance
+          - yoy_amount_variance_pct
+        dimensions:
+          - g_laccount_no
+          - g_laccount_name
+          - global_dimension_1_code
+          - global_dimension_2_code
+          - company_id
+        time_dimension: posting_date
+        granularity: quarter
+        partition_granularity: year
+        refresh_key:
+          every: 1 hour
+        indexes:
+          - name: quarterly_yoy_account_idx
+            columns:
+              - g_l_entry__g_laccount_no
+              - g_l_entry__posting_date_quarter
+          - name: quarterly_yoy_dimension_idx
+            columns:
+              - g_l_entry__global_dimension_1_code
+              - g_l_entry__posting_date_quarter
+      
+      # Monthly Year-over-Year Comparison
+      - name: monthly_yoy_comparison
+        measures:
+          - cy_total_amount
+          - cy_debit_amount
+          - cy_credit_amount
+          - cy_net_change
+          - py_total_amount
+          - py_debit_amount
+          - py_credit_amount
+          - py_net_change
+          - yoy_amount_variance
+          - yoy_amount_variance_pct
+          - yoy_net_change_variance
+        dimensions:
+          - g_laccount_no
+          - g_laccount_name
+          - global_dimension_1_code
+          - global_dimension_2_code
+          - business_unit_code
+          - company_id
+        time_dimension: posting_date
+        granularity: month
+        partition_granularity: year
+        build_range_start:
+          sql: "DATEADD('year', -2, DATE_TRUNC('year', CURRENT_DATE()))"
+        build_range_end:
+          sql: "CURRENT_DATE()"
+        refresh_key:
+          every: 1 hour
+        indexes:
+          - name: monthly_yoy_account_idx
+            columns:
+              - g_l_entry__g_laccount_no
+              - g_l_entry__posting_date_month
+          - name: monthly_yoy_dimension_idx
+            columns:
+              - g_l_entry__global_dimension_1_code
+              - g_l_entry__global_dimension_2_code
+              - g_l_entry__posting_date_month
+      
+      # Account Category Year-over-Year Summary
+      - name: account_category_yoy
+        measures:
+          - cy_total_amount
+          - cy_net_change
+          - py_total_amount
+          - py_net_change
+          - yoy_amount_variance
+          - yoy_amount_variance_pct
+          - two_year_ago_amount
+          - three_year_ago_amount
+        dimensions:
+          - g_laccount_no
+          - global_dimension_1_code
+          - global_dimension_2_code
+          - company_id
+        refresh_key:
+          every: 1 hour
+        indexes:
+          - name: category_yoy_idx
+            columns:
+              - g_l_entry__g_laccount_no
+              - g_l_entry__company_id
+      
+      # Dimension Year-over-Year Analysis
+      - name: dimension_yoy_analysis
+        measures:
+          - cy_total_amount
+          - cy_debit_amount
+          - cy_credit_amount
+          - py_total_amount
+          - py_debit_amount
+          - py_credit_amount
+          - yoy_amount_variance
+          - yoy_amount_variance_pct
+        dimensions:
+          - global_dimension_1_code
+          - global_dimension_2_code
+          - shortcut_dimension_3_code
+          - shortcut_dimension_4_code
+          - business_unit_code
+          - company_id
+        time_dimension: posting_date
+        granularity: month
+        partition_granularity: year
+        build_range_start:
+          sql: "DATEADD('year', -2, DATE_TRUNC('year', CURRENT_DATE()))"
+        build_range_end:
+          sql: "CURRENT_DATE()"
+        refresh_key:
+          every: 1 hour
+        indexes:
+          - name: dimension_analysis_idx
+            columns:
+              - g_l_entry__global_dimension_1_code
+              - g_l_entry__global_dimension_2_code
+              - g_l_entry__posting_date_month
 

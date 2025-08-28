@@ -1,0 +1,115 @@
+views:
+  - name: trial_balance_yoy_comparison_view
+    title: Trial Balance Year-over-Year Comparison
+    description: Comprehensive year-over-year trial balance comparison view for strategic financial planning and variance analysis
+    public: true
+    
+    cubes:
+      # Primary cube - GL Entries with all YoY comparison measures
+      - join_path: g_l_entry
+        includes:
+          # Key identifiers
+          - system_id
+          - document_no
+          - document_type
+          
+          # Dates for filtering and grouping
+          - posting_date
+          - document_date
+          
+          # Account information
+          - g_laccount_no
+          - g_laccount_name
+          - description
+          
+          # Dimensions for analysis
+          - global_dimension_1_code
+          - global_dimension_2_code
+          - shortcut_dimension_3_code
+          - shortcut_dimension_4_code
+          - business_unit_code
+          
+          # Source and type information
+          - source_type
+          - source_no
+          - journal_templ_name
+          - journal_batch_name
+          
+          # Current Year Measures
+          - cy_total_amount
+          - cy_debit_amount
+          - cy_credit_amount
+          - cy_net_change
+          - cy_opening_balance
+          - cy_closing_balance
+          
+          # Previous Year Measures
+          - py_total_amount
+          - py_debit_amount
+          - py_credit_amount
+          - py_net_change
+          - py_opening_balance
+          - py_closing_balance
+          
+          # Year-over-Year Variance Measures
+          - yoy_amount_variance
+          - yoy_amount_variance_pct
+          - yoy_net_change_variance
+          - yoy_net_change_variance_pct
+          
+          # Multi-Year Trend Measures
+          - two_year_ago_amount
+          - three_year_ago_amount
+          
+          # Standard Measures for Current Period
+          - total_amount
+          - total_debit_amount
+          - total_credit_amount
+          - count
+          
+          # Year-to-Date Measures
+          - ytd_debit
+          - ytd_credit
+          - ytd_net_change
+          - current_year_amount
+          - prior_year_amount
+          
+          # Period comparisons
+          - current_period_amount
+          - prior_period_amount
+          - period_over_period_change
+          - year_over_year_change
+      
+      # Account master data with prefixes
+      - join_path: g_l_entry.g_l_account
+        prefix: true
+        includes:
+          - no
+          - name
+          - account_category
+          - account_type
+          - income_balance
+          - debit_credit
+          - direct_posting
+          - blocked
+          - reconciliation_account
+          - totaling
+          - gen_bus_posting_group
+          - gen_prod_posting_group
+          - vat_bus_posting_group
+          - vat_prod_posting_group
+          - tax_liable
+          - exchange_rate_adjustment
+          - gifi_code
+          - balance
+          - net_change
+          - debit_amount
+          - credit_amount
+          - budgeted_amount
+      
+      # Company information with prefixes
+      - join_path: g_l_entry.company
+        prefix: true
+        includes:
+          - name
+          - display_name
