@@ -7,6 +7,10 @@ cubes:
       - name: company
         sql: "{CUBE}.\"COMPANY_ID\" = {company}.\"ID\""
         relationship: many_to_one
+      
+      - name: g_l_entries
+        sql: "{CUBE}.\"NO\" = {g_l_entry}.\"G_LACCOUNT_NO\" AND {CUBE}.\"COMPANY_ID\" = {g_l_entry}.\"COMPANY_ID\""
+        relationship: one_to_many
 
     dimensions:
       - name: system_modified_by
@@ -41,10 +45,6 @@ cubes:
         sql: "{CUBE}.\"VAT_REPORTING_DATE_FILTER\""
         type: string
 
-      - name: credit_amount
-        sql: "{CUBE}.\"CREDIT_AMOUNT\""
-        type: string
-
       - name: add_currency_balance_at_date
         sql: "{CUBE}.\"ADD_CURRENCY_BALANCE_AT_DATE\""
         type: string
@@ -55,10 +55,6 @@ cubes:
 
       - name: add_currency_debit_amount
         sql: "{CUBE}.\"ADD_CURRENCY_DEBIT_AMOUNT\""
-        type: string
-
-      - name: net_change
-        sql: "{CUBE}.\"NET_CHANGE\""
         type: string
 
       - name: income_balance
@@ -89,14 +85,6 @@ cubes:
         sql: "{CUBE}.\"TAX_LIABLE\""
         type: boolean
 
-      - name: budgeted_amount
-        sql: "{CUBE}.\"BUDGETED_AMOUNT\""
-        type: string
-
-      - name: debit_amount
-        sql: "{CUBE}.\"DEBIT_AMOUNT\""
-        type: string
-
       - name: tax_group_code
         sql: "{CUBE}.\"TAX_GROUP_CODE\""
         type: string
@@ -123,10 +111,6 @@ cubes:
 
       - name: date_filter
         sql: "{CUBE}.\"DATE_FILTER\""
-        type: string
-
-      - name: balance
-        sql: "{CUBE}.\"BALANCE\""
         type: string
 
       - name: exchange_rate_adjustment
@@ -293,6 +277,36 @@ cubes:
     measures:
       - name: count
         type: count
+      
+      - name: balance
+        type: number
+        sql: "CAST({CUBE}.\"BALANCE\" AS NUMBER)"
+        title: Account Balance
+        format: currency
+      
+      - name: net_change
+        type: number
+        sql: "CAST({CUBE}.\"NET_CHANGE\" AS NUMBER)"
+        title: Net Change
+        format: currency
+      
+      - name: debit_amount
+        type: number
+        sql: "CAST({CUBE}.\"DEBIT_AMOUNT\" AS NUMBER)"
+        title: Debit Amount
+        format: currency
+      
+      - name: credit_amount
+        type: number
+        sql: "CAST({CUBE}.\"CREDIT_AMOUNT\" AS NUMBER)"
+        title: Credit Amount
+        format: currency
+      
+      - name: budgeted_amount
+        type: number
+        sql: "CAST({CUBE}.\"BUDGETED_AMOUNT\" AS NUMBER)"
+        title: Budgeted Amount
+        format: currency
 
     pre_aggregations:
       # Pre-aggregation definitions go here.

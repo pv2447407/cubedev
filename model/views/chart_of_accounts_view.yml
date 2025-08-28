@@ -1,181 +1,291 @@
 views:
   - name: chart_of_accounts_view
     title: Chart of Accounts Analysis
-    description: Comprehensive view for account structure, balances, and posting integrity analysis
+    description: Comprehensive view for account structure and posting integrity queries with balance calculations and budget comparisons
     public: true
     
     cubes:
-      # Include G/L Account master data
-      - join_path: g_l_account_extended
-        prefix: false
+      # Include GL Account as the primary cube
+      - join_path: g_l_account
         includes:
-          # Primary fields
-          - name: no
-            alias: account_no
-            title: Account Number
-            description: General Ledger account number
+          # Account identifiers
+          - no
+          - name
+          - search_name
           
-          - name: name
-            alias: account_name
-            title: Account Name
-            
-          - name: account_type
-            title: Account Type
-            description: Posting, Total, Begin-Total, or End-Total
-            
-          - name: income_balance
-            title: Income/Balance Sheet
-            description: Income Statement or Balance Sheet account
-            
-          - name: account_category
-            title: Account Category
-            description: Detailed account categorization
-            
-          - name: account_subcategory
-            title: Account Subcategory
-            
-          - name: direct_posting
-            title: Direct Posting Allowed
-            description: Whether direct posting is allowed to this account
-            
-          - name: blocked
-            title: Account Blocked
-            description: Account blocking status
-            
-          # Financial fields
-          - name: balance
-            alias: current_balance
-            title: Current Balance
-            description: Current account balance
-            
-          - name: net_change
-            alias: period_net_change
-            title: Period Net Change
-            description: Net change in current period
-            
-          - name: debit_amount
-            title: Total Debit Amount
-            
-          - name: credit_amount
-            title: Total Credit Amount
-            
-          - name: budgeted_amount
-            title: Budgeted Amount
-            description: Budget allocation for this account
-            
-          # Extended measures
-          - name: budget_variance_amount
-            title: Budget Variance Amount
-            
-          - name: budget_variance_percent
-            title: Budget Variance %
-            
-          - name: budget_utilization
-            title: Budget Utilization %
-            
-          - name: account_turnover
-            title: Account Turnover
-            
-          - name: average_entry_amount
-            title: Average Entry Amount
-            
-          # Posting groups
-          - name: gen_posting_type
-            title: General Posting Type
-            
-          - name: gen_bus_posting_group
-            title: General Business Posting Group
-            
-          - name: gen_prod_posting_group
-            title: General Product Posting Group
-            
-          - name: vat_bus_posting_group
-            title: VAT Business Posting Group
-            
-          - name: vat_prod_posting_group
-            title: VAT Product Posting Group
-            
-          # Consolidation fields
-          - name: consol_debit_acc
-            title: Consolidation Debit Account
-            
-          - name: consol_credit_acc
-            title: Consolidation Credit Account
-            
-          # Audit fields
-          - name: system_created_at
-            title: Created Date
-            
-          - name: system_modified_at
-            title: Modified Date
-      
-      # Include G/L Entry transactional data
-      - join_path: g_l_account_extended.g_l_entry
+          # Account categorization
+          - account_category
+          - account_subcategory_descript
+          - account_type
+          - income_balance
+          
+          # Posting controls
+          - direct_posting
+          - blocked
+          - reconciliation_account
+          
+          # Account groups
+          - gen_posting_type
+          - gen_bus_posting_group
+          - gen_prod_posting_group
+          - vat_bus_posting_group
+          - vat_prod_posting_group
+          
+          # Totaling and indentation
+          - totaling
+          - indentation
+          
+          # Consolidation
+          - consol_translation_method
+          - consol_debit_acc
+          - consol_credit_acc
+          
+          # Cost accounting
+          - cost_type_no
+          - cost_center_filter
+          - cost_object_filter
+          
+          # Exchange rates
+          - exchange_rate_adjustment
+          
+          # Timestamps
+          - last_modified_date_time
+          - last_date_modified
+          
+          # Measures from g_l_account
+          - count
+          - active_accounts_count
+          - blocked_accounts_count
+          - direct_posting_accounts_count
+          - reconciliation_accounts_count
+          - balance_sheet_accounts_count
+          - income_statement_accounts_count
+          
+      # Include GL Entry data with prefix
+      - join_path: g_l_account.g_l_entries
         prefix: true
         includes:
-          - name: system_id
-            title: Entry ID
-            
-          - name: posting_date
-            title: Posting Date
-            
-          - name: document_type
-            title: Document Type
-            
-          - name: document_no
-            title: Document Number
-            
-          - name: description
-            title: Entry Description
-            
-          - name: amount
-            title: Entry Amount
-            
-          - name: debit_amount
-            title: Entry Debit Amount
-            
-          - name: credit_amount
-            title: Entry Credit Amount
-            
-          - name: vat_amount
-            title: VAT Amount
-            
-          - name: source_type
-            title: Source Type
-            
-          - name: source_no
-            title: Source Number
-            
-          - name: user_id
-            title: User ID
-            
-          # Dimensions
-          - name: global_dimension_1_code
-            title: Global Dimension 1
-            
-          - name: global_dimension_2_code
-            title: Global Dimension 2
-            
-          - name: dimension_set_id
-            title: Dimension Set ID
-            
-          # Measures from g_l_entry
-          - name: count
-            alias: entry_count
-            title: Number of Entries
-            
-          - name: dimension_changes_count
-            title: Dimension Changes Count
-      
+          # Entry details
+          - entry_no
+          - posting_date
+          - document_type
+          - document_no
+          - description
+          - source_type
+          - source_no
+          - job_no
+          - quantity
+          
+          # Financial amounts
+          - amount
+          - debit_amount
+          - credit_amount
+          - vat_amount
+          - additional_currency_amount
+          
+          # Dimension codes
+          - global_dimension_1_code
+          - global_dimension_2_code
+          - business_unit_code
+          
+          # User and reason codes
+          - user_id
+          - reason_code
+          
+          # Reversal info
+          - reversed
+          
+          # Timestamps
+          - last_modified_date_time
+          
+          # Measures from g_l_entries
+          - count
+          - total_amount
+          - total_debit_amount
+          - total_credit_amount
+          - avg_amount
+          - max_amount
+          - min_amount
+          - unique_documents
+          - unique_sources
+          - unique_jobs
+          
+          # Period-based measures
+          - current_period_amount
+          - prior_period_amount
+          - current_year_amount
+          - prior_year_amount
+          - period_over_period_change
+          - year_over_year_change
+          
+          
       # Include Company information
-      - join_path: g_l_account_extended.company
+      - join_path: g_l_account.company
         prefix: true
         includes:
-          - name: name
-            title: Company Name
-            
-          - name: display_name
-            title: Company Display Name
-            
-          - name: id
-            title: Company ID
+          - name
+          - display_name
+          - country_region_code
+          - vat_registration_no
+          - currency_code
+          - allow_blank_payment_info
+          - check_for_dup_time_sheets
+    
+    # Segments for filtering
+    segments:
+      # Account Type Segments
+      - name: balance_sheet_accounts
+        sql: "{CUBE}.account_category IN ('Assets', 'Liabilities', 'Equity')"
+        title: Balance Sheet Accounts
+        description: Filter for balance sheet accounts only
+        
+      - name: income_statement_accounts
+        sql: "{CUBE}.account_category IN ('Income', 'Cost of Goods Sold', 'Expense')"
+        title: Income Statement Accounts
+        description: Filter for income statement accounts only
+        
+      - name: asset_accounts
+        sql: "{CUBE}.account_category = 'Assets'"
+        title: Asset Accounts
+        
+      - name: liability_accounts
+        sql: "{CUBE}.account_category = 'Liabilities'"
+        title: Liability Accounts
+        
+      - name: equity_accounts
+        sql: "{CUBE}.account_category = 'Equity'"
+        title: Equity Accounts
+        
+      - name: revenue_accounts
+        sql: "{CUBE}.account_category = 'Income'"
+        title: Revenue Accounts
+        
+      - name: expense_accounts
+        sql: "{CUBE}.account_category = 'Expense'"
+        title: Expense Accounts
+        
+      - name: cogs_accounts
+        sql: "{CUBE}.account_category = 'Cost of Goods Sold'"
+        title: COGS Accounts
+        
+      # Posting Group Segments
+      - name: has_general_posting_group
+        sql: "{CUBE}.gen_bus_posting_group IS NOT NULL OR {CUBE}.gen_prod_posting_group IS NOT NULL"
+        title: Has General Posting Groups
+        description: Accounts with general posting groups assigned
+        
+      - name: has_vat_posting_group
+        sql: "{CUBE}.vat_bus_posting_group IS NOT NULL OR {CUBE}.vat_prod_posting_group IS NOT NULL"
+        title: Has VAT Posting Groups
+        description: Accounts with VAT posting groups assigned
+        
+      # Blocked Status Filtering
+      - name: active_accounts
+        sql: "{CUBE}.blocked = false"
+        title: Active Accounts
+        description: Non-blocked accounts only
+        
+      - name: blocked_accounts
+        sql: "{CUBE}.blocked = true"
+        title: Blocked Accounts
+        description: Blocked accounts only
+        
+      # Direct Posting Filtering
+      - name: direct_posting_allowed
+        sql: "{CUBE}.direct_posting = true"
+        title: Direct Posting Allowed
+        description: Accounts allowing direct posting
+        
+      - name: no_direct_posting
+        sql: "{CUBE}.direct_posting = false"
+        title: No Direct Posting
+        description: Accounts not allowing direct posting
+        
+      # Reconciliation Accounts
+      - name: is_reconciliation_account
+        sql: "{CUBE}.reconciliation_account = true"
+        title: Reconciliation Accounts
+        description: Accounts marked for reconciliation
+        
+      # Exchange Rate Adjustment
+      - name: requires_exchange_adjustment
+        sql: "{CUBE}.exchange_rate_adjustment IS NOT NULL AND {CUBE}.exchange_rate_adjustment != 'No Adjustment'"
+        title: Exchange Rate Adjustment Required
+        description: Accounts requiring exchange rate adjustments
+    
+    # Pre-aggregations for performance
+    pre_aggregations:
+      # Account balances by fiscal period (monthly)
+      - name: account_balances_monthly
+        measures:
+          - g_l_entries_total_amount
+          - g_l_entries_total_debit_amount
+          - g_l_entries_total_credit_amount
+          - g_l_entries_count
+        dimensions:
+          - no
+          - name
+          - account_category
+          - account_type
+          - blocked
+          - direct_posting
+        time_dimension: g_l_entries.posting_date
+        granularity: month
+        partition_granularity: year
+        refresh_key:
+          every: 1 hour
+        indexes:
+          - name: account_month_idx
+            columns:
+              - no
+              - g_l_entries__posting_date_month
+              
+      # Daily balances for recent period
+      - name: account_balances_daily_recent
+        measures:
+          - g_l_entries_total_amount
+          - g_l_entries_total_debit_amount
+          - g_l_entries_total_credit_amount
+        dimensions:
+          - no
+          - name
+          - account_category
+        time_dimension: g_l_entries.posting_date
+        granularity: day
+        build_range_start:
+          sql: DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY)
+        build_range_end:
+          sql: CURRENT_DATE()
+        refresh_key:
+          every: 30 minutes
+          
+      # Account type summary
+      - name: account_type_summary
+        measures:
+          - count
+          - g_l_entries_total_amount
+          - g_l_entries_count
+        dimensions:
+          - account_category
+          - account_type
+          - income_balance
+          - blocked
+        time_dimension: g_l_entries.posting_date
+        granularity: month
+        refresh_key:
+          every: 1 hour
+          
+      # Posting group analysis
+      - name: posting_group_balances
+        measures:
+          - g_l_entries_total_amount
+          - count
+        dimensions:
+          - gen_bus_posting_group
+          - gen_prod_posting_group
+          - vat_bus_posting_group
+          - vat_prod_posting_group
+        time_dimension: g_l_entries.posting_date
+        granularity: month
+        refresh_key:
+          every: 2 hours

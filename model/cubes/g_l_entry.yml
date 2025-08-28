@@ -281,6 +281,75 @@ cubes:
       - name: dimension_changes_count
         sql: "{CUBE}.\"DIMENSION_CHANGES_COUNT\""
         type: sum
+      
+      - name: total_amount
+        sql: "{CUBE}.\"AMOUNT\""
+        type: sum
+        
+      - name: total_debit_amount
+        sql: "{CUBE}.\"DEBIT_AMOUNT\""
+        type: sum
+        
+      - name: total_credit_amount
+        sql: "{CUBE}.\"CREDIT_AMOUNT\""
+        type: sum
+        
+      - name: avg_amount
+        sql: "{CUBE}.\"AMOUNT\""
+        type: avg
+        
+      - name: max_amount
+        sql: "{CUBE}.\"AMOUNT\""
+        type: max
+        
+      - name: min_amount
+        sql: "{CUBE}.\"AMOUNT\""
+        type: min
+        
+      - name: unique_documents
+        sql: "{CUBE}.\"DOCUMENT_NO\""
+        type: count_distinct
+        
+      - name: unique_sources
+        sql: "{CUBE}.\"SOURCE_NO\""
+        type: count_distinct
+        
+      - name: unique_jobs
+        sql: "{CUBE}.\"JOB_NO\""
+        type: count_distinct
+        
+      # Period-based measures
+      - name: current_period_amount
+        sql: "{CUBE}.\"AMOUNT\""
+        type: sum
+        filters:
+          - sql: "DATE_TRUNC('month', {CUBE}.\"POSTING_DATE\") = DATE_TRUNC('month', CURRENT_DATE())"
+            
+      - name: prior_period_amount
+        sql: "{CUBE}.\"AMOUNT\""
+        type: sum
+        filters:
+          - sql: "DATE_TRUNC('month', {CUBE}.\"POSTING_DATE\") = DATE_TRUNC('month', DATEADD('month', -1, CURRENT_DATE()))"
+            
+      - name: current_year_amount
+        sql: "{CUBE}.\"AMOUNT\""
+        type: sum
+        filters:
+          - sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE())"
+            
+      - name: prior_year_amount
+        sql: "{CUBE}.\"AMOUNT\""
+        type: sum
+        filters:
+          - sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1"
+            
+      - name: period_over_period_change
+        sql: "SUM(CASE WHEN DATE_TRUNC('month', {CUBE}.\"POSTING_DATE\") = DATE_TRUNC('month', CURRENT_DATE()) THEN {CUBE}.\"AMOUNT\" ELSE 0 END) - SUM(CASE WHEN DATE_TRUNC('month', {CUBE}.\"POSTING_DATE\") = DATE_TRUNC('month', DATEADD('month', -1, CURRENT_DATE())) THEN {CUBE}.\"AMOUNT\" ELSE 0 END)"
+        type: number
+        
+      - name: year_over_year_change
+        sql: "SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) THEN {CUBE}.\"AMOUNT\" ELSE 0 END) - SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1 THEN {CUBE}.\"AMOUNT\" ELSE 0 END)"
+        type: number
 
     pre_aggregations:
       # Pre-aggregation definitions go here.
