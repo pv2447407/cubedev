@@ -1,0 +1,169 @@
+views:
+  - name: detail_trial_balance_view
+    title: Detail Trial Balance
+    description: Comprehensive trial balance view for transaction-level analysis with opening balance, net change, and closing balance calculations
+    public: true
+    
+    cubes:
+      # Primary cube - GL Entries with all transaction details
+      - join_path: g_l_entry
+        includes:
+          # Key identifiers
+          - system_id
+          - document_no
+          - document_type
+          - external_document_no
+          
+          # Dates
+          - posting_date
+          - document_date
+          - vat_reporting_date
+          
+          # Account information
+          - g_laccount_no
+          - g_laccount_name
+          - description
+          
+          # Dimensions
+          - global_dimension_1_code
+          - global_dimension_2_code
+          - shortcut_dimension_3_code
+          - shortcut_dimension_4_code
+          - shortcut_dimension_5_code
+          - shortcut_dimension_6_code
+          - shortcut_dimension_7_code
+          - shortcut_dimension_8_code
+          - business_unit_code
+          
+          # Source information
+          - source_type
+          - source_no
+          - source_code
+          - job_no
+          
+          # Posting groups
+          - gen_bus_posting_group
+          - gen_prod_posting_group
+          - vat_bus_posting_group
+          - vat_prod_posting_group
+          
+          # Amounts - Raw dimensions
+          - amount
+          - debit_amount
+          - credit_amount
+          - additional_currency_amount
+          - vat_amount
+          
+          # Transaction counts and measures
+          - count
+          - total_amount
+          - total_debit_amount
+          - total_credit_amount
+          
+          # Trial Balance specific measures
+          - opening_balance
+          - period_debit
+          - period_credit
+          - net_change_period
+          - closing_balance
+          
+          # Year/Period to Date measures
+          - ytd_debit
+          - ytd_credit
+          - ytd_net_change
+          - mtd_amount
+          - qtd_amount
+          - current_period_amount
+          - prior_period_amount
+          - current_year_amount
+          - prior_year_amount
+          
+          # Analytical measures
+          - avg_amount
+          - max_amount
+          - min_amount
+          - unique_documents
+          - unique_sources
+          - unique_jobs
+          
+          # Change metrics
+          - period_over_period_change
+          - year_over_year_change
+          
+          # Status flags
+          - reversed
+          - prior_year_entry
+          - system_created_entry
+          - use_tax
+          - tax_liable
+          
+          # User tracking
+          - user_id
+          - system_created_by
+          - system_modified_by
+      
+      # GL Account details with prefix
+      - join_path: g_l_entry.g_l_account
+        prefix: true
+        includes:
+          - no
+          - name
+          - search_name
+          - account_type
+          - account_category
+          - income_balance
+          - debit_credit
+          - totaling
+          
+          # Account status
+          - blocked
+          - direct_posting
+          - reconciliation_account
+          
+          # Account balances from GL Account
+          - balance
+          - net_change
+          - debit_amount
+          - credit_amount
+          - budgeted_amount
+          
+          # Posting groups from account
+          - gen_bus_posting_group
+          - gen_prod_posting_group
+          - vat_bus_posting_group
+          - vat_prod_posting_group
+          
+          # Tax information
+          - tax_area_code
+          - tax_group_code
+          - tax_liable
+          
+          # Consolidation fields
+          - consol_debit_acc
+          - consol_credit_acc
+          - consol_translation_method
+          
+          # Exchange rate
+          - exchange_rate_adjustment
+          
+          # Default dimensions
+          - global_dimension_1_code
+          - global_dimension_2_code
+          
+          # Other account attributes
+          - cost_type_no
+          - gifi_code
+          - api_account_type
+          - omit_default_descr_in_jnl
+          - automatic_ext_texts
+          - new_page
+      
+      # Company information
+      - join_path: g_l_entry.company
+        prefix: true
+        includes:
+          - name
+          - display_name
+          - business_profile_id
+          - evaluation_company
+          

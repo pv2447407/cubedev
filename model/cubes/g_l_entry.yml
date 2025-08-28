@@ -7,6 +7,11 @@ cubes:
       - name: company
         sql: "{CUBE}.\"COMPANY_ID\" = {company}.\"ID\""
         relationship: many_to_one
+      
+      - name: g_l_account
+        sql: "{CUBE}.\"G_LACCOUNT_NO\" = {g_l_account}.\"NO\" AND {CUBE}.\"COMPANY_ID\" = {g_l_account}.\"COMPANY_ID\""
+        relationship: many_to_one
+      
 
     dimensions:
       - name: g_laccount_no
@@ -350,8 +355,323 @@ cubes:
       - name: year_over_year_change
         sql: "SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) THEN {CUBE}.\"AMOUNT\" ELSE 0 END) - SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1 THEN {CUBE}.\"AMOUNT\" ELSE 0 END)"
         type: number
+      
+      # Trial Balance specific measures
+      - name: opening_balance
+        type: sum
+        sql: "{CUBE}.\"AMOUNT\""
+        title: Opening Balance
+        description: Sum of all amounts up to the start of the period
+        filters:
+          - sql: "{CUBE}.\"POSTING_DATE\" < DATE_TRUNC('year', CURRENT_DATE())"
+        format: currency
+      
+      - name: period_debit
+        type: sum
+        sql: "{CUBE}.\"DEBIT_AMOUNT\""
+        title: Period Debit
+        description: Debit amounts for the current period
+        format: currency
+      
+      - name: period_credit
+        type: sum
+        sql: "{CUBE}.\"CREDIT_AMOUNT\""
+        title: Period Credit
+        description: Credit amounts for the current period
+        format: currency
+      
+      - name: net_change_period
+        type: number
+        sql: "SUM({CUBE}.\"DEBIT_AMOUNT\") - SUM({CUBE}.\"CREDIT_AMOUNT\")"
+        title: Net Change
+        description: Net change in the period (Debits - Credits)
+        format: currency
+      
+      - name: closing_balance
+        type: number
+        sql: "SUM({CUBE}.\"AMOUNT\")"
+        title: Closing Balance
+        description: Cumulative balance including opening and period changes
+        format: currency
+      
+      - name: ytd_debit
+        type: sum
+        sql: "{CUBE}.\"DEBIT_AMOUNT\""
+        title: Year-to-Date Debit
+        filters:
+          - sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE())"
+        format: currency
+      
+      - name: ytd_credit
+        type: sum
+        sql: "{CUBE}.\"CREDIT_AMOUNT\""
+        title: Year-to-Date Credit
+        filters:
+          - sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE())"
+        format: currency
+      
+      - name: ytd_net_change
+        type: number
+        sql: "SUM(CASE WHEN YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) THEN {CUBE}.\"DEBIT_AMOUNT\" - {CUBE}.\"CREDIT_AMOUNT\" ELSE 0 END)"
+        title: Year-to-Date Net Change
+        format: currency
+      
+      - name: mtd_amount
+        type: sum
+        sql: "{CUBE}.\"AMOUNT\""
+        title: Month-to-Date Amount
+        filters:
+          - sql: "DATE_TRUNC('month', {CUBE}.\"POSTING_DATE\") = DATE_TRUNC('month', CURRENT_DATE())"
+        format: currency
+      
+      - name: qtd_amount
+        type: sum
+        sql: "{CUBE}.\"AMOUNT\""
+        title: Quarter-to-Date Amount
+        filters:
+          - sql: "DATE_TRUNC('quarter', {CUBE}.\"POSTING_DATE\") = DATE_TRUNC('quarter', CURRENT_DATE())"
+        format: currency
+
+    segments:
+      # Fiscal Year Segments
+      - name: current_fiscal_year
+        sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE())"
+        title: Current Fiscal Year
+        description: Filter for current fiscal year transactions
+      
+      - name: prior_fiscal_year
+        sql: "YEAR({CUBE}.\"POSTING_DATE\") = YEAR(CURRENT_DATE()) - 1"
+        title: Prior Fiscal Year
+        description: Filter for prior fiscal year transactions
+      
+      - name: current_fiscal_quarter
+        sql: "DATE_TRUNC('quarter', {CUBE}.\"POSTING_DATE\") = DATE_TRUNC('quarter', CURRENT_DATE())"
+        title: Current Fiscal Quarter
+        description: Filter for current quarter transactions
+      
+      - name: current_fiscal_month
+        sql: "DATE_TRUNC('month', {CUBE}.\"POSTING_DATE\") = DATE_TRUNC('month', CURRENT_DATE())"
+        title: Current Fiscal Month
+        description: Filter for current month transactions
+      
+      # Department/Dimension Segments
+      - name: has_dimension_1
+        sql: "{CUBE}.\"GLOBAL_DIMENSION_1_CODE\" IS NOT NULL AND {CUBE}.\"GLOBAL_DIMENSION_1_CODE\" != ''"
+        title: Has Department Code
+        description: Entries with Global Dimension 1 (typically Department)
+      
+      - name: has_dimension_2
+        sql: "{CUBE}.\"GLOBAL_DIMENSION_2_CODE\" IS NOT NULL AND {CUBE}.\"GLOBAL_DIMENSION_2_CODE\" != ''"
+        title: Has Project Code
+        description: Entries with Global Dimension 2 (typically Project)
+      
+      - name: has_business_unit
+        sql: "{CUBE}.\"BUSINESS_UNIT_CODE\" IS NOT NULL AND {CUBE}.\"BUSINESS_UNIT_CODE\" != ''"
+        title: Has Business Unit
+        description: Entries with Business Unit assigned
+      
+      # Date Range Segments
+      - name: last_30_days
+        sql: "{CUBE}.\"POSTING_DATE\" >= DATEADD('day', -30, CURRENT_DATE())"
+        title: Last 30 Days
+        description: Transactions in the last 30 days
+      
+      - name: last_90_days
+        sql: "{CUBE}.\"POSTING_DATE\" >= DATEADD('day', -90, CURRENT_DATE())"
+        title: Last 90 Days
+        description: Transactions in the last 90 days
+      
+      - name: last_12_months
+        sql: "{CUBE}.\"POSTING_DATE\" >= DATEADD('month', -12, CURRENT_DATE())"
+        title: Last 12 Months
+        description: Transactions in the last 12 months
+      
+      # Transaction Type Segments
+      - name: journal_entries
+        sql: "{CUBE}.\"SOURCE_TYPE\" = 'General Journal'"
+        title: Journal Entries
+        description: General journal entries only
+      
+      - name: customer_entries
+        sql: "{CUBE}.\"SOURCE_TYPE\" = 'Customer'"
+        title: Customer Entries
+        description: Customer-related GL entries
+      
+      - name: vendor_entries
+        sql: "{CUBE}.\"SOURCE_TYPE\" = 'Vendor'"
+        title: Vendor Entries
+        description: Vendor-related GL entries
+      
+      - name: bank_entries
+        sql: "{CUBE}.\"SOURCE_TYPE\" = 'Bank Account'"
+        title: Bank Entries
+        description: Bank-related GL entries
+      
+      # Posted vs System Generated
+      - name: manual_entries
+        sql: "{CUBE}.\"SYSTEM_CREATED_ENTRY\" = false"
+        title: Manual Entries
+        description: Manually created entries only
+      
+      - name: system_entries
+        sql: "{CUBE}.\"SYSTEM_CREATED_ENTRY\" = true"
+        title: System Entries
+        description: System-generated entries only
+      
+      # Reversal Status
+      - name: not_reversed
+        sql: "{CUBE}.\"REVERSED\" = false OR {CUBE}.\"REVERSED\" IS NULL"
+        title: Active Entries
+        description: Exclude reversed entries
+      
+      - name: reversed_entries
+        sql: "{CUBE}.\"REVERSED\" = true"
+        title: Reversed Entries
+        description: Reversed entries only
 
     pre_aggregations:
-      # Pre-aggregation definitions go here.
-      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+      # Monthly Trial Balance Summary
+      - name: trial_balance_monthly
+        measures:
+          - count
+          - total_amount
+          - total_debit_amount
+          - total_credit_amount
+          - closing_balance
+          - net_change_period
+        dimensions:
+          - g_laccount_no
+          - g_laccount_name
+          - global_dimension_1_code
+          - global_dimension_2_code
+          - business_unit_code
+          - source_type
+          - company_id
+        time_dimension: posting_date
+        granularity: month
+        partition_granularity: year
+        refresh_key:
+          every: 1 hour
+        indexes:
+          - name: account_date_idx
+            columns:
+              - g_l_entry__g_laccount_no
+              - g_l_entry__posting_date_month
+          - name: dimension_idx
+            columns:
+              - g_l_entry__global_dimension_1_code
+              - g_l_entry__global_dimension_2_code
+      
+      # Quarterly Trial Balance Summary
+      - name: trial_balance_quarterly
+        measures:
+          - count
+          - total_amount
+          - total_debit_amount  
+          - total_credit_amount
+          - ytd_debit
+          - ytd_credit
+          - ytd_net_change
+        dimensions:
+          - g_laccount_no
+          - g_laccount_name
+          - global_dimension_1_code
+          - global_dimension_2_code
+          - business_unit_code
+          - company_id
+        time_dimension: posting_date
+        granularity: quarter
+        partition_granularity: year
+        refresh_key:
+          every: 1 hour
+        indexes:
+          - name: account_quarter_idx
+            columns:
+              - g_l_entry__g_laccount_no
+              - g_l_entry__posting_date_quarter
+      
+      # Daily Trial Balance for Recent Period (90 days)
+      - name: trial_balance_daily_recent
+        measures:
+          - count
+          - total_amount
+          - total_debit_amount
+          - total_credit_amount
+        dimensions:
+          - g_laccount_no
+          - document_no
+          - document_type
+          - global_dimension_1_code
+          - global_dimension_2_code
+          - source_type
+          - reversed
+          - company_id
+        time_dimension: posting_date
+        granularity: day
+        build_range_start:
+          sql: "DATEADD('day', -90, CURRENT_DATE())"
+        build_range_end:
+          sql: "CURRENT_DATE()"
+        refresh_key:
+          every: 30 minutes
+        indexes:
+          - name: recent_account_date_idx
+            columns:
+              - g_l_entry__g_laccount_no
+              - g_l_entry__posting_date_day
+          - name: recent_document_idx
+            columns:
+              - g_l_entry__document_no
+              - g_l_entry__posting_date_day
+      
+      # Account Balance by Dimensions
+      - name: balance_by_dimensions
+        measures:
+          - count
+          - total_amount
+          - total_debit_amount
+          - total_credit_amount
+          - closing_balance
+        dimensions:
+          - g_laccount_no
+          - global_dimension_1_code
+          - global_dimension_2_code
+          - shortcut_dimension_3_code
+          - shortcut_dimension_4_code
+          - business_unit_code
+          - company_id
+        time_dimension: posting_date
+        granularity: month
+        partition_granularity: year
+        refresh_key:
+          every: 1 hour
+        indexes:
+          - name: dim_balance_idx
+            columns:
+              - g_l_entry__global_dimension_1_code
+              - g_l_entry__global_dimension_2_code
+              - g_l_entry__g_laccount_no
+      
+      # YTD Trial Balance Summary  
+      - name: ytd_trial_balance
+        measures:
+          - ytd_debit
+          - ytd_credit
+          - ytd_net_change
+          - current_year_amount
+        dimensions:
+          - g_laccount_no
+          - g_laccount_name
+          - global_dimension_1_code
+          - global_dimension_2_code
+          - company_id
+        segments:
+          - current_fiscal_year
+        refresh_key:
+          every: 1 hour
+        indexes:
+          - name: ytd_account_idx
+            columns:
+              - g_l_entry__g_laccount_no
+              - g_l_entry__company_id
 
