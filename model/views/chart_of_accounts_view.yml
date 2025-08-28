@@ -6,7 +6,7 @@ views:
     
     cubes:
       # Include G/L Account master data
-      - join_path: g_l_account
+      - join_path: g_l_account_extended
         prefix: false
         includes:
           # Primary fields
@@ -63,6 +63,22 @@ views:
             title: Budgeted Amount
             description: Budget allocation for this account
             
+          # Extended measures
+          - name: budget_variance_amount
+            title: Budget Variance Amount
+            
+          - name: budget_variance_percent
+            title: Budget Variance %
+            
+          - name: budget_utilization
+            title: Budget Utilization %
+            
+          - name: account_turnover
+            title: Account Turnover
+            
+          - name: average_entry_amount
+            title: Average Entry Amount
+            
           # Posting groups
           - name: gen_posting_type
             title: General Posting Type
@@ -94,7 +110,7 @@ views:
             title: Modified Date
       
       # Include G/L Entry transactional data
-      - join_path: g_l_entry
+      - join_path: g_l_account_extended.g_l_entry
         prefix: true
         includes:
           - name: system_id
@@ -152,7 +168,7 @@ views:
             title: Dimension Changes Count
       
       # Include Company information
-      - join_path: g_l_account.company
+      - join_path: g_l_account_extended.company
         prefix: true
         includes:
           - name: name
@@ -163,263 +179,3 @@ views:
             
           - name: id
             title: Company ID
-
-# Additional calculated measures for the view
-cubes:
-  - name: g_l_account
-    extends: g_l_account
-    
-    measures:
-      # Budget variance calculations
-      - name: budget_variance_amount
-        type: number
-        sql: "{net_change} - {budgeted_amount}"
-        title: Budget Variance Amount
-        description: Actual vs Budget variance amount
-        format: currency
-      
-      - name: budget_variance_percent
-        type: number
-        sql: |
-          CASE 
-            WHEN {budgeted_amount} = 0 THEN 0
-            ELSE (({net_change} - {budgeted_amount}) / ABS({budgeted_amount})) * 100
-          END
-        title: Budget Variance %
-        description: Actual vs Budget variance percentage
-        format: percent
-      
-      - name: budget_utilization
-        type: number
-        sql: |
-          CASE 
-            WHEN {budgeted_amount} = 0 THEN 0
-            ELSE ({net_change} / {budgeted_amount}) * 100
-          END
-        title: Budget Utilization %
-        description: Percentage of budget utilized
-        format: percent
-      
-      # Account activity measures
-      - name: account_turnover
-        type: number
-        sql: "{debit_amount} + {credit_amount}"
-        title: Account Turnover
-        description: Total account activity (debits + credits)
-        format: currency
-      
-      - name: average_entry_amount
-        type: number
-        sql: |
-          CASE 
-            WHEN {g_l_entry.count} = 0 THEN 0
-            ELSE {net_change} / {g_l_entry.count}
-          END
-        title: Average Entry Amount
-        description: Average amount per entry
-        format: currency
-    
-    segments:
-      # Account type segments
-      - name: posting_accounts_only
-        sql: "{CUBE}.\"ACCOUNT_TYPE\" = 'Posting'"
-        title: Posting Accounts Only
-        description: Filter for accounts that allow direct posting
-      
-      - name: total_accounts_only
-        sql: "{CUBE}.\"ACCOUNT_TYPE\" IN ('Total', 'Begin-Total', 'End-Total')"
-        title: Total Accounts Only
-        description: Filter for total/summary accounts
-      
-      # Income statement vs Balance sheet
-      - name: income_statement_accounts
-        sql: "{CUBE}.\"INCOME_BALANCE\" = 'Income Statement'"
-        title: Income Statement Accounts
-        description: Revenue and expense accounts
-      
-      - name: balance_sheet_accounts
-        sql: "{CUBE}.\"INCOME_BALANCE\" = 'Balance Sheet'"
-        title: Balance Sheet Accounts
-        description: Asset, liability, and equity accounts
-      
-      # Account category segments
-      - name: asset_accounts
-        sql: "{CUBE}.\"ACCOUNT_CATEGORY\" = 'Assets'"
-        title: Asset Accounts
-        description: All asset accounts
-      
-      - name: liability_accounts
-        sql: "{CUBE}.\"ACCOUNT_CATEGORY\" = 'Liabilities'"
-        title: Liability Accounts
-        description: All liability accounts
-      
-      - name: equity_accounts
-        sql: "{CUBE}.\"ACCOUNT_CATEGORY\" = 'Equity'"
-        title: Equity Accounts
-        description: All equity accounts
-      
-      - name: revenue_accounts
-        sql: "{CUBE}.\"ACCOUNT_CATEGORY\" = 'Income'"
-        title: Revenue Accounts
-        description: All revenue/income accounts
-      
-      - name: expense_accounts
-        sql: "{CUBE}.\"ACCOUNT_CATEGORY\" IN ('Cost of Goods Sold', 'Expense')"
-        title: Expense Accounts
-        description: All expense and COGS accounts
-      
-      # Posting status segments
-      - name: active_accounts
-        sql: "{CUBE}.\"BLOCKED\" = false AND {CUBE}.\"DIRECT_POSTING\" = true"
-        title: Active Accounts
-        description: Accounts available for posting
-      
-      - name: blocked_accounts
-        sql: "{CUBE}.\"BLOCKED\" = true"
-        title: Blocked Accounts
-        description: Accounts blocked from posting
-      
-      - name: indirect_posting_accounts
-        sql: "{CUBE}.\"DIRECT_POSTING\" = false"
-        title: Indirect Posting Accounts
-        description: Accounts that don't allow direct posting
-      
-      # Budget segments
-      - name: over_budget_accounts
-        sql: "{net_change} > {budgeted_amount} AND {budgeted_amount} > 0"
-        title: Over Budget Accounts
-        description: Accounts exceeding budget
-      
-      - name: under_budget_accounts
-        sql: "{net_change} < {budgeted_amount} AND {budgeted_amount} > 0"
-        title: Under Budget Accounts
-        description: Accounts under budget
-      
-      - name: has_budget
-        sql: "{CUBE}.\"BUDGETED_AMOUNT\" != 0"
-        title: Budgeted Accounts
-        description: Accounts with budget allocations
-      
-      # Activity segments
-      - name: high_activity_accounts
-        sql: "({CUBE}.\"DEBIT_AMOUNT\" + {CUBE}.\"CREDIT_AMOUNT\") > 100000"
-        title: High Activity Accounts
-        description: Accounts with significant transaction volume
-      
-      - name: accounts_with_balance
-        sql: "{CUBE}.\"BALANCE\" != 0"
-        title: Accounts with Balance
-        description: Accounts with non-zero balance
-    
-    pre_aggregations:
-      # Daily account balances
-      - name: daily_balances
-        measures:
-          - balance
-          - net_change
-          - debit_amount
-          - credit_amount
-          - budgeted_amount
-          - g_l_entry.count
-        dimensions:
-          - no
-          - name
-          - account_type
-          - income_balance
-          - account_category
-          - blocked
-          - direct_posting
-        time_dimension: g_l_entry.posting_date
-        granularity: day
-        partition_granularity: month
-        refresh_key:
-          every: 1 hour
-        indexes:
-          - name: account_date_idx
-            columns:
-              - no
-              - g_l_entry__posting_date_day
-      
-      # Monthly account summary
-      - name: monthly_summary
-        measures:
-          - balance
-          - net_change
-          - debit_amount
-          - credit_amount
-          - budgeted_amount
-          - budget_variance_amount
-          - budget_variance_percent
-          - g_l_entry.count
-        dimensions:
-          - no
-          - name
-          - account_type
-          - income_balance
-          - account_category
-          - account_subcategory
-          - gen_bus_posting_group
-          - gen_prod_posting_group
-        time_dimension: g_l_entry.posting_date
-        granularity: month
-        partition_granularity: year
-        refresh_key:
-          every: 1 day
-        indexes:
-          - name: account_month_idx
-            columns:
-              - no
-              - g_l_entry__posting_date_month
-          - name: category_month_idx
-            columns:
-              - account_category
-              - g_l_entry__posting_date_month
-      
-      # Quarterly financial summary
-      - name: quarterly_financial_summary
-        measures:
-          - balance
-          - net_change
-          - debit_amount
-          - credit_amount
-          - budgeted_amount
-          - budget_utilization
-          - account_turnover
-        dimensions:
-          - income_balance
-          - account_category
-          - account_subcategory
-        time_dimension: g_l_entry.posting_date
-        granularity: quarter
-        partition_granularity: year
-        refresh_key:
-          every: 1 day
-        indexes:
-          - name: income_balance_quarter_idx
-            columns:
-              - income_balance
-              - g_l_entry__posting_date_quarter
-      
-      # Account category rollup
-      - name: category_rollup
-        measures:
-          - balance
-          - net_change
-          - debit_amount
-          - credit_amount
-          - budgeted_amount
-          - g_l_entry.count
-        dimensions:
-          - account_category
-          - account_subcategory
-          - account_type
-        time_dimension: g_l_entry.posting_date
-        granularity: day
-        partition_granularity: month
-        refresh_key:
-          every: 2 hours
-        indexes:
-          - name: category_date_idx
-            columns:
-              - account_category
-              - g_l_entry__posting_date_day
