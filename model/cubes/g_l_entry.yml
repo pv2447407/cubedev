@@ -751,12 +751,12 @@ cubes:
         indexes:
           - name: account_date_idx
             columns:
-              - g_l_entry__g_laccount_no
-              - g_l_entry__posting_date_month
+              - "g_l_entry__g_laccount_no"
+              - "g_l_entry__posting_date_month"
           - name: dimension_idx
             columns:
-              - g_l_entry__global_dimension_1_code
-              - g_l_entry__global_dimension_2_code
+              - "g_l_entry__global_dimension_1_code"
+              - "g_l_entry__global_dimension_2_code"
       
       # Quarterly Trial Balance Summary
       - name: trial_balance_quarterly
@@ -783,8 +783,8 @@ cubes:
         indexes:
           - name: account_quarter_idx
             columns:
-              - g_l_entry__g_laccount_no
-              - g_l_entry__posting_date_quarter
+              - "g_l_entry__g_laccount_no"
+              - "g_l_entry__posting_date_quarter"
       
       # Daily Trial Balance for Recent Period (90 days)
       - name: trial_balance_daily_recent
@@ -813,12 +813,12 @@ cubes:
         indexes:
           - name: recent_account_date_idx
             columns:
-              - g_l_entry__g_laccount_no
-              - g_l_entry__posting_date_day
+              - "g_l_entry__g_laccount_no"
+              - "g_l_entry__posting_date_day"
           - name: recent_document_idx
             columns:
-              - g_l_entry__document_no
-              - g_l_entry__posting_date_day
+              - "g_l_entry__document_no"
+              - "g_l_entry__posting_date_day"
       
       # Account Balance by Dimensions
       - name: balance_by_dimensions
@@ -844,9 +844,9 @@ cubes:
         indexes:
           - name: dim_balance_idx
             columns:
-              - g_l_entry__global_dimension_1_code
-              - g_l_entry__global_dimension_2_code
-              - g_l_entry__g_laccount_no
+              - "g_l_entry__global_dimension_1_code"
+              - "g_l_entry__global_dimension_2_code"
+              - "g_l_entry__g_laccount_no"
       
       # YTD Trial Balance Summary  
       - name: ytd_trial_balance
@@ -868,8 +868,8 @@ cubes:
         indexes:
           - name: ytd_account_idx
             columns:
-              - g_l_entry__g_laccount_no
-              - g_l_entry__company_id
+              - "g_l_entry__g_laccount_no"
+              - "g_l_entry__company_id"
       
       # Annual Comparative Balance Pre-Aggregations
       - name: annual_comparative_balances
@@ -901,13 +901,13 @@ cubes:
         indexes:
           - name: annual_account_idx
             columns:
-              - g_l_entry__g_laccount_no
-              - g_l_entry__posting_date_year
+              - "g_l_entry__g_laccount_no"
+              - "g_l_entry__posting_date_year"
           - name: annual_dimension_idx
             columns:
-              - g_l_entry__global_dimension_1_code
-              - g_l_entry__global_dimension_2_code
-              - g_l_entry__posting_date_year
+              - "g_l_entry__global_dimension_1_code"
+              - "g_l_entry__global_dimension_2_code"
+              - "g_l_entry__posting_date_year"
       
       # Quarterly Year-over-Year Comparison
       - name: quarterly_yoy_comparison
@@ -934,12 +934,12 @@ cubes:
         indexes:
           - name: quarterly_yoy_account_idx
             columns:
-              - g_l_entry__g_laccount_no
-              - g_l_entry__posting_date_quarter
+              - "g_l_entry__g_laccount_no"
+              - "g_l_entry__posting_date_quarter"
           - name: quarterly_yoy_dimension_idx
             columns:
-              - g_l_entry__global_dimension_1_code
-              - g_l_entry__posting_date_quarter
+              - "g_l_entry__global_dimension_1_code"
+              - "g_l_entry__posting_date_quarter"
       
       # Monthly Year-over-Year Comparison
       - name: monthly_yoy_comparison
@@ -974,13 +974,13 @@ cubes:
         indexes:
           - name: monthly_yoy_account_idx
             columns:
-              - g_l_entry__g_laccount_no
-              - g_l_entry__posting_date_month
+              - "g_l_entry__g_laccount_no"
+              - "g_l_entry__posting_date_month"
           - name: monthly_yoy_dimension_idx
             columns:
-              - g_l_entry__global_dimension_1_code
-              - g_l_entry__global_dimension_2_code
-              - g_l_entry__posting_date_month
+              - "g_l_entry__global_dimension_1_code"
+              - "g_l_entry__global_dimension_2_code"
+              - "g_l_entry__posting_date_month"
       
       # Account Category Year-over-Year Summary
       - name: account_category_yoy
@@ -1003,8 +1003,8 @@ cubes:
         indexes:
           - name: category_yoy_idx
             columns:
-              - g_l_entry__g_laccount_no
-              - g_l_entry__company_id
+              - "g_l_entry__g_laccount_no"
+              - "g_l_entry__company_id"
       
       # Dimension Year-over-Year Analysis
       - name: dimension_yoy_analysis
@@ -1036,7 +1036,7 @@ cubes:
         indexes:
           - name: dimension_analysis_idx
             columns:
-              - g_l_entry__global_dimension_1_code
-              - g_l_entry__global_dimension_2_code
-              - g_l_entry__posting_date_month
+              - "g_l_entry__global_dimension_1_code"
+              - "g_l_entry__global_dimension_2_code"
+              - "g_l_entry__posting_date_month"
 
