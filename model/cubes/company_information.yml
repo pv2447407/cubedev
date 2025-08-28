@@ -212,6 +212,7 @@ cubes:
       - name: system_id
         sql: "{CUBE}.\"SYSTEM_ID\""
         type: string
+        primary_key: true
 
       - name: sat_tax_regime_classification
         sql: "{CUBE}.\"SAT_TAX_REGIME_CLASSIFICATION\""

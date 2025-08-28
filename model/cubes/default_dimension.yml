@@ -44,6 +44,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: system_modified_by
         sql: "{CUBE}.\"SYSTEM_MODIFIED_BY\""

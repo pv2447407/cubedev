@@ -156,6 +156,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: vat_clause_code
         sql: "{CUBE}.\"VAT_CLAUSE_CODE\""
@@ -236,6 +237,7 @@ cubes:
       - name: document_no
         sql: "{CUBE}.\"DOCUMENT_NO\""
         type: string
+        primary_key: true
 
       - name: ic_item_reference_no
         sql: "{CUBE}.\"IC_ITEM_REFERENCE_NO\""

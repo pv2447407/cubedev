@@ -764,6 +764,7 @@ cubes:
       - name: system_id
         sql: "{CUBE}.\"SYSTEM_ID\""
         type: string
+        primary_key: true
 
       - name: bal_tax_liable
         sql: "{CUBE}.\"BAL_TAX_LIABLE\""

@@ -284,6 +284,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: posting_description
         sql: "{CUBE}.\"POSTING_DESCRIPTION\""

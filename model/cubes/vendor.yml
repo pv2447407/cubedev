@@ -140,6 +140,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: pmt_disc_tolerance_lcy
         sql: "{CUBE}.\"PMT_DISC_TOLERANCE_LCY\""

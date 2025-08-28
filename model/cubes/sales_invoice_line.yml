@@ -44,6 +44,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: ic_partner_ref_type
         sql: "{CUBE}.\"IC_PARTNER_REF_TYPE\""
@@ -52,6 +53,7 @@ cubes:
       - name: document_no
         sql: "{CUBE}.\"DOCUMENT_NO\""
         type: string
+        primary_key: true
 
       - name: duplicate_in_depreciation_book
         sql: "{CUBE}.\"DUPLICATE_IN_DEPRECIATION_BOOK\""

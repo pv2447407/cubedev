@@ -32,6 +32,7 @@ cubes:
       - name: code
         sql: "{CUBE}.\"CODE\""
         type: string
+        primary_key: true
 
       - name: description
         sql: "{CUBE}.\"DESCRIPTION\""

@@ -616,6 +616,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: location_filter
         sql: "{CUBE}.\"LOCATION_FILTER\""

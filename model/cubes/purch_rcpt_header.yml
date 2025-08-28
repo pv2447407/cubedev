@@ -296,6 +296,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: pay_to_city
         sql: "{CUBE}.\"PAY_TO_CITY\""

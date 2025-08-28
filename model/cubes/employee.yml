@@ -248,6 +248,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: bank_branch_no
         sql: "{CUBE}.\"BANK_BRANCH_NO\""

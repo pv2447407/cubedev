@@ -68,6 +68,7 @@ cubes:
       - name: system_id
         sql: "{CUBE}.\"SYSTEM_ID\""
         type: string
+        primary_key: true
 
       - name: job_task_no
         sql: "{CUBE}.\"JOB_TASK_NO\""

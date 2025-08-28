@@ -168,6 +168,7 @@ cubes:
       - name: document_no
         sql: "{CUBE}.\"DOCUMENT_NO\""
         type: string
+        primary_key: true
 
       - name: item_category_code
         sql: "{CUBE}.\"ITEM_CATEGORY_CODE\""
@@ -212,6 +213,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: salvage_value
         sql: "{CUBE}.\"SALVAGE_VALUE\""

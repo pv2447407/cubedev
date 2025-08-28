@@ -288,6 +288,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: currency_code
         sql: "{CUBE}.\"CURRENCY_CODE\""

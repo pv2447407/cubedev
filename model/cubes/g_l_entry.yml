@@ -84,6 +84,7 @@ cubes:
       - name: system_id
         sql: "{CUBE}.\"SYSTEM_ID\""
         type: string
+        primary_key: true
 
       - name: fa_entry_type
         sql: "{CUBE}.\"FA_ENTRY_TYPE\""

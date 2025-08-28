@@ -488,6 +488,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: search_name
         sql: "{CUBE}.\"SEARCH_NAME\""

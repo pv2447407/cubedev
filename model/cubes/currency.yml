@@ -48,6 +48,7 @@ cubes:
       - name: code
         sql: "{CUBE}.\"CODE\""
         type: string
+        primary_key: true
 
       - name: vat_rounding_type
         sql: "{CUBE}.\"VAT_ROUNDING_TYPE\""

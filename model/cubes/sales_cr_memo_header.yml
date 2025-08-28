@@ -112,6 +112,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: price_calculation_method
         sql: "{CUBE}.\"PRICE_CALCULATION_METHOD\""

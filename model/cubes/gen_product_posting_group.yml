@@ -36,6 +36,7 @@ cubes:
       - name: code
         sql: "{CUBE}.\"CODE\""
         type: string
+        primary_key: true
 
       - name: system_modified_by
         sql: "{CUBE}.\"SYSTEM_MODIFIED_BY\""

@@ -32,6 +32,7 @@ cubes:
       - name: system_id
         sql: "{CUBE}.\"SYSTEM_ID\""
         type: string
+        primary_key: true
 
       - name: no_series
         sql: "{CUBE}.\"NO_SERIES\""

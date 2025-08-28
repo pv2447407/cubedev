@@ -384,6 +384,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: special_order
         sql: "{CUBE}.\"SPECIAL_ORDER\""
@@ -580,6 +581,7 @@ cubes:
       - name: document_no
         sql: "{CUBE}.\"DOCUMENT_NO\""
         type: string
+        primary_key: true
 
       - name: substitution_available
         sql: "{CUBE}.\"SUBSTITUTION_AVAILABLE\""

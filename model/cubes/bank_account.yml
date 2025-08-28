@@ -328,6 +328,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: total_on_checks
         sql: "{CUBE}.\"TOTAL_ON_CHECKS\""

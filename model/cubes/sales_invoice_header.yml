@@ -236,6 +236,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: sat_international_trade_term
         sql: "{CUBE}.\"SAT_INTERNATIONAL_TRADE_TERM\""

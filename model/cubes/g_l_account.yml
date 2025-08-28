@@ -232,6 +232,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: no_2
         sql: "{CUBE}.\"NO_2\""

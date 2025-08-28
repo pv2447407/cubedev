@@ -308,6 +308,7 @@ cubes:
       - name: document_no
         sql: "{CUBE}.\"DOCUMENT_NO\""
         type: string
+        primary_key: true
 
       - name: vat_calculation_type
         sql: "{CUBE}.\"VAT_CALCULATION_TYPE\""
@@ -388,6 +389,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: item_reference_type_no
         sql: "{CUBE}.\"ITEM_REFERENCE_TYPE_NO\""

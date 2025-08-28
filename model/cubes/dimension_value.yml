@@ -56,6 +56,7 @@ cubes:
       - name: code
         sql: "{CUBE}.\"CODE\""
         type: string
+        primary_key: true
 
       - name: dimension_value_type
         sql: "{CUBE}.\"DIMENSION_VALUE_TYPE\""

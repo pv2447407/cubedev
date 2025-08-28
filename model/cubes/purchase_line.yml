@@ -12,6 +12,7 @@ cubes:
       - name: document_no
         sql: "{CUBE}.\"DOCUMENT_NO\""
         type: string
+        primary_key: true
 
       - name: qty_to_receive_base
         sql: "{CUBE}.\"QTY_TO_RECEIVE_BASE\""
@@ -236,6 +237,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: non_deductible_vatbase
         sql: "{CUBE}.\"NON_DEDUCTIBLE_VATBASE\""

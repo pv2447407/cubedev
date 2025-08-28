@@ -104,6 +104,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: over_budget
         sql: "{CUBE}.\"OVER_BUDGET\""

@@ -20,6 +20,7 @@ cubes:
       - name: code
         sql: "{CUBE}.\"CODE\""
         type: string
+        primary_key: true
 
       - name: company_id
         sql: "{CUBE}.\"COMPANY_ID\""

@@ -32,6 +32,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: remaining_amount
         sql: "{CUBE}.\"REMAINING_AMOUNT\""

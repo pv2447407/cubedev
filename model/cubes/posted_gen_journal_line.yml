@@ -336,6 +336,7 @@ cubes:
       - name: system_id
         sql: "{CUBE}.\"SYSTEM_ID\""
         type: string
+        primary_key: true
 
       - name: job_unit_of_measure_code
         sql: "{CUBE}.\"JOB_UNIT_OF_MEASURE_CODE\""

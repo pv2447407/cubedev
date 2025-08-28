@@ -88,6 +88,7 @@ cubes:
       - name: system_id
         sql: "{CUBE}.\"SYSTEM_ID\""
         type: string
+        primary_key: true
 
       - name: originally_ordered_var_code
         sql: "{CUBE}.\"ORIGINALLY_ORDERED_VAR_CODE\""

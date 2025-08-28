@@ -40,6 +40,7 @@ cubes:
       - name: system_id
         sql: "{CUBE}.\"SYSTEM_ID\""
         type: string
+        primary_key: true
 
       - name: system_modified_by
         sql: "{CUBE}.\"SYSTEM_MODIFIED_BY\""

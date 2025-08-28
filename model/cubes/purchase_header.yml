@@ -580,6 +580,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: pay_to_address
         sql: "{CUBE}.\"PAY_TO_ADDRESS\""

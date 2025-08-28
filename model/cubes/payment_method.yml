@@ -52,6 +52,7 @@ cubes:
       - name: code
         sql: "{CUBE}.\"CODE\""
         type: string
+        primary_key: true
 
       - name: system_created_by
         sql: "{CUBE}.\"SYSTEM_CREATED_BY\""

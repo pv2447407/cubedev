@@ -632,6 +632,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: manufacturer_code
         sql: "{CUBE}.\"MANUFACTURER_CODE\""

@@ -128,6 +128,7 @@ cubes:
       - name: no
         sql: "{CUBE}.\"NO\""
         type: string
+        primary_key: true
 
       - name: package_tracking_no
         sql: "{CUBE}.\"PACKAGE_TRACKING_NO\""
@@ -144,6 +145,7 @@ cubes:
       - name: document_no
         sql: "{CUBE}.\"DOCUMENT_NO\""
         type: string
+        primary_key: true
 
       - name: ic_partner_reference
         sql: "{CUBE}.\"IC_PARTNER_REFERENCE\""
