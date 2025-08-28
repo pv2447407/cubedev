@@ -8,7 +8,7 @@ cubes:
         sql: "{CUBE}.\"COMPANY_ID\" = {company}.\"ID\""
         relationship: many_to_one
       
-      - name: g_l_entries
+      - name: g_l_entry
         sql: "{CUBE}.\"NO\" = {g_l_entry}.\"G_LACCOUNT_NO\" AND {CUBE}.\"COMPANY_ID\" = {g_l_entry}.\"COMPANY_ID\""
         relationship: one_to_many
 

@@ -62,7 +62,7 @@ views:
           - income_statement_accounts_count
           
       # Include GL Entry data with prefix
-      - join_path: g_l_account.g_l_entries
+      - join_path: g_l_account.g_l_entry
         prefix: true
         includes:
           # Entry details
@@ -218,10 +218,10 @@ views:
       # Account balances by fiscal period (monthly)
       - name: account_balances_monthly
         measures:
-          - g_l_entries_total_amount
-          - g_l_entries_total_debit_amount
-          - g_l_entries_total_credit_amount
-          - g_l_entries_count
+          - g_l_entry_total_amount
+          - g_l_entry_total_debit_amount
+          - g_l_entry_total_credit_amount
+          - g_l_entry_count
         dimensions:
           - no
           - name
@@ -229,7 +229,7 @@ views:
           - account_type
           - blocked
           - direct_posting
-        time_dimension: g_l_entries.posting_date
+        time_dimension: g_l_entry.posting_date
         granularity: month
         partition_granularity: year
         refresh_key:
@@ -238,19 +238,19 @@ views:
           - name: account_month_idx
             columns:
               - no
-              - g_l_entries__posting_date_month
+              - g_l_entry__posting_date_month
               
       # Daily balances for recent period
       - name: account_balances_daily_recent
         measures:
-          - g_l_entries_total_amount
-          - g_l_entries_total_debit_amount
-          - g_l_entries_total_credit_amount
+          - g_l_entry_total_amount
+          - g_l_entry_total_debit_amount
+          - g_l_entry_total_credit_amount
         dimensions:
           - no
           - name
           - account_category
-        time_dimension: g_l_entries.posting_date
+        time_dimension: g_l_entry.posting_date
         granularity: day
         build_range_start:
           sql: DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY)
@@ -263,14 +263,14 @@ views:
       - name: account_type_summary
         measures:
           - count
-          - g_l_entries_total_amount
-          - g_l_entries_count
+          - g_l_entry_total_amount
+          - g_l_entry_count
         dimensions:
           - account_category
           - account_type
           - income_balance
           - blocked
-        time_dimension: g_l_entries.posting_date
+        time_dimension: g_l_entry.posting_date
         granularity: month
         refresh_key:
           every: 1 hour
@@ -278,14 +278,14 @@ views:
       # Posting group analysis
       - name: posting_group_balances
         measures:
-          - g_l_entries_total_amount
+          - g_l_entry_total_amount
           - count
         dimensions:
           - gen_bus_posting_group
           - gen_prod_posting_group
           - vat_bus_posting_group
           - vat_prod_posting_group
-        time_dimension: g_l_entries.posting_date
+        time_dimension: g_l_entry.posting_date
         granularity: month
         refresh_key:
           every: 2 hours
