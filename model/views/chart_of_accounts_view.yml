@@ -31,9 +31,8 @@ views:
           - vat_bus_posting_group
           - vat_prod_posting_group
           
-          # Totaling and indentation
+          # Totaling
           - totaling
-          - indentation
           
           # Consolidation
           - consol_translation_method
@@ -42,8 +41,6 @@ views:
           
           # Cost accounting
           - cost_type_no
-          - cost_center_filter
-          - cost_object_filter
           
           # Exchange rates
           - exchange_rate_adjustment
@@ -54,19 +51,34 @@ views:
           
           # Measures from g_l_account
           - count
-          - active_accounts_count
-          - blocked_accounts_count
-          - direct_posting_accounts_count
-          - reconciliation_accounts_count
-          - balance_sheet_accounts_count
-          - income_statement_accounts_count
+          - balance
+          - net_change
+          - debit_amount
+          - credit_amount
+          - budgeted_amount
+          
+          # Segments from g_l_account
+          - balance_sheet_accounts
+          - income_statement_accounts
+          - asset_accounts
+          - liability_accounts
+          - equity_accounts
+          - revenue_accounts
+          - expense_accounts
+          - cogs_accounts
+          - has_general_posting_group
+          - has_vat_posting_group
+          - active_accounts
+          - blocked_accounts
+          - direct_posting_allowed
+          - no_direct_posting
+          - is_reconciliation_account
+          - requires_exchange_adjustment
           
       # Include GL Entry data with prefix
       - join_path: g_l_account.g_l_entry
         prefix: true
         includes:
-          # Entry details
-          - entry_no
           - posting_date
           - document_type
           - document_no
@@ -125,167 +137,5 @@ views:
         includes:
           - name
           - display_name
-          - country_region_code
-          - vat_registration_no
-          - currency_code
-          - allow_blank_payment_info
-          - check_for_dup_time_sheets
+          - evaluation_company
     
-    # Segments for filtering
-    segments:
-      # Account Type Segments
-      - name: balance_sheet_accounts
-        sql: "{CUBE}.account_category IN ('Assets', 'Liabilities', 'Equity')"
-        title: Balance Sheet Accounts
-        description: Filter for balance sheet accounts only
-        
-      - name: income_statement_accounts
-        sql: "{CUBE}.account_category IN ('Income', 'Cost of Goods Sold', 'Expense')"
-        title: Income Statement Accounts
-        description: Filter for income statement accounts only
-        
-      - name: asset_accounts
-        sql: "{CUBE}.account_category = 'Assets'"
-        title: Asset Accounts
-        
-      - name: liability_accounts
-        sql: "{CUBE}.account_category = 'Liabilities'"
-        title: Liability Accounts
-        
-      - name: equity_accounts
-        sql: "{CUBE}.account_category = 'Equity'"
-        title: Equity Accounts
-        
-      - name: revenue_accounts
-        sql: "{CUBE}.account_category = 'Income'"
-        title: Revenue Accounts
-        
-      - name: expense_accounts
-        sql: "{CUBE}.account_category = 'Expense'"
-        title: Expense Accounts
-        
-      - name: cogs_accounts
-        sql: "{CUBE}.account_category = 'Cost of Goods Sold'"
-        title: COGS Accounts
-        
-      # Posting Group Segments
-      - name: has_general_posting_group
-        sql: "{CUBE}.gen_bus_posting_group IS NOT NULL OR {CUBE}.gen_prod_posting_group IS NOT NULL"
-        title: Has General Posting Groups
-        description: Accounts with general posting groups assigned
-        
-      - name: has_vat_posting_group
-        sql: "{CUBE}.vat_bus_posting_group IS NOT NULL OR {CUBE}.vat_prod_posting_group IS NOT NULL"
-        title: Has VAT Posting Groups
-        description: Accounts with VAT posting groups assigned
-        
-      # Blocked Status Filtering
-      - name: active_accounts
-        sql: "{CUBE}.blocked = false"
-        title: Active Accounts
-        description: Non-blocked accounts only
-        
-      - name: blocked_accounts
-        sql: "{CUBE}.blocked = true"
-        title: Blocked Accounts
-        description: Blocked accounts only
-        
-      # Direct Posting Filtering
-      - name: direct_posting_allowed
-        sql: "{CUBE}.direct_posting = true"
-        title: Direct Posting Allowed
-        description: Accounts allowing direct posting
-        
-      - name: no_direct_posting
-        sql: "{CUBE}.direct_posting = false"
-        title: No Direct Posting
-        description: Accounts not allowing direct posting
-        
-      # Reconciliation Accounts
-      - name: is_reconciliation_account
-        sql: "{CUBE}.reconciliation_account = true"
-        title: Reconciliation Accounts
-        description: Accounts marked for reconciliation
-        
-      # Exchange Rate Adjustment
-      - name: requires_exchange_adjustment
-        sql: "{CUBE}.exchange_rate_adjustment IS NOT NULL AND {CUBE}.exchange_rate_adjustment != 'No Adjustment'"
-        title: Exchange Rate Adjustment Required
-        description: Accounts requiring exchange rate adjustments
-    
-    # Pre-aggregations for performance
-    pre_aggregations:
-      # Account balances by fiscal period (monthly)
-      - name: account_balances_monthly
-        measures:
-          - g_l_entry_total_amount
-          - g_l_entry_total_debit_amount
-          - g_l_entry_total_credit_amount
-          - g_l_entry_count
-        dimensions:
-          - no
-          - name
-          - account_category
-          - account_type
-          - blocked
-          - direct_posting
-        time_dimension: g_l_entry.posting_date
-        granularity: month
-        partition_granularity: year
-        refresh_key:
-          every: 1 hour
-        indexes:
-          - name: account_month_idx
-            columns:
-              - no
-              - g_l_entry__posting_date_month
-              
-      # Daily balances for recent period
-      - name: account_balances_daily_recent
-        measures:
-          - g_l_entry_total_amount
-          - g_l_entry_total_debit_amount
-          - g_l_entry_total_credit_amount
-        dimensions:
-          - no
-          - name
-          - account_category
-        time_dimension: g_l_entry.posting_date
-        granularity: day
-        build_range_start:
-          sql: DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY)
-        build_range_end:
-          sql: CURRENT_DATE()
-        refresh_key:
-          every: 30 minutes
-          
-      # Account type summary
-      - name: account_type_summary
-        measures:
-          - count
-          - g_l_entry_total_amount
-          - g_l_entry_count
-        dimensions:
-          - account_category
-          - account_type
-          - income_balance
-          - blocked
-        time_dimension: g_l_entry.posting_date
-        granularity: month
-        refresh_key:
-          every: 1 hour
-          
-      # Posting group analysis
-      - name: posting_group_balances
-        measures:
-          - g_l_entry_total_amount
-          - count
-        dimensions:
-          - gen_bus_posting_group
-          - gen_prod_posting_group
-          - vat_bus_posting_group
-          - vat_prod_posting_group
-        time_dimension: g_l_entry.posting_date
-        granularity: month
-        refresh_key:
-          every: 2 hours

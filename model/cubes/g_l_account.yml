@@ -307,6 +307,87 @@ cubes:
         sql: "CAST({CUBE}.\"BUDGETED_AMOUNT\" AS NUMBER)"
         title: Budgeted Amount
         format: currency
+    
+    segments:
+      # Account Type Segments
+      - name: balance_sheet_accounts
+        sql: "{CUBE}.\"ACCOUNT_CATEGORY\" IN ('Assets', 'Liabilities', 'Equity')"
+        title: Balance Sheet Accounts
+        description: Filter for balance sheet accounts only
+        
+      - name: income_statement_accounts
+        sql: "{CUBE}.\"ACCOUNT_CATEGORY\" IN ('Income', 'Cost of Goods Sold', 'Expense')"
+        title: Income Statement Accounts
+        description: Filter for income statement accounts only
+        
+      - name: asset_accounts
+        sql: "{CUBE}.\"ACCOUNT_CATEGORY\" = 'Assets'"
+        title: Asset Accounts
+        
+      - name: liability_accounts
+        sql: "{CUBE}.\"ACCOUNT_CATEGORY\" = 'Liabilities'"
+        title: Liability Accounts
+        
+      - name: equity_accounts
+        sql: "{CUBE}.\"ACCOUNT_CATEGORY\" = 'Equity'"
+        title: Equity Accounts
+        
+      - name: revenue_accounts
+        sql: "{CUBE}.\"ACCOUNT_CATEGORY\" = 'Income'"
+        title: Revenue Accounts
+        
+      - name: expense_accounts
+        sql: "{CUBE}.\"ACCOUNT_CATEGORY\" = 'Expense'"
+        title: Expense Accounts
+        
+      - name: cogs_accounts
+        sql: "{CUBE}.\"ACCOUNT_CATEGORY\" = 'Cost of Goods Sold'"
+        title: COGS Accounts
+        
+      # Posting Group Segments
+      - name: has_general_posting_group
+        sql: "{CUBE}.\"GEN_BUS_POSTING_GROUP\" IS NOT NULL OR {CUBE}.\"GEN_PROD_POSTING_GROUP\" IS NOT NULL"
+        title: Has General Posting Groups
+        description: Accounts with general posting groups assigned
+        
+      - name: has_vat_posting_group
+        sql: "{CUBE}.\"VAT_BUS_POSTING_GROUP\" IS NOT NULL OR {CUBE}.\"VAT_PROD_POSTING_GROUP\" IS NOT NULL"
+        title: Has VAT Posting Groups
+        description: Accounts with VAT posting groups assigned
+        
+      # Blocked Status Filtering
+      - name: active_accounts
+        sql: "{CUBE}.\"BLOCKED\" = false"
+        title: Active Accounts
+        description: Non-blocked accounts only
+        
+      - name: blocked_accounts
+        sql: "{CUBE}.\"BLOCKED\" = true"
+        title: Blocked Accounts
+        description: Blocked accounts only
+        
+      # Direct Posting Filtering
+      - name: direct_posting_allowed
+        sql: "{CUBE}.\"DIRECT_POSTING\" = true"
+        title: Direct Posting Allowed
+        description: Accounts allowing direct posting
+        
+      - name: no_direct_posting
+        sql: "{CUBE}.\"DIRECT_POSTING\" = false"
+        title: No Direct Posting
+        description: Accounts not allowing direct posting
+        
+      # Reconciliation Accounts
+      - name: is_reconciliation_account
+        sql: "{CUBE}.\"RECONCILIATION_ACCOUNT\" = true"
+        title: Reconciliation Accounts
+        description: Accounts marked for reconciliation
+        
+      # Exchange Rate Adjustment
+      - name: requires_exchange_adjustment
+        sql: "{CUBE}.\"EXCHANGE_RATE_ADJUSTMENT\" IS NOT NULL AND {CUBE}.\"EXCHANGE_RATE_ADJUSTMENT\" != 'No Adjustment'"
+        title: Exchange Rate Adjustment Required
+        description: Accounts requiring exchange rate adjustments
 
     pre_aggregations:
       # Pre-aggregation definitions go here.
