@@ -1,0 +1,299 @@
+cubes:
+  - name: g_l_account
+    sql_table: "\"BUSINESS_CENTRAL\".\"G_L_ACCOUNT\""
+    data_source: default
+
+    joins:
+      - name: company
+        sql: "{CUBE}.\"COMPANY_ID\" = {company}.\"ID\""
+        relationship: many_to_one
+
+    dimensions:
+      - name: system_modified_by
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_BY\""
+        type: string
+
+      - name: system_created_by
+        sql: "{CUBE}.\"SYSTEM_CREATED_BY\""
+        type: string
+
+      - name: global_dimension_2_filter
+        sql: "{CUBE}.\"GLOBAL_DIMENSION_2_FILTER\""
+        type: string
+
+      - name: account_category
+        sql: "{CUBE}.\"ACCOUNT_CATEGORY\""
+        type: string
+
+      - name: omit_default_descr_in_jnl
+        sql: "{CUBE}.\"OMIT_DEFAULT_DESCR_IN_JNL\""
+        type: boolean
+
+      - name: vat_amt
+        sql: "{CUBE}.\"VAT_AMT\""
+        type: string
+
+      - name: consol_debit_acc
+        sql: "{CUBE}.\"CONSOL_DEBIT_ACC\""
+        type: string
+
+      - name: vat_reporting_date_filter
+        sql: "{CUBE}.\"VAT_REPORTING_DATE_FILTER\""
+        type: string
+
+      - name: credit_amount
+        sql: "{CUBE}.\"CREDIT_AMOUNT\""
+        type: string
+
+      - name: add_currency_balance_at_date
+        sql: "{CUBE}.\"ADD_CURRENCY_BALANCE_AT_DATE\""
+        type: string
+
+      - name: global_dimension_1_code
+        sql: "{CUBE}.\"GLOBAL_DIMENSION_1_CODE\""
+        type: string
+
+      - name: add_currency_debit_amount
+        sql: "{CUBE}.\"ADD_CURRENCY_DEBIT_AMOUNT\""
+        type: string
+
+      - name: net_change
+        sql: "{CUBE}.\"NET_CHANGE\""
+        type: string
+
+      - name: income_balance
+        sql: "{CUBE}.\"INCOME_BALANCE\""
+        type: string
+
+      - name: budgeted_credit_amount
+        sql: "{CUBE}.\"BUDGETED_CREDIT_AMOUNT\""
+        type: string
+
+      - name: tax_area_code
+        sql: "{CUBE}.\"TAX_AREA_CODE\""
+        type: string
+
+      - name: balance_at_date
+        sql: "{CUBE}.\"BALANCE_AT_DATE\""
+        type: string
+
+      - name: budgeted_debit_amount
+        sql: "{CUBE}.\"BUDGETED_DEBIT_AMOUNT\""
+        type: string
+
+      - name: vat_prod_posting_group
+        sql: "{CUBE}.\"VAT_PROD_POSTING_GROUP\""
+        type: string
+
+      - name: tax_liable
+        sql: "{CUBE}.\"TAX_LIABLE\""
+        type: boolean
+
+      - name: budgeted_amount
+        sql: "{CUBE}.\"BUDGETED_AMOUNT\""
+        type: string
+
+      - name: debit_amount
+        sql: "{CUBE}.\"DEBIT_AMOUNT\""
+        type: string
+
+      - name: tax_group_code
+        sql: "{CUBE}.\"TAX_GROUP_CODE\""
+        type: string
+
+      - name: vat_bus_posting_group
+        sql: "{CUBE}.\"VAT_BUS_POSTING_GROUP\""
+        type: string
+
+      - name: dimension_set_idfilter
+        sql: "{CUBE}.\"DIMENSION_SET_IDFILTER\""
+        type: string
+
+      - name: cost_type_no
+        sql: "{CUBE}.\"COST_TYPE_NO\""
+        type: string
+
+      - name: account_subcategory_descript
+        sql: "{CUBE}.\"ACCOUNT_SUBCATEGORY_DESCRIPT\""
+        type: string
+
+      - name: business_unit_filter
+        sql: "{CUBE}.\"BUSINESS_UNIT_FILTER\""
+        type: string
+
+      - name: date_filter
+        sql: "{CUBE}.\"DATE_FILTER\""
+        type: string
+
+      - name: balance
+        sql: "{CUBE}.\"BALANCE\""
+        type: string
+
+      - name: exchange_rate_adjustment
+        sql: "{CUBE}.\"EXCHANGE_RATE_ADJUSTMENT\""
+        type: string
+
+      - name: account_type
+        sql: "{CUBE}.\"ACCOUNT_TYPE\""
+        type: string
+
+      - name: new_page
+        sql: "{CUBE}.\"NEW_PAGE\""
+        type: boolean
+
+      - name: consol_translation_method
+        sql: "{CUBE}.\"CONSOL_TRANSLATION_METHOD\""
+        type: string
+
+      - name: additional_currency_net_change
+        sql: "{CUBE}.\"ADDITIONAL_CURRENCY_NET_CHANGE\""
+        type: string
+
+      - name: system_id
+        sql: "{CUBE}.\"SYSTEM_ID\""
+        type: string
+
+      - name: company_id
+        sql: "{CUBE}.\"COMPANY_ID\""
+        type: string
+
+      - name: picture
+        sql: "{CUBE}.\"PICTURE\""
+        type: string
+
+      - name: global_dimension_1_filter
+        sql: "{CUBE}.\"GLOBAL_DIMENSION_1_FILTER\""
+        type: string
+
+      - name: direct_posting
+        sql: "{CUBE}.\"DIRECT_POSTING\""
+        type: boolean
+
+      - name: comment
+        sql: "{CUBE}.\"COMMENT\""
+        type: boolean
+
+      - name: automatic_ext_texts
+        sql: "{CUBE}.\"AUTOMATIC_EXT_TEXTS\""
+        type: boolean
+
+      - name: global_dimension_2_code
+        sql: "{CUBE}.\"GLOBAL_DIMENSION_2_CODE\""
+        type: string
+
+      - name: add_currency_credit_amount
+        sql: "{CUBE}.\"ADD_CURRENCY_CREDIT_AMOUNT\""
+        type: string
+
+      - name: sat_account_code
+        sql: "{CUBE}.\"SAT_ACCOUNT_CODE\""
+        type: string
+
+      - name: additional_currency_balance
+        sql: "{CUBE}.\"ADDITIONAL_CURRENCY_BALANCE\""
+        type: string
+
+      - name: picture_odata_media_read_link
+        sql: "{CUBE}.\"PICTURE_ODATA_MEDIA_READ_LINK\""
+        type: string
+
+      - name: search_name
+        sql: "{CUBE}.\"SEARCH_NAME\""
+        type: string
+
+      - name: debit_credit
+        sql: "{CUBE}.\"DEBIT_CREDIT\""
+        type: string
+
+      - name: gen_bus_posting_group
+        sql: "{CUBE}.\"GEN_BUS_POSTING_GROUP\""
+        type: string
+
+      - name: default_deferral_template_code
+        sql: "{CUBE}.\"DEFAULT_DEFERRAL_TEMPLATE_CODE\""
+        type: string
+
+      - name: reconciliation_account
+        sql: "{CUBE}.\"RECONCILIATION_ACCOUNT\""
+        type: boolean
+
+      - name: default_icpartner_glacc_no
+        sql: "{CUBE}.\"DEFAULT_ICPARTNER_GLACC_NO\""
+        type: string
+
+      - name: totaling
+        sql: "{CUBE}.\"TOTALING\""
+        type: string
+
+      - name: name
+        sql: "{CUBE}.\"NAME\""
+        type: string
+
+      - name: no
+        sql: "{CUBE}.\"NO\""
+        type: string
+
+      - name: no_2
+        sql: "{CUBE}.\"NO_2\""
+        type: string
+
+      - name: budget_filter
+        sql: "{CUBE}.\"BUDGET_FILTER\""
+        type: string
+
+      - name: api_account_type
+        sql: "{CUBE}.\"API_ACCOUNT_TYPE\""
+        type: string
+
+      - name: consol_credit_acc
+        sql: "{CUBE}.\"CONSOL_CREDIT_ACC\""
+        type: string
+
+      - name: gen_prod_posting_group
+        sql: "{CUBE}.\"GEN_PROD_POSTING_GROUP\""
+        type: string
+
+      - name: gifi_code
+        sql: "{CUBE}.\"GIFI_CODE\""
+        type: string
+
+      - name: budget_at_date
+        sql: "{CUBE}.\"BUDGET_AT_DATE\""
+        type: string
+
+      - name: picture_odata_media_edit_link
+        sql: "{CUBE}.\"PICTURE_ODATA_MEDIA_EDIT_LINK\""
+        type: string
+
+      - name: gen_posting_type
+        sql: "{CUBE}.\"GEN_POSTING_TYPE\""
+        type: string
+
+      - name: blocked
+        sql: "{CUBE}.\"BLOCKED\""
+        type: boolean
+
+      - name: system_created_at
+        sql: "{CUBE}.\"SYSTEM_CREATED_AT\""
+        type: time
+
+      - name: last_date_modified
+        sql: "{CUBE}.\"LAST_DATE_MODIFIED\""
+        type: time
+
+      - name: last_modified_date_time
+        sql: "{CUBE}.\"LAST_MODIFIED_DATE_TIME\""
+        type: time
+
+      - name: system_modified_at
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_AT\""
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

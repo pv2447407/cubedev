@@ -1,0 +1,83 @@
+cubes:
+  - name: payment_method
+    sql_table: "\"BUSINESS_CENTRAL\".\"PAYMENT_METHOD\""
+    data_source: default
+
+    joins:
+      - name: company
+        sql: "{CUBE}.\"COMPANY_ID\" = {company}.\"ID\""
+        relationship: many_to_one
+
+    dimensions:
+      - name: system_modified_by
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_BY\""
+        type: string
+
+      - name: system_id
+        sql: "{CUBE}.\"SYSTEM_ID\""
+        type: string
+
+      - name: description
+        sql: "{CUBE}.\"DESCRIPTION\""
+        type: string
+
+      - name: direct_debit_pmt_terms_code
+        sql: "{CUBE}.\"DIRECT_DEBIT_PMT_TERMS_CODE\""
+        type: string
+
+      - name: pmt_export_line_definition
+        sql: "{CUBE}.\"PMT_EXPORT_LINE_DEFINITION\""
+        type: string
+
+      - name: sat_payment_method_code
+        sql: "{CUBE}.\"SAT_PAYMENT_METHOD_CODE\""
+        type: string
+
+      - name: direct_debit
+        sql: "{CUBE}.\"DIRECT_DEBIT\""
+        type: boolean
+
+      - name: bal_account_no
+        sql: "{CUBE}.\"BAL_ACCOUNT_NO\""
+        type: string
+
+      - name: bal_account_type
+        sql: "{CUBE}.\"BAL_ACCOUNT_TYPE\""
+        type: string
+
+      - name: company_id
+        sql: "{CUBE}.\"COMPANY_ID\""
+        type: string
+
+      - name: code
+        sql: "{CUBE}.\"CODE\""
+        type: string
+
+      - name: system_created_by
+        sql: "{CUBE}.\"SYSTEM_CREATED_BY\""
+        type: string
+
+      - name: sat_method_of_payment
+        sql: "{CUBE}.\"SAT_METHOD_OF_PAYMENT\""
+        type: string
+
+      - name: system_created_at
+        sql: "{CUBE}.\"SYSTEM_CREATED_AT\""
+        type: time
+
+      - name: system_modified_at
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_AT\""
+        type: time
+
+      - name: last_modified_date_time
+        sql: "{CUBE}.\"LAST_MODIFIED_DATE_TIME\""
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

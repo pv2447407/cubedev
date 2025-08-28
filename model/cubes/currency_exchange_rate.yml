@@ -1,0 +1,75 @@
+cubes:
+  - name: currency_exchange_rate
+    sql_table: "\"BUSINESS_CENTRAL\".\"CURRENCY_EXCHANGE_RATE\""
+    data_source: default
+
+    joins:
+      - name: company
+        sql: "{CUBE}.\"COMPANY_ID\" = {company}.\"ID\""
+        relationship: many_to_one
+
+    dimensions:
+      - name: system_created_by
+        sql: "{CUBE}.\"SYSTEM_CREATED_BY\""
+        type: string
+
+      - name: relational_adjmt_exch_rate_amt
+        sql: "{CUBE}.\"RELATIONAL_ADJMT_EXCH_RATE_AMT\""
+        type: string
+
+      - name: exchange_rate_amount
+        sql: "{CUBE}.\"EXCHANGE_RATE_AMOUNT\""
+        type: string
+
+      - name: currency_code
+        sql: "{CUBE}.\"CURRENCY_CODE\""
+        type: string
+
+      - name: system_modified_by
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_BY\""
+        type: string
+
+      - name: system_id
+        sql: "{CUBE}.\"SYSTEM_ID\""
+        type: string
+
+      - name: relational_currency_code
+        sql: "{CUBE}.\"RELATIONAL_CURRENCY_CODE\""
+        type: string
+
+      - name: company_id
+        sql: "{CUBE}.\"COMPANY_ID\""
+        type: string
+
+      - name: fix_exchange_rate_amount
+        sql: "{CUBE}.\"FIX_EXCHANGE_RATE_AMOUNT\""
+        type: string
+
+      - name: adjustment_exch_rate_amount
+        sql: "{CUBE}.\"ADJUSTMENT_EXCH_RATE_AMOUNT\""
+        type: string
+
+      - name: relational_exch_rate_amount
+        sql: "{CUBE}.\"RELATIONAL_EXCH_RATE_AMOUNT\""
+        type: string
+
+      - name: system_created_at
+        sql: "{CUBE}.\"SYSTEM_CREATED_AT\""
+        type: time
+
+      - name: starting_date
+        sql: "{CUBE}.\"STARTING_DATE\""
+        type: time
+
+      - name: system_modified_at
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_AT\""
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

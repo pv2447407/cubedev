@@ -1,0 +1,55 @@
+cubes:
+  - name: shipment_method
+    sql_table: "\"BUSINESS_CENTRAL\".\"SHIPMENT_METHOD\""
+    data_source: default
+
+    joins:
+      - name: company
+        sql: "{CUBE}.\"COMPANY_ID\" = {company}.\"ID\""
+        relationship: many_to_one
+
+    dimensions:
+      - name: system_id
+        sql: "{CUBE}.\"SYSTEM_ID\""
+        type: string
+
+      - name: code
+        sql: "{CUBE}.\"CODE\""
+        type: string
+
+      - name: company_id
+        sql: "{CUBE}.\"COMPANY_ID\""
+        type: string
+
+      - name: description
+        sql: "{CUBE}.\"DESCRIPTION\""
+        type: string
+
+      - name: system_modified_by
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_BY\""
+        type: string
+
+      - name: system_created_by
+        sql: "{CUBE}.\"SYSTEM_CREATED_BY\""
+        type: string
+
+      - name: system_created_at
+        sql: "{CUBE}.\"SYSTEM_CREATED_AT\""
+        type: time
+
+      - name: last_modified_date_time
+        sql: "{CUBE}.\"LAST_MODIFIED_DATE_TIME\""
+        type: time
+
+      - name: system_modified_at
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_AT\""
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

@@ -1,0 +1,443 @@
+cubes:
+  - name: job
+    sql_table: "\"BUSINESS_CENTRAL\".\"JOB\""
+    data_source: default
+
+    joins:
+      - name: company
+        sql: "{CUBE}.\"COMPANY_ID\" = {company}.\"ID\""
+        relationship: many_to_one
+
+    dimensions:
+      - name: price_calculation_method
+        sql: "{CUBE}.\"PRICE_CALCULATION_METHOD\""
+        type: string
+
+      - name: person_responsible
+        sql: "{CUBE}.\"PERSON_RESPONSIBLE\""
+        type: string
+
+      - name: complete
+        sql: "{CUBE}.\"COMPLETE\""
+        type: boolean
+
+      - name: system_id
+        sql: "{CUBE}.\"SYSTEM_ID\""
+        type: string
+
+      - name: project_manager
+        sql: "{CUBE}.\"PROJECT_MANAGER\""
+        type: string
+
+      - name: bill_to_contact
+        sql: "{CUBE}.\"BILL_TO_CONTACT\""
+        type: string
+
+      - name: sell_to_county
+        sql: "{CUBE}.\"SELL_TO_COUNTY\""
+        type: string
+
+      - name: recog_costs_amount
+        sql: "{CUBE}.\"RECOG_COSTS_AMOUNT\""
+        type: string
+
+      - name: sell_to_customer_name_2
+        sql: "{CUBE}.\"SELL_TO_CUSTOMER_NAME_2\""
+        type: string
+
+      - name: sell_to_email
+        sql: "{CUBE}.\"SELL_TO_EMAIL\""
+        type: string
+
+      - name: external_document_no
+        sql: "{CUBE}.\"EXTERNAL_DOCUMENT_NO\""
+        type: string
+
+      - name: total_wipsales_amount
+        sql: "{CUBE}.\"TOTAL_WIPSALES_AMOUNT\""
+        type: string
+
+      - name: customer_disc_group
+        sql: "{CUBE}.\"CUSTOMER_DISC_GROUP\""
+        type: string
+
+      - name: sell_to_city
+        sql: "{CUBE}.\"SELL_TO_CITY\""
+        type: string
+
+      - name: customer_price_group
+        sql: "{CUBE}.\"CUSTOMER_PRICE_GROUP\""
+        type: string
+
+      - name: comment
+        sql: "{CUBE}.\"COMMENT\""
+        type: boolean
+
+      - name: wip_method
+        sql: "{CUBE}.\"WIP_METHOD\""
+        type: string
+
+      - name: ship_to_country_region_code
+        sql: "{CUBE}.\"SHIP_TO_COUNTRY_REGION_CODE\""
+        type: string
+
+      - name: bill_to_address
+        sql: "{CUBE}.\"BILL_TO_ADDRESS\""
+        type: string
+
+      - name: ship_to_name
+        sql: "{CUBE}.\"SHIP_TO_NAME\""
+        type: string
+
+      - name: sell_to_address
+        sql: "{CUBE}.\"SELL_TO_ADDRESS\""
+        type: string
+
+      - name: sell_to_customer_no
+        sql: "{CUBE}.\"SELL_TO_CUSTOMER_NO\""
+        type: string
+
+      - name: resource_filter
+        sql: "{CUBE}.\"RESOURCE_FILTER\""
+        type: string
+
+      - name: no
+        sql: "{CUBE}.\"NO\""
+        type: string
+
+      - name: over_budget
+        sql: "{CUBE}.\"OVER_BUDGET\""
+        type: boolean
+
+      - name: bill_to_address_2
+        sql: "{CUBE}.\"BILL_TO_ADDRESS_2\""
+        type: string
+
+      - name: total_wipsales_glamount
+        sql: "{CUBE}.\"TOTAL_WIPSALES_GLAMOUNT\""
+        type: string
+
+      - name: bill_to_contact_no
+        sql: "{CUBE}.\"BILL_TO_CONTACT_NO\""
+        type: string
+
+      - name: search_description
+        sql: "{CUBE}.\"SEARCH_DESCRIPTION\""
+        type: string
+
+      - name: allow_schedule_contract_lines
+        sql: "{CUBE}.\"ALLOW_SCHEDULE_CONTRACT_LINES\""
+        type: boolean
+
+      - name: sell_to_address_2
+        sql: "{CUBE}.\"SELL_TO_ADDRESS_2\""
+        type: string
+
+      - name: global_dimension_2_code
+        sql: "{CUBE}.\"GLOBAL_DIMENSION_2_CODE\""
+        type: string
+
+      - name: bill_to_post_code
+        sql: "{CUBE}.\"BILL_TO_POST_CODE\""
+        type: string
+
+      - name: total_wipcost_amount
+        sql: "{CUBE}.\"TOTAL_WIPCOST_AMOUNT\""
+        type: string
+
+      - name: wip_warnings
+        sql: "{CUBE}.\"WIP_WARNINGS\""
+        type: boolean
+
+      - name: description
+        sql: "{CUBE}.\"DESCRIPTION\""
+        type: string
+
+      - name: ship_to_county
+        sql: "{CUBE}.\"SHIP_TO_COUNTY\""
+        type: string
+
+      - name: bill_to_name
+        sql: "{CUBE}.\"BILL_TO_NAME\""
+        type: string
+
+      - name: calc_recog_sales_glamount
+        sql: "{CUBE}.\"CALC_RECOG_SALES_GLAMOUNT\""
+        type: string
+
+      - name: description_2
+        sql: "{CUBE}.\"DESCRIPTION_2\""
+        type: string
+
+      - name: bill_to_city
+        sql: "{CUBE}.\"BILL_TO_CITY\""
+        type: string
+
+      - name: bill_to_customer_no
+        sql: "{CUBE}.\"BILL_TO_CUSTOMER_NO\""
+        type: string
+
+      - name: completely_picked
+        sql: "{CUBE}.\"COMPLETELY_PICKED\""
+        type: boolean
+
+      - name: applied_costs_glamount
+        sql: "{CUBE}.\"APPLIED_COSTS_GLAMOUNT\""
+        type: string
+
+      - name: recog_sales_amount
+        sql: "{CUBE}.\"RECOG_SALES_AMOUNT\""
+        type: string
+
+      - name: sell_to_contact
+        sql: "{CUBE}.\"SELL_TO_CONTACT\""
+        type: string
+
+      - name: wip_completion_posted
+        sql: "{CUBE}.\"WIP_COMPLETION_POSTED\""
+        type: boolean
+
+      - name: bill_to_name_2
+        sql: "{CUBE}.\"BILL_TO_NAME_2\""
+        type: string
+
+      - name: status
+        sql: "{CUBE}.\"STATUS\""
+        type: string
+
+      - name: scheduled_res_gr_qty
+        sql: "{CUBE}.\"SCHEDULED_RES_GR_QTY\""
+        type: string
+
+      - name: bill_to_county
+        sql: "{CUBE}.\"BILL_TO_COUNTY\""
+        type: string
+
+      - name: system_created_by
+        sql: "{CUBE}.\"SYSTEM_CREATED_BY\""
+        type: string
+
+      - name: invoice_currency_code
+        sql: "{CUBE}.\"INVOICE_CURRENCY_CODE\""
+        type: string
+
+      - name: scheduled_res_qty
+        sql: "{CUBE}.\"SCHEDULED_RES_QTY\""
+        type: string
+
+      - name: recog_costs_glamount
+        sql: "{CUBE}.\"RECOG_COSTS_GLAMOUNT\""
+        type: string
+
+      - name: sell_to_contact_no
+        sql: "{CUBE}.\"SELL_TO_CONTACT_NO\""
+        type: string
+
+      - name: ship_to_address
+        sql: "{CUBE}.\"SHIP_TO_ADDRESS\""
+        type: string
+
+      - name: system_modified_by
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_BY\""
+        type: string
+
+      - name: ship_to_address_2
+        sql: "{CUBE}.\"SHIP_TO_ADDRESS_2\""
+        type: string
+
+      - name: ship_to_post_code
+        sql: "{CUBE}.\"SHIP_TO_POST_CODE\""
+        type: string
+
+      - name: posting_date_filter
+        sql: "{CUBE}.\"POSTING_DATE_FILTER\""
+        type: string
+
+      - name: total_wipcost_glamount
+        sql: "{CUBE}.\"TOTAL_WIPCOST_GLAMOUNT\""
+        type: string
+
+      - name: ship_to_code
+        sql: "{CUBE}.\"SHIP_TO_CODE\""
+        type: string
+
+      - name: exch_calculation_cost
+        sql: "{CUBE}.\"EXCH_CALCULATION_COST\""
+        type: string
+
+      - name: wip_completion_calculated
+        sql: "{CUBE}.\"WIP_COMPLETION_CALCULATED\""
+        type: boolean
+
+      - name: sell_to_country_region_code
+        sql: "{CUBE}.\"SELL_TO_COUNTRY_REGION_CODE\""
+        type: string
+
+      - name: currency_code
+        sql: "{CUBE}.\"CURRENCY_CODE\""
+        type: string
+
+      - name: recog_sales_glamount
+        sql: "{CUBE}.\"RECOG_SALES_GLAMOUNT\""
+        type: string
+
+      - name: payment_terms_code
+        sql: "{CUBE}.\"PAYMENT_TERMS_CODE\""
+        type: string
+
+      - name: calc_recog_costs_glamount
+        sql: "{CUBE}.\"CALC_RECOG_COSTS_GLAMOUNT\""
+        type: string
+
+      - name: sell_to_post_code
+        sql: "{CUBE}.\"SELL_TO_POST_CODE\""
+        type: string
+
+      - name: applied_sales_glamount
+        sql: "{CUBE}.\"APPLIED_SALES_GLAMOUNT\""
+        type: string
+
+      - name: resource_gr_filter
+        sql: "{CUBE}.\"RESOURCE_GR_FILTER\""
+        type: string
+
+      - name: reserve
+        sql: "{CUBE}.\"RESERVE\""
+        type: string
+
+      - name: calc_recog_costs_amount
+        sql: "{CUBE}.\"CALC_RECOG_COSTS_AMOUNT\""
+        type: string
+
+      - name: wip_entries_exist
+        sql: "{CUBE}.\"WIP_ENTRIES_EXIST\""
+        type: boolean
+
+      - name: sell_to_customer_name
+        sql: "{CUBE}.\"SELL_TO_CUSTOMER_NAME\""
+        type: string
+
+      - name: calc_recog_sales_amount
+        sql: "{CUBE}.\"CALC_RECOG_SALES_AMOUNT\""
+        type: string
+
+      - name: planning_date_filter
+        sql: "{CUBE}.\"PLANNING_DATE_FILTER\""
+        type: string
+
+      - name: your_reference
+        sql: "{CUBE}.\"YOUR_REFERENCE\""
+        type: string
+
+      - name: cost_calculation_method
+        sql: "{CUBE}.\"COST_CALCULATION_METHOD\""
+        type: string
+
+      - name: ship_to_city
+        sql: "{CUBE}.\"SHIP_TO_CITY\""
+        type: string
+
+      - name: ship_to_name_2
+        sql: "{CUBE}.\"SHIP_TO_NAME_2\""
+        type: string
+
+      - name: job_posting_group
+        sql: "{CUBE}.\"JOB_POSTING_GROUP\""
+        type: string
+
+      - name: sell_to_phone_no
+        sql: "{CUBE}.\"SELL_TO_PHONE_NO\""
+        type: string
+
+      - name: apply_usage_link
+        sql: "{CUBE}.\"APPLY_USAGE_LINK\""
+        type: boolean
+
+      - name: company_id
+        sql: "{CUBE}.\"COMPANY_ID\""
+        type: string
+
+      - name: wip_posting_method
+        sql: "{CUBE}.\"WIP_POSTING_METHOD\""
+        type: string
+
+      - name: exch_calculation_price
+        sql: "{CUBE}.\"EXCH_CALCULATION_PRICE\""
+        type: string
+
+      - name: ship_to_contact
+        sql: "{CUBE}.\"SHIP_TO_CONTACT\""
+        type: string
+
+      - name: global_dimension_1_code
+        sql: "{CUBE}.\"GLOBAL_DIMENSION_1_CODE\""
+        type: string
+
+      - name: image
+        sql: "{CUBE}.\"IMAGE\""
+        type: string
+
+      - name: payment_method_code
+        sql: "{CUBE}.\"PAYMENT_METHOD_CODE\""
+        type: string
+
+      - name: bill_to_country_region_code
+        sql: "{CUBE}.\"BILL_TO_COUNTRY_REGION_CODE\""
+        type: string
+
+      - name: language_code
+        sql: "{CUBE}.\"LANGUAGE_CODE\""
+        type: string
+
+      - name: no_series
+        sql: "{CUBE}.\"NO_SERIES\""
+        type: string
+
+      - name: blocked
+        sql: "{CUBE}.\"BLOCKED\""
+        type: string
+
+      - name: system_created_at
+        sql: "{CUBE}.\"SYSTEM_CREATED_AT\""
+        type: time
+
+      - name: next_invoice_date
+        sql: "{CUBE}.\"NEXT_INVOICE_DATE\""
+        type: time
+
+      - name: system_modified_at
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_AT\""
+        type: time
+
+      - name: creation_date
+        sql: "{CUBE}.\"CREATION_DATE\""
+        type: time
+
+      - name: wip_glposting_date
+        sql: "{CUBE}.\"WIP_GLPOSTING_DATE\""
+        type: time
+
+      - name: last_date_modified
+        sql: "{CUBE}.\"LAST_DATE_MODIFIED\""
+        type: time
+
+      - name: starting_date
+        sql: "{CUBE}.\"STARTING_DATE\""
+        type: time
+
+      - name: wip_posting_date
+        sql: "{CUBE}.\"WIP_POSTING_DATE\""
+        type: time
+
+      - name: ending_date
+        sql: "{CUBE}.\"ENDING_DATE\""
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

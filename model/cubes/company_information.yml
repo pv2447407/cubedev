@@ -1,0 +1,339 @@
+cubes:
+  - name: company_information
+    sql_table: "\"BUSINESS_CENTRAL\".\"COMPANY_INFORMATION\""
+    data_source: default
+
+    joins:
+      - name: company
+        sql: "{CUBE}.\"COMPANY_ID\" = {company}.\"ID\""
+        relationship: many_to_one
+
+    dimensions:
+      - name: ship_to_upszone
+        sql: "{CUBE}.\"SHIP_TO_UPSZONE\""
+        type: string
+
+      - name: ship_to_county
+        sql: "{CUBE}.\"SHIP_TO_COUNTY\""
+        type: string
+
+      - name: telex_no
+        sql: "{CUBE}.\"TELEX_NO\""
+        type: string
+
+      - name: brand_color_code
+        sql: "{CUBE}.\"BRAND_COLOR_CODE\""
+        type: string
+
+      - name: post_code
+        sql: "{CUBE}.\"POST_CODE\""
+        type: string
+
+      - name: ups_shipper_id
+        sql: "{CUBE}.\"UPS_SHIPPER_ID\""
+        type: string
+
+      - name: county
+        sql: "{CUBE}.\"COUNTY\""
+        type: string
+
+      - name: swift_code
+        sql: "{CUBE}.\"SWIFT_CODE\""
+        type: string
+
+      - name: ship_to_country_region_code
+        sql: "{CUBE}.\"SHIP_TO_COUNTRY_REGION_CODE\""
+        type: string
+
+      - name: system_indicator_style
+        sql: "{CUBE}.\"SYSTEM_INDICATOR_STYLE\""
+        type: string
+
+      - name: name_2
+        sql: "{CUBE}.\"NAME_2\""
+        type: string
+
+      - name: primary_key
+        sql: "{CUBE}.\"PRIMARY_KEY\""
+        type: string
+
+      - name: tax_scheme
+        sql: "{CUBE}.\"TAX_SCHEME\""
+        type: string
+
+      - name: giro_no
+        sql: "{CUBE}.\"GIRO_NO\""
+        type: string
+
+      - name: registration_no
+        sql: "{CUBE}.\"REGISTRATION_NO\""
+        type: string
+
+      - name: software_identification_code
+        sql: "{CUBE}.\"SOFTWARE_IDENTIFICATION_CODE\""
+        type: string
+
+      - name: state_inscription
+        sql: "{CUBE}.\"STATE_INSCRIPTION\""
+        type: string
+
+      - name: address
+        sql: "{CUBE}.\"ADDRESS\""
+        type: string
+
+      - name: tax_area_code
+        sql: "{CUBE}.\"TAX_AREA_CODE\""
+        type: string
+
+      - name: system_created_by
+        sql: "{CUBE}.\"SYSTEM_CREATED_BY\""
+        type: string
+
+      - name: picture
+        sql: "{CUBE}.\"PICTURE\""
+        type: string
+
+      - name: contact_person
+        sql: "{CUBE}.\"CONTACT_PERSON\""
+        type: string
+
+      - name: ship_to_name_2
+        sql: "{CUBE}.\"SHIP_TO_NAME_2\""
+        type: string
+
+      - name: alternative_language_code
+        sql: "{CUBE}.\"ALTERNATIVE_LANGUAGE_CODE\""
+        type: string
+
+      - name: name
+        sql: "{CUBE}.\"NAME\""
+        type: string
+
+      - name: bank_name
+        sql: "{CUBE}.\"BANK_NAME\""
+        type: string
+
+      - name: rfc_number
+        sql: "{CUBE}.\"RFC_NUMBER\""
+        type: string
+
+      - name: payment_routing_no
+        sql: "{CUBE}.\"PAYMENT_ROUTING_NO\""
+        type: string
+
+      - name: telex_answer_back
+        sql: "{CUBE}.\"TELEX_ANSWER_BACK\""
+        type: string
+
+      - name: system_indicator
+        sql: "{CUBE}.\"SYSTEM_INDICATOR\""
+        type: string
+
+      - name: tax_exemption_no
+        sql: "{CUBE}.\"TAX_EXEMPTION_NO\""
+        type: string
+
+      - name: use_glnin_electronic_document
+        sql: "{CUBE}.\"USE_GLNIN_ELECTRONIC_DOCUMENT\""
+        type: boolean
+
+      - name: fax_no
+        sql: "{CUBE}.\"FAX_NO\""
+        type: string
+
+      - name: responsibility_center
+        sql: "{CUBE}.\"RESPONSIBILITY_CENTER\""
+        type: string
+
+      - name: custom_system_indicator_text
+        sql: "{CUBE}.\"CUSTOM_SYSTEM_INDICATOR_TEXT\""
+        type: string
+
+      - name: ship_to_contact
+        sql: "{CUBE}.\"SHIP_TO_CONTACT\""
+        type: string
+
+      - name: e_mail
+        sql: "{CUBE}.\"E_MAIL\""
+        type: string
+
+      - name: bank_branch_no
+        sql: "{CUBE}.\"BANK_BRANCH_NO\""
+        type: string
+
+      - name: demo_company
+        sql: "{CUBE}.\"DEMO_COMPANY\""
+        type: boolean
+
+      - name: federal_idno
+        sql: "{CUBE}.\"FEDERAL_IDNO\""
+        type: string
+
+      - name: eori_number
+        sql: "{CUBE}.\"EORI_NUMBER\""
+        type: string
+
+      - name: ship_to_address
+        sql: "{CUBE}.\"SHIP_TO_ADDRESS\""
+        type: string
+
+      - name: picture_odata_media_read_link
+        sql: "{CUBE}.\"PICTURE_ODATA_MEDIA_READ_LINK\""
+        type: string
+
+      - name: ship_to_post_code
+        sql: "{CUBE}.\"SHIP_TO_POST_CODE\""
+        type: string
+
+      - name: ship_to_city
+        sql: "{CUBE}.\"SHIP_TO_CITY\""
+        type: string
+
+      - name: ship_to_address_2
+        sql: "{CUBE}.\"SHIP_TO_ADDRESS_2\""
+        type: string
+
+      - name: city
+        sql: "{CUBE}.\"CITY\""
+        type: string
+
+      - name: vat_registration_no
+        sql: "{CUBE}.\"VAT_REGISTRATION_NO\""
+        type: string
+
+      - name: phone_no_2
+        sql: "{CUBE}.\"PHONE_NO_2\""
+        type: string
+
+      - name: country_region_code
+        sql: "{CUBE}.\"COUNTRY_REGION_CODE\""
+        type: string
+
+      - name: system_id
+        sql: "{CUBE}.\"SYSTEM_ID\""
+        type: string
+
+      - name: sat_tax_regime_classification
+        sql: "{CUBE}.\"SAT_TAX_REGIME_CLASSIFICATION\""
+        type: string
+
+      - name: sat_postal_code
+        sql: "{CUBE}.\"SAT_POSTAL_CODE\""
+        type: string
+
+      - name: location_code
+        sql: "{CUBE}.\"LOCATION_CODE\""
+        type: string
+
+      - name: picture_odata_media_edit_link
+        sql: "{CUBE}.\"PICTURE_ODATA_MEDIA_EDIT_LINK\""
+        type: string
+
+      - name: cal_convergence_time_frame
+        sql: "{CUBE}.\"CAL_CONVERGENCE_TIME_FRAME\""
+        type: string
+
+      - name: brand_color_value
+        sql: "{CUBE}.\"BRAND_COLOR_VALUE\""
+        type: string
+
+      - name: bank_account_no
+        sql: "{CUBE}.\"BANK_ACCOUNT_NO\""
+        type: string
+
+      - name: iban
+        sql: "{CUBE}.\"IBAN\""
+        type: string
+
+      - name: allow_blank_payment_info
+        sql: "{CUBE}.\"ALLOW_BLANK_PAYMENT_INFO\""
+        type: boolean
+
+      - name: qst_registration_no
+        sql: "{CUBE}.\"QST_REGISTRATION_NO\""
+        type: string
+
+      - name: check_avail_time_bucket
+        sql: "{CUBE}.\"CHECK_AVAIL_TIME_BUCKET\""
+        type: string
+
+      - name: check_avail_period_calc
+        sql: "{CUBE}.\"CHECK_AVAIL_PERIOD_CALC\""
+        type: string
+
+      - name: provincial_tax_area_code
+        sql: "{CUBE}.\"PROVINCIAL_TAX_AREA_CODE\""
+        type: string
+
+      - name: curp_no
+        sql: "{CUBE}.\"CURP_NO\""
+        type: string
+
+      - name: industrial_classification
+        sql: "{CUBE}.\"INDUSTRIAL_CLASSIFICATION\""
+        type: string
+
+      - name: system_modified_by
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_BY\""
+        type: string
+
+      - name: gln
+        sql: "{CUBE}.\"GLN\""
+        type: string
+
+      - name: phone_no
+        sql: "{CUBE}.\"PHONE_NO\""
+        type: string
+
+      - name: ship_to_name
+        sql: "{CUBE}.\"SHIP_TO_NAME\""
+        type: string
+
+      - name: base_calendar_code
+        sql: "{CUBE}.\"BASE_CALENDAR_CODE\""
+        type: string
+
+      - name: customs_permit_no
+        sql: "{CUBE}.\"CUSTOMS_PERMIT_NO\""
+        type: string
+
+      - name: company_id
+        sql: "{CUBE}.\"COMPANY_ID\""
+        type: string
+
+      - name: address_2
+        sql: "{CUBE}.\"ADDRESS_2\""
+        type: string
+
+      - name: created_date_time
+        sql: "{CUBE}.\"CREATED_DATE_TIME\""
+        type: time
+
+      - name: system_created_at
+        sql: "{CUBE}.\"SYSTEM_CREATED_AT\""
+        type: time
+
+      - name: customs_permit_date
+        sql: "{CUBE}.\"CUSTOMS_PERMIT_DATE\""
+        type: time
+
+      - name: system_modified_at
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_AT\""
+        type: time
+
+      - name: picture_last_mod_date_time
+        sql: "{CUBE}.\"PICTURE_LAST_MOD_DATE_TIME\""
+        type: time
+
+      - name: last_modified_date_time
+        sql: "{CUBE}.\"LAST_MODIFIED_DATE_TIME\""
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

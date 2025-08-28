@@ -1,0 +1,303 @@
+cubes:
+  - name: employee
+    sql_table: "\"BUSINESS_CENTRAL\".\"EMPLOYEE\""
+    data_source: default
+
+    joins:
+      - name: company
+        sql: "{CUBE}.\"COMPANY_ID\" = {company}.\"ID\""
+        relationship: many_to_one
+
+    dimensions:
+      - name: system_id
+        sql: "{CUBE}.\"SYSTEM_ID\""
+        type: string
+
+      - name: cost_center_code
+        sql: "{CUBE}.\"COST_CENTER_CODE\""
+        type: string
+
+      - name: global_dimension_2_code
+        sql: "{CUBE}.\"GLOBAL_DIMENSION_2_CODE\""
+        type: string
+
+      - name: iban
+        sql: "{CUBE}.\"IBAN\""
+        type: string
+
+      - name: license_no
+        sql: "{CUBE}.\"LICENSE_NO\""
+        type: string
+
+      - name: total_absence_base
+        sql: "{CUBE}.\"TOTAL_ABSENCE_BASE\""
+        type: string
+
+      - name: first_name
+        sql: "{CUBE}.\"FIRST_NAME\""
+        type: string
+
+      - name: manager_no
+        sql: "{CUBE}.\"MANAGER_NO\""
+        type: string
+
+      - name: employee_posting_group
+        sql: "{CUBE}.\"EMPLOYEE_POSTING_GROUP\""
+        type: string
+
+      - name: bank_account_no
+        sql: "{CUBE}.\"BANK_ACCOUNT_NO\""
+        type: string
+
+      - name: country_region_code
+        sql: "{CUBE}.\"COUNTRY_REGION_CODE\""
+        type: string
+
+      - name: rfc_no
+        sql: "{CUBE}.\"RFC_NO\""
+        type: string
+
+      - name: fax_no
+        sql: "{CUBE}.\"FAX_NO\""
+        type: string
+
+      - name: middle_name
+        sql: "{CUBE}.\"MIDDLE_NAME\""
+        type: string
+
+      - name: extension
+        sql: "{CUBE}.\"EXTENSION\""
+        type: string
+
+      - name: global_dimension_1_filter
+        sql: "{CUBE}.\"GLOBAL_DIMENSION_1_FILTER\""
+        type: string
+
+      - name: emplymt_contract_code
+        sql: "{CUBE}.\"EMPLYMT_CONTRACT_CODE\""
+        type: string
+
+      - name: gender
+        sql: "{CUBE}.\"GENDER\""
+        type: string
+
+      - name: salespers_purch_code
+        sql: "{CUBE}.\"SALESPERS_PURCH_CODE\""
+        type: string
+
+      - name: post_code
+        sql: "{CUBE}.\"POST_CODE\""
+        type: string
+
+      - name: e_mail
+        sql: "{CUBE}.\"E_MAIL\""
+        type: string
+
+      - name: image
+        sql: "{CUBE}.\"IMAGE\""
+        type: string
+
+      - name: last_name
+        sql: "{CUBE}.\"LAST_NAME\""
+        type: string
+
+      - name: statistics_group_code
+        sql: "{CUBE}.\"STATISTICS_GROUP_CODE\""
+        type: string
+
+      - name: phone_no
+        sql: "{CUBE}.\"PHONE_NO\""
+        type: string
+
+      - name: pager
+        sql: "{CUBE}.\"PAGER\""
+        type: string
+
+      - name: date_filter
+        sql: "{CUBE}.\"DATE_FILTER\""
+        type: string
+
+      - name: alt_address_code
+        sql: "{CUBE}.\"ALT_ADDRESS_CODE\""
+        type: string
+
+      - name: address
+        sql: "{CUBE}.\"ADDRESS\""
+        type: string
+
+      - name: cost_object_code
+        sql: "{CUBE}.\"COST_OBJECT_CODE\""
+        type: string
+
+      - name: global_dimension_2_filter
+        sql: "{CUBE}.\"GLOBAL_DIMENSION_2_FILTER\""
+        type: string
+
+      - name: no_series
+        sql: "{CUBE}.\"NO_SERIES\""
+        type: string
+
+      - name: resource_no
+        sql: "{CUBE}.\"RESOURCE_NO\""
+        type: string
+
+      - name: application_method
+        sql: "{CUBE}.\"APPLICATION_METHOD\""
+        type: string
+
+      - name: title
+        sql: "{CUBE}.\"TITLE\""
+        type: string
+
+      - name: global_dimension_1_code
+        sql: "{CUBE}.\"GLOBAL_DIMENSION_1_CODE\""
+        type: string
+
+      - name: job_title
+        sql: "{CUBE}.\"JOB_TITLE\""
+        type: string
+
+      - name: county
+        sql: "{CUBE}.\"COUNTY\""
+        type: string
+
+      - name: privacy_blocked
+        sql: "{CUBE}.\"PRIVACY_BLOCKED\""
+        type: boolean
+
+      - name: social_security_no
+        sql: "{CUBE}.\"SOCIAL_SECURITY_NO\""
+        type: string
+
+      - name: company_id
+        sql: "{CUBE}.\"COMPANY_ID\""
+        type: string
+
+      - name: cause_of_absence_filter
+        sql: "{CUBE}.\"CAUSE_OF_ABSENCE_FILTER\""
+        type: string
+
+      - name: system_created_by
+        sql: "{CUBE}.\"SYSTEM_CREATED_BY\""
+        type: string
+
+      - name: comment
+        sql: "{CUBE}.\"COMMENT\""
+        type: boolean
+
+      - name: swift_code
+        sql: "{CUBE}.\"SWIFT_CODE\""
+        type: string
+
+      - name: search_name
+        sql: "{CUBE}.\"SEARCH_NAME\""
+        type: string
+
+      - name: status
+        sql: "{CUBE}.\"STATUS\""
+        type: string
+
+      - name: mobile_phone_no
+        sql: "{CUBE}.\"MOBILE_PHONE_NO\""
+        type: string
+
+      - name: company_email
+        sql: "{CUBE}.\"COMPANY_EMAIL\""
+        type: string
+
+      - name: union_membership_no
+        sql: "{CUBE}.\"UNION_MEMBERSHIP_NO\""
+        type: string
+
+      - name: initials
+        sql: "{CUBE}.\"INITIALS\""
+        type: string
+
+      - name: address_2
+        sql: "{CUBE}.\"ADDRESS_2\""
+        type: string
+
+      - name: cause_of_inactivity_code
+        sql: "{CUBE}.\"CAUSE_OF_INACTIVITY_CODE\""
+        type: string
+
+      - name: union_code
+        sql: "{CUBE}.\"UNION_CODE\""
+        type: string
+
+      - name: balance
+        sql: "{CUBE}.\"BALANCE\""
+        type: string
+
+      - name: grounds_for_term_code
+        sql: "{CUBE}.\"GROUNDS_FOR_TERM_CODE\""
+        type: string
+
+      - name: system_modified_by
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_BY\""
+        type: string
+
+      - name: employee_no_filter
+        sql: "{CUBE}.\"EMPLOYEE_NO_FILTER\""
+        type: string
+
+      - name: city
+        sql: "{CUBE}.\"CITY\""
+        type: string
+
+      - name: no
+        sql: "{CUBE}.\"NO\""
+        type: string
+
+      - name: bank_branch_no
+        sql: "{CUBE}.\"BANK_BRANCH_NO\""
+        type: string
+
+      - name: system_created_at
+        sql: "{CUBE}.\"SYSTEM_CREATED_AT\""
+        type: time
+
+      - name: last_date_modified
+        sql: "{CUBE}.\"LAST_DATE_MODIFIED\""
+        type: time
+
+      - name: employment_date
+        sql: "{CUBE}.\"EMPLOYMENT_DATE\""
+        type: time
+
+      - name: alt_address_end_date
+        sql: "{CUBE}.\"ALT_ADDRESS_END_DATE\""
+        type: time
+
+      - name: last_modified_date_time
+        sql: "{CUBE}.\"LAST_MODIFIED_DATE_TIME\""
+        type: time
+
+      - name: alt_address_start_date
+        sql: "{CUBE}.\"ALT_ADDRESS_START_DATE\""
+        type: time
+
+      - name: system_modified_at
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_AT\""
+        type: time
+
+      - name: inactive_date
+        sql: "{CUBE}.\"INACTIVE_DATE\""
+        type: time
+
+      - name: termination_date
+        sql: "{CUBE}.\"TERMINATION_DATE\""
+        type: time
+
+      - name: birth_date
+        sql: "{CUBE}.\"BIRTH_DATE\""
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

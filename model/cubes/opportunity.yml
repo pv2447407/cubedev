@@ -1,0 +1,187 @@
+cubes:
+  - name: opportunity
+    sql_table: "\"BUSINESS_CENTRAL\".\"OPPORTUNITY\""
+    data_source: default
+
+    joins:
+      - name: company
+        sql: "{CUBE}.\"COMPANY_ID\" = {company}.\"ID\""
+        relationship: many_to_one
+
+    dimensions:
+      - name: campaign_no
+        sql: "{CUBE}.\"CAMPAIGN_NO\""
+        type: string
+
+      - name: system_created_by
+        sql: "{CUBE}.\"SYSTEM_CREATED_BY\""
+        type: string
+
+      - name: contact_no
+        sql: "{CUBE}.\"CONTACT_NO\""
+        type: string
+
+      - name: contact_company_name
+        sql: "{CUBE}.\"CONTACT_COMPANY_NAME\""
+        type: string
+
+      - name: wizard_estimated_value_lcy
+        sql: "{CUBE}.\"WIZARD_ESTIMATED_VALUE_LCY\""
+        type: string
+
+      - name: contact_name
+        sql: "{CUBE}.\"CONTACT_NAME\""
+        type: string
+
+      - name: wizard_campaign_description
+        sql: "{CUBE}.\"WIZARD_CAMPAIGN_DESCRIPTION\""
+        type: string
+
+      - name: segment_description
+        sql: "{CUBE}.\"SEGMENT_DESCRIPTION\""
+        type: string
+
+      - name: system_id
+        sql: "{CUBE}.\"SYSTEM_ID\""
+        type: string
+
+      - name: description
+        sql: "{CUBE}.\"DESCRIPTION\""
+        type: string
+
+      - name: sales_document_no
+        sql: "{CUBE}.\"SALES_DOCUMENT_NO\""
+        type: string
+
+      - name: no
+        sql: "{CUBE}.\"NO\""
+        type: string
+
+      - name: salesperson_name
+        sql: "{CUBE}.\"SALESPERSON_NAME\""
+        type: string
+
+      - name: no_series
+        sql: "{CUBE}.\"NO_SERIES\""
+        type: string
+
+      - name: salesperson_code
+        sql: "{CUBE}.\"SALESPERSON_CODE\""
+        type: string
+
+      - name: company_id
+        sql: "{CUBE}.\"COMPANY_ID\""
+        type: string
+
+      - name: status
+        sql: "{CUBE}.\"STATUS\""
+        type: string
+
+      - name: campaign_description
+        sql: "{CUBE}.\"CAMPAIGN_DESCRIPTION\""
+        type: string
+
+      - name: comment
+        sql: "{CUBE}.\"COMMENT\""
+        type: boolean
+
+      - name: sales_cycle_code
+        sql: "{CUBE}.\"SALES_CYCLE_CODE\""
+        type: string
+
+      - name: chances_of_success
+        sql: "{CUBE}.\"CHANCES_OF_SUCCESS\""
+        type: string
+
+      - name: completed
+        sql: "{CUBE}.\"COMPLETED\""
+        type: string
+
+      - name: priority
+        sql: "{CUBE}.\"PRIORITY\""
+        type: string
+
+      - name: segment_no
+        sql: "{CUBE}.\"SEGMENT_NO\""
+        type: string
+
+      - name: estimated_value_lcy
+        sql: "{CUBE}.\"ESTIMATED_VALUE_LCY\""
+        type: string
+
+      - name: wizard_contact_name
+        sql: "{CUBE}.\"WIZARD_CONTACT_NAME\""
+        type: string
+
+      - name: coupled_to_dataverse
+        sql: "{CUBE}.\"COUPLED_TO_DATAVERSE\""
+        type: boolean
+
+      - name: wizard_step
+        sql: "{CUBE}.\"WIZARD_STEP\""
+        type: string
+
+      - name: wizard_chances_of_success
+        sql: "{CUBE}.\"WIZARD_CHANCES_OF_SUCCESS\""
+        type: string
+
+      - name: sales_document_type
+        sql: "{CUBE}.\"SALES_DOCUMENT_TYPE\""
+        type: string
+
+      - name: activate_first_stage
+        sql: "{CUBE}.\"ACTIVATE_FIRST_STAGE\""
+        type: boolean
+
+      - name: calcd_current_value_lcy
+        sql: "{CUBE}.\"CALCD_CURRENT_VALUE_LCY\""
+        type: string
+
+      - name: system_modified_by
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_BY\""
+        type: string
+
+      - name: contact_company_no
+        sql: "{CUBE}.\"CONTACT_COMPANY_NO\""
+        type: string
+
+      - name: probability
+        sql: "{CUBE}.\"PROBABILITY\""
+        type: string
+
+      - name: closed
+        sql: "{CUBE}.\"CLOSED\""
+        type: boolean
+
+      - name: system_created_at
+        sql: "{CUBE}.\"SYSTEM_CREATED_AT\""
+        type: time
+
+      - name: wizard_estimated_closing_date
+        sql: "{CUBE}.\"WIZARD_ESTIMATED_CLOSING_DATE\""
+        type: time
+
+      - name: system_modified_at
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_AT\""
+        type: time
+
+      - name: creation_date
+        sql: "{CUBE}.\"CREATION_DATE\""
+        type: time
+
+      - name: estimated_closing_date
+        sql: "{CUBE}.\"ESTIMATED_CLOSING_DATE\""
+        type: time
+
+      - name: date_closed
+        sql: "{CUBE}.\"DATE_CLOSED\""
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

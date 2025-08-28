@@ -1,0 +1,75 @@
+cubes:
+  - name: item_variant
+    sql_table: "\"BUSINESS_CENTRAL\".\"ITEM_VARIANT\""
+    data_source: default
+
+    joins:
+      - name: company
+        sql: "{CUBE}.\"COMPANY_ID\" = {company}.\"ID\""
+        relationship: many_to_one
+
+    dimensions:
+      - name: item_no
+        sql: "{CUBE}.\"ITEM_NO\""
+        type: string
+
+      - name: code
+        sql: "{CUBE}.\"CODE\""
+        type: string
+
+      - name: system_modified_by
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_BY\""
+        type: string
+
+      - name: company_id
+        sql: "{CUBE}.\"COMPANY_ID\""
+        type: string
+
+      - name: system_created_by
+        sql: "{CUBE}.\"SYSTEM_CREATED_BY\""
+        type: string
+
+      - name: system_id
+        sql: "{CUBE}.\"SYSTEM_ID\""
+        type: string
+
+      - name: blocked
+        sql: "{CUBE}.\"BLOCKED\""
+        type: boolean
+
+      - name: sales_blocked
+        sql: "{CUBE}.\"SALES_BLOCKED\""
+        type: boolean
+
+      - name: description
+        sql: "{CUBE}.\"DESCRIPTION\""
+        type: string
+
+      - name: purchasing_blocked
+        sql: "{CUBE}.\"PURCHASING_BLOCKED\""
+        type: boolean
+
+      - name: description_2
+        sql: "{CUBE}.\"DESCRIPTION_2\""
+        type: string
+
+      - name: item_id
+        sql: "{CUBE}.\"ITEM_ID\""
+        type: string
+
+      - name: system_created_at
+        sql: "{CUBE}.\"SYSTEM_CREATED_AT\""
+        type: time
+
+      - name: system_modified_at
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_AT\""
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

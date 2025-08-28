@@ -1,0 +1,775 @@
+cubes:
+  - name: sales_line
+    sql_table: "\"BUSINESS_CENTRAL\".\"SALES_LINE\""
+    data_source: default
+
+    joins:
+      - name: company
+        sql: "{CUBE}.\"COMPANY_ID\" = {company}.\"ID\""
+        relationship: many_to_one
+
+    dimensions:
+      - name: gen_bus_posting_group
+        sql: "{CUBE}.\"GEN_BUS_POSTING_GROUP\""
+        type: string
+
+      - name: vat
+        sql: "{CUBE}.\"VAT\""
+        type: string
+
+      - name: originally_ordered_no
+        sql: "{CUBE}.\"ORIGINALLY_ORDERED_NO\""
+        type: string
+
+      - name: shipping_agent_service_code
+        sql: "{CUBE}.\"SHIPPING_AGENT_SERVICE_CODE\""
+        type: string
+
+      - name: bin_code
+        sql: "{CUBE}.\"BIN_CODE\""
+        type: string
+
+      - name: bill_to_customer_no
+        sql: "{CUBE}.\"BILL_TO_CUSTOMER_NO\""
+        type: string
+
+      - name: allow_line_disc
+        sql: "{CUBE}.\"ALLOW_LINE_DISC\""
+        type: boolean
+
+      - name: special_order_purchase_no
+        sql: "{CUBE}.\"SPECIAL_ORDER_PURCHASE_NO\""
+        type: string
+
+      - name: tax_area_code
+        sql: "{CUBE}.\"TAX_AREA_CODE\""
+        type: string
+
+      - name: qty_to_assign
+        sql: "{CUBE}.\"QTY_TO_ASSIGN\""
+        type: string
+
+      - name: prepmt_amt_inv
+        sql: "{CUBE}.\"PREPMT_AMT_INV\""
+        type: string
+
+      - name: system_modified_by
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_BY\""
+        type: string
+
+      - name: transport_method
+        sql: "{CUBE}.\"TRANSPORT_METHOD\""
+        type: string
+
+      - name: area
+        sql: "{CUBE}.\"AREA\""
+        type: string
+
+      - name: qty_to_ship_base
+        sql: "{CUBE}.\"QTY_TO_SHIP_BASE\""
+        type: string
+
+      - name: reserve
+        sql: "{CUBE}.\"RESERVE\""
+        type: string
+
+      - name: return_rcd_not_invd
+        sql: "{CUBE}.\"RETURN_RCD_NOT_INVD\""
+        type: string
+
+      - name: sell_to_customer_no
+        sql: "{CUBE}.\"SELL_TO_CUSTOMER_NO\""
+        type: string
+
+      - name: work_type_code
+        sql: "{CUBE}.\"WORK_TYPE_CODE\""
+        type: string
+
+      - name: item_charge_qty_to_handle
+        sql: "{CUBE}.\"ITEM_CHARGE_QTY_TO_HANDLE\""
+        type: string
+
+      - name: job_no
+        sql: "{CUBE}.\"JOB_NO\""
+        type: string
+
+      - name: qty_to_invoice
+        sql: "{CUBE}.\"QTY_TO_INVOICE\""
+        type: string
+
+      - name: quantity_shipped
+        sql: "{CUBE}.\"QUANTITY_SHIPPED\""
+        type: string
+
+      - name: item_category_code
+        sql: "{CUBE}.\"ITEM_CATEGORY_CODE\""
+        type: string
+
+      - name: item_reference_no
+        sql: "{CUBE}.\"ITEM_REFERENCE_NO\""
+        type: string
+
+      - name: vat_calculation_type
+        sql: "{CUBE}.\"VAT_CALCULATION_TYPE\""
+        type: string
+
+      - name: vat_clause_code
+        sql: "{CUBE}.\"VAT_CLAUSE_CODE\""
+        type: string
+
+      - name: unit_of_measure_code
+        sql: "{CUBE}.\"UNIT_OF_MEASURE_CODE\""
+        type: string
+
+      - name: nonstock
+        sql: "{CUBE}.\"NONSTOCK\""
+        type: boolean
+
+      - name: exit_point
+        sql: "{CUBE}.\"EXIT_POINT\""
+        type: string
+
+      - name: outstanding_amount_lcy
+        sql: "{CUBE}.\"OUTSTANDING_AMOUNT_LCY\""
+        type: string
+
+      - name: return_qty_to_receive
+        sql: "{CUBE}.\"RETURN_QTY_TO_RECEIVE\""
+        type: string
+
+      - name: inv_discount_amount
+        sql: "{CUBE}.\"INV_DISCOUNT_AMOUNT\""
+        type: string
+
+      - name: retention_vat
+        sql: "{CUBE}.\"RETENTION_VAT\""
+        type: string
+
+      - name: prepmt_vatdiff_to_deduct
+        sql: "{CUBE}.\"PREPMT_VATDIFF_TO_DEDUCT\""
+        type: string
+
+      - name: allow_invoice_disc
+        sql: "{CUBE}.\"ALLOW_INVOICE_DISC\""
+        type: boolean
+
+      - name: type
+        sql: "{CUBE}.\"TYPE\""
+        type: string
+
+      - name: qty_to_invoice_base
+        sql: "{CUBE}.\"QTY_TO_INVOICE_BASE\""
+        type: string
+
+      - name: reserved_quantity
+        sql: "{CUBE}.\"RESERVED_QUANTITY\""
+        type: string
+
+      - name: amount_including_vat
+        sql: "{CUBE}.\"AMOUNT_INCLUDING_VAT\""
+        type: string
+
+      - name: completely_shipped
+        sql: "{CUBE}.\"COMPLETELY_SHIPPED\""
+        type: boolean
+
+      - name: return_receipt_no
+        sql: "{CUBE}.\"RETURN_RECEIPT_NO\""
+        type: string
+
+      - name: prepayment_tax_group_code
+        sql: "{CUBE}.\"PREPAYMENT_TAX_GROUP_CODE\""
+        type: string
+
+      - name: item_reference_unit_of_measure
+        sql: "{CUBE}.\"ITEM_REFERENCE_UNIT_OF_MEASURE\""
+        type: string
+
+      - name: item_reference_type_no
+        sql: "{CUBE}.\"ITEM_REFERENCE_TYPE_NO\""
+        type: string
+
+      - name: description_2
+        sql: "{CUBE}.\"DESCRIPTION_2\""
+        type: string
+
+      - name: ato_whse_outstd_qty_base
+        sql: "{CUBE}.\"ATO_WHSE_OUTSTD_QTY_BASE\""
+        type: string
+
+      - name: use_duplication_list
+        sql: "{CUBE}.\"USE_DUPLICATION_LIST\""
+        type: boolean
+
+      - name: unit_volume
+        sql: "{CUBE}.\"UNIT_VOLUME\""
+        type: string
+
+      - name: line_discount_calculation
+        sql: "{CUBE}.\"LINE_DISCOUNT_CALCULATION\""
+        type: string
+
+      - name: qty_shipped_base
+        sql: "{CUBE}.\"QTY_SHIPPED_BASE\""
+        type: string
+
+      - name: customer_price_group
+        sql: "{CUBE}.\"CUSTOMER_PRICE_GROUP\""
+        type: string
+
+      - name: line_amount
+        sql: "{CUBE}.\"LINE_AMOUNT\""
+        type: string
+
+      - name: prepmt_vatdiff_deducted
+        sql: "{CUBE}.\"PREPMT_VATDIFF_DEDUCTED\""
+        type: string
+
+      - name: purchase_order_no
+        sql: "{CUBE}.\"PURCHASE_ORDER_NO\""
+        type: string
+
+      - name: ret_qty_rcd_not_invd_base
+        sql: "{CUBE}.\"RET_QTY_RCD_NOT_INVD_BASE\""
+        type: string
+
+      - name: prepayment_amount
+        sql: "{CUBE}.\"PREPAYMENT_AMOUNT\""
+        type: string
+
+      - name: system_created_entry
+        sql: "{CUBE}.\"SYSTEM_CREATED_ENTRY\""
+        type: boolean
+
+      - name: prepayment_tax_area_code
+        sql: "{CUBE}.\"PREPAYMENT_TAX_AREA_CODE\""
+        type: string
+
+      - name: company_id
+        sql: "{CUBE}.\"COMPANY_ID\""
+        type: string
+
+      - name: qty_per_unit_of_measure
+        sql: "{CUBE}.\"QTY_PER_UNIT_OF_MEASURE\""
+        type: string
+
+      - name: return_qty_received_base
+        sql: "{CUBE}.\"RETURN_QTY_RECEIVED_BASE\""
+        type: string
+
+      - name: prepmt_amount_inv_lcy
+        sql: "{CUBE}.\"PREPMT_AMOUNT_INV_LCY\""
+        type: string
+
+      - name: job_task_no
+        sql: "{CUBE}.\"JOB_TASK_NO\""
+        type: string
+
+      - name: variant_code
+        sql: "{CUBE}.\"VARIANT_CODE\""
+        type: string
+
+      - name: package_tracking_no
+        sql: "{CUBE}.\"PACKAGE_TRACKING_NO\""
+        type: string
+
+      - name: item_reference_type
+        sql: "{CUBE}.\"ITEM_REFERENCE_TYPE\""
+        type: string
+
+      - name: unit_price
+        sql: "{CUBE}.\"UNIT_PRICE\""
+        type: string
+
+      - name: prepayment_line
+        sql: "{CUBE}.\"PREPAYMENT_LINE\""
+        type: boolean
+
+      - name: customer_disc_group
+        sql: "{CUBE}.\"CUSTOMER_DISC_GROUP\""
+        type: string
+
+      - name: outbound_whse_handling_time
+        sql: "{CUBE}.\"OUTBOUND_WHSE_HANDLING_TIME\""
+        type: string
+
+      - name: prepmt_vatcalc_type
+        sql: "{CUBE}.\"PREPMT_VATCALC_TYPE\""
+        type: string
+
+      - name: shipping_agent_code
+        sql: "{CUBE}.\"SHIPPING_AGENT_CODE\""
+        type: string
+
+      - name: qty_shipped_not_invd_base
+        sql: "{CUBE}.\"QTY_SHIPPED_NOT_INVD_BASE\""
+        type: string
+
+      - name: originally_ordered_var_code
+        sql: "{CUBE}.\"ORIGINALLY_ORDERED_VAR_CODE\""
+        type: string
+
+      - name: blanket_order_no
+        sql: "{CUBE}.\"BLANKET_ORDER_NO\""
+        type: string
+
+      - name: unit_cost_lcy
+        sql: "{CUBE}.\"UNIT_COST_LCY\""
+        type: string
+
+      - name: vat_bus_posting_group
+        sql: "{CUBE}.\"VAT_BUS_POSTING_GROUP\""
+        type: string
+
+      - name: deferral_code
+        sql: "{CUBE}.\"DEFERRAL_CODE\""
+        type: string
+
+      - name: posting_group
+        sql: "{CUBE}.\"POSTING_GROUP\""
+        type: string
+
+      - name: prepayment
+        sql: "{CUBE}.\"PREPAYMENT\""
+        type: string
+
+      - name: description
+        sql: "{CUBE}.\"DESCRIPTION\""
+        type: string
+
+      - name: vat_difference
+        sql: "{CUBE}.\"VAT_DIFFERENCE\""
+        type: string
+
+      - name: transaction_specification
+        sql: "{CUBE}.\"TRANSACTION_SPECIFICATION\""
+        type: string
+
+      - name: shortcut_dimension_2_code
+        sql: "{CUBE}.\"SHORTCUT_DIMENSION_2_CODE\""
+        type: string
+
+      - name: quantity_invoiced
+        sql: "{CUBE}.\"QUANTITY_INVOICED\""
+        type: string
+
+      - name: transaction_type
+        sql: "{CUBE}.\"TRANSACTION_TYPE\""
+        type: string
+
+      - name: outstanding_quantity
+        sql: "{CUBE}.\"OUTSTANDING_QUANTITY\""
+        type: string
+
+      - name: gross_weight
+        sql: "{CUBE}.\"GROSS_WEIGHT\""
+        type: string
+
+      - name: prepmt_amt_incl_vat
+        sql: "{CUBE}.\"PREPMT_AMT_INCL_VAT\""
+        type: string
+
+      - name: location_code
+        sql: "{CUBE}.\"LOCATION_CODE\""
+        type: string
+
+      - name: prepmt_amount_inv_incl_vat
+        sql: "{CUBE}.\"PREPMT_AMOUNT_INV_INCL_VAT\""
+        type: string
+
+      - name: profit
+        sql: "{CUBE}.\"PROFIT\""
+        type: string
+
+      - name: no
+        sql: "{CUBE}.\"NO\""
+        type: string
+
+      - name: special_order
+        sql: "{CUBE}.\"SPECIAL_ORDER\""
+        type: boolean
+
+      - name: line_discount_amount
+        sql: "{CUBE}.\"LINE_DISCOUNT_AMOUNT\""
+        type: string
+
+      - name: reserved_qty_base
+        sql: "{CUBE}.\"RESERVED_QTY_BASE\""
+        type: string
+
+      - name: ato_whse_outstanding_qty
+        sql: "{CUBE}.\"ATO_WHSE_OUTSTANDING_QTY\""
+        type: string
+
+      - name: depreciation_book_code
+        sql: "{CUBE}.\"DEPRECIATION_BOOK_CODE\""
+        type: string
+
+      - name: return_qty_to_receive_base
+        sql: "{CUBE}.\"RETURN_QTY_TO_RECEIVE_BASE\""
+        type: string
+
+      - name: qty_invoiced_base
+        sql: "{CUBE}.\"QTY_INVOICED_BASE\""
+        type: string
+
+      - name: vat_base_amount
+        sql: "{CUBE}.\"VAT_BASE_AMOUNT\""
+        type: string
+
+      - name: prepmt_amt_deducted
+        sql: "{CUBE}.\"PREPMT_AMT_DEDUCTED\""
+        type: string
+
+      - name: tax_category
+        sql: "{CUBE}.\"TAX_CATEGORY\""
+        type: string
+
+      - name: qty_to_ship
+        sql: "{CUBE}.\"QTY_TO_SHIP\""
+        type: string
+
+      - name: document_type
+        sql: "{CUBE}.\"DOCUMENT_TYPE\""
+        type: string
+
+      - name: qty_shipped_not_invoiced
+        sql: "{CUBE}.\"QTY_SHIPPED_NOT_INVOICED\""
+        type: string
+
+      - name: allow_item_charge_assignment
+        sql: "{CUBE}.\"ALLOW_ITEM_CHARGE_ASSIGNMENT\""
+        type: boolean
+
+      - name: selected_alloc_account_no
+        sql: "{CUBE}.\"SELECTED_ALLOC_ACCOUNT_NO\""
+        type: string
+
+      - name: qty_assigned
+        sql: "{CUBE}.\"QTY_ASSIGNED\""
+        type: string
+
+      - name: return_qty_rcd_not_invd
+        sql: "{CUBE}.\"RETURN_QTY_RCD_NOT_INVD\""
+        type: string
+
+      - name: prepayment_vatdifference
+        sql: "{CUBE}.\"PREPAYMENT_VATDIFFERENCE\""
+        type: string
+
+      - name: custom_transit_number
+        sql: "{CUBE}.\"CUSTOM_TRANSIT_NUMBER\""
+        type: string
+
+      - name: return_rcd_not_invd_lcy
+        sql: "{CUBE}.\"RETURN_RCD_NOT_INVD_LCY\""
+        type: string
+
+      - name: ic_partner_reference
+        sql: "{CUBE}.\"IC_PARTNER_REFERENCE\""
+        type: string
+
+      - name: unit_cost
+        sql: "{CUBE}.\"UNIT_COST\""
+        type: string
+
+      - name: vat_identifier
+        sql: "{CUBE}.\"VAT_IDENTIFIER\""
+        type: string
+
+      - name: shipping_time
+        sql: "{CUBE}.\"SHIPPING_TIME\""
+        type: string
+
+      - name: quantity_base
+        sql: "{CUBE}.\"QUANTITY_BASE\""
+        type: string
+
+      - name: responsibility_center
+        sql: "{CUBE}.\"RESPONSIBILITY_CENTER\""
+        type: string
+
+      - name: ic_item_reference_no
+        sql: "{CUBE}.\"IC_ITEM_REFERENCE_NO\""
+        type: string
+
+      - name: ic_partner_ref_type
+        sql: "{CUBE}.\"IC_PARTNER_REF_TYPE\""
+        type: string
+
+      - name: whse_outstanding_qty
+        sql: "{CUBE}.\"WHSE_OUTSTANDING_QTY\""
+        type: string
+
+      - name: prepmt_amt_to_deduct
+        sql: "{CUBE}.\"PREPMT_AMT_TO_DEDUCT\""
+        type: string
+
+      - name: qty_rounding_precision_base
+        sql: "{CUBE}.\"QTY_ROUNDING_PRECISION_BASE\""
+        type: string
+
+      - name: price_calculation_method
+        sql: "{CUBE}.\"PRICE_CALCULATION_METHOD\""
+        type: string
+
+      - name: return_qty_received
+        sql: "{CUBE}.\"RETURN_QTY_RECEIVED\""
+        type: string
+
+      - name: subtype
+        sql: "{CUBE}.\"SUBTYPE\""
+        type: string
+
+      - name: qty_to_asm_to_order_base
+        sql: "{CUBE}.\"QTY_TO_ASM_TO_ORDER_BASE\""
+        type: string
+
+      - name: qty_rounding_precision
+        sql: "{CUBE}.\"QTY_ROUNDING_PRECISION\""
+        type: string
+
+      - name: prepayment_vat
+        sql: "{CUBE}.\"PREPAYMENT_VAT\""
+        type: string
+
+      - name: unit_of_measure
+        sql: "{CUBE}.\"UNIT_OF_MEASURE\""
+        type: string
+
+      - name: pmt_discount_amount
+        sql: "{CUBE}.\"PMT_DISCOUNT_AMOUNT\""
+        type: string
+
+      - name: bom_item_no
+        sql: "{CUBE}.\"BOM_ITEM_NO\""
+        type: string
+
+      - name: purchasing_code
+        sql: "{CUBE}.\"PURCHASING_CODE\""
+        type: string
+
+      - name: return_reason_code
+        sql: "{CUBE}.\"RETURN_REASON_CODE\""
+        type: string
+
+      - name: system_id
+        sql: "{CUBE}.\"SYSTEM_ID\""
+        type: string
+
+      - name: shortcut_dimension_1_code
+        sql: "{CUBE}.\"SHORTCUT_DIMENSION_1_CODE\""
+        type: string
+
+      - name: shipped_not_invoiced_lcy
+        sql: "{CUBE}.\"SHIPPED_NOT_INVOICED_LCY\""
+        type: string
+
+      - name: recalculate_invoice_disc
+        sql: "{CUBE}.\"RECALCULATE_INVOICE_DISC\""
+        type: boolean
+
+      - name: allocation_account_no
+        sql: "{CUBE}.\"ALLOCATION_ACCOUNT_NO\""
+        type: string
+
+      - name: currency_code
+        sql: "{CUBE}.\"CURRENCY_CODE\""
+        type: string
+
+      - name: document_no
+        sql: "{CUBE}.\"DOCUMENT_NO\""
+        type: string
+
+      - name: substitution_available
+        sql: "{CUBE}.\"SUBSTITUTION_AVAILABLE\""
+        type: boolean
+
+      - name: qty_to_assemble_to_order
+        sql: "{CUBE}.\"QTY_TO_ASSEMBLE_TO_ORDER\""
+        type: string
+
+      - name: shipment_no
+        sql: "{CUBE}.\"SHIPMENT_NO\""
+        type: string
+
+      - name: copied_from_posted_doc
+        sql: "{CUBE}.\"COPIED_FROM_POSTED_DOC\""
+        type: boolean
+
+      - name: net_weight
+        sql: "{CUBE}.\"NET_WEIGHT\""
+        type: string
+
+      - name: alloc_acc_modified_by_user
+        sql: "{CUBE}.\"ALLOC_ACC_MODIFIED_BY_USER\""
+        type: boolean
+
+      - name: quantity
+        sql: "{CUBE}.\"QUANTITY\""
+        type: string
+
+      - name: shipped_not_invoiced
+        sql: "{CUBE}.\"SHIPPED_NOT_INVOICED\""
+        type: string
+
+      - name: system_created_by
+        sql: "{CUBE}.\"SYSTEM_CREATED_BY\""
+        type: string
+
+      - name: prepmt_line_amount
+        sql: "{CUBE}.\"PREPMT_LINE_AMOUNT\""
+        type: string
+
+      - name: prepayment_tax_liable
+        sql: "{CUBE}.\"PREPAYMENT_TAX_LIABLE\""
+        type: boolean
+
+      - name: prepayment_vatidentifier
+        sql: "{CUBE}.\"PREPAYMENT_VATIDENTIFIER\""
+        type: string
+
+      - name: ic_partner_code
+        sql: "{CUBE}.\"IC_PARTNER_CODE\""
+        type: string
+
+      - name: out_of_stock_substitution
+        sql: "{CUBE}.\"OUT_OF_STOCK_SUBSTITUTION\""
+        type: boolean
+
+      - name: gen_prod_posting_group
+        sql: "{CUBE}.\"GEN_PROD_POSTING_GROUP\""
+        type: string
+
+      - name: vat_prod_posting_group
+        sql: "{CUBE}.\"VAT_PROD_POSTING_GROUP\""
+        type: string
+
+      - name: outstanding_qty_base
+        sql: "{CUBE}.\"OUTSTANDING_QTY_BASE\""
+        type: string
+
+      - name: prepmt_pmt_discount_amount
+        sql: "{CUBE}.\"PREPMT_PMT_DISCOUNT_AMOUNT\""
+        type: string
+
+      - name: tax_liable
+        sql: "{CUBE}.\"TAX_LIABLE\""
+        type: boolean
+
+      - name: prepmt_vatamount_inv_lcy
+        sql: "{CUBE}.\"PREPMT_VATAMOUNT_INV_LCY\""
+        type: string
+
+      - name: units_per_parcel
+        sql: "{CUBE}.\"UNITS_PER_PARCEL\""
+        type: string
+
+      - name: price_description
+        sql: "{CUBE}.\"PRICE_DESCRIPTION\""
+        type: string
+
+      - name: amount
+        sql: "{CUBE}.\"AMOUNT\""
+        type: string
+
+      - name: whse_outstanding_qty_base
+        sql: "{CUBE}.\"WHSE_OUTSTANDING_QTY_BASE\""
+        type: string
+
+      - name: shipped_not_inv_lcyno_vat
+        sql: "{CUBE}.\"SHIPPED_NOT_INV_LCYNO_VAT\""
+        type: string
+
+      - name: line_discount
+        sql: "{CUBE}.\"LINE_DISCOUNT\""
+        type: string
+
+      - name: drop_shipment
+        sql: "{CUBE}.\"DROP_SHIPMENT\""
+        type: boolean
+
+      - name: duplicate_in_depreciation_book
+        sql: "{CUBE}.\"DUPLICATE_IN_DEPRECIATION_BOOK\""
+        type: string
+
+      - name: inv_disc_amount_to_invoice
+        sql: "{CUBE}.\"INV_DISC_AMOUNT_TO_INVOICE\""
+        type: string
+
+      - name: depr_until_faposting_date
+        sql: "{CUBE}.\"DEPR_UNTIL_FAPOSTING_DATE\""
+        type: boolean
+
+      - name: outstanding_amount
+        sql: "{CUBE}.\"OUTSTANDING_AMOUNT\""
+        type: string
+
+      - name: tax_group_code
+        sql: "{CUBE}.\"TAX_GROUP_CODE\""
+        type: string
+
+      - name: prepmt_vatbase_amt
+        sql: "{CUBE}.\"PREPMT_VATBASE_AMT\""
+        type: string
+
+      - name: planned
+        sql: "{CUBE}.\"PLANNED\""
+        type: boolean
+
+      - name: system_created_at
+        sql: "{CUBE}.\"SYSTEM_CREATED_AT\""
+        type: time
+
+      - name: returns_deferral_start_date
+        sql: "{CUBE}.\"RETURNS_DEFERRAL_START_DATE\""
+        type: time
+
+      - name: fa_posting_date
+        sql: "{CUBE}.\"FA_POSTING_DATE\""
+        type: time
+
+      - name: planned_delivery_date
+        sql: "{CUBE}.\"PLANNED_DELIVERY_DATE\""
+        type: time
+
+      - name: posting_date
+        sql: "{CUBE}.\"POSTING_DATE\""
+        type: time
+
+      - name: system_modified_at
+        sql: "{CUBE}.\"SYSTEM_MODIFIED_AT\""
+        type: time
+
+      - name: shipment_date
+        sql: "{CUBE}.\"SHIPMENT_DATE\""
+        type: time
+
+      - name: planned_shipment_date
+        sql: "{CUBE}.\"PLANNED_SHIPMENT_DATE\""
+        type: time
+
+      - name: promised_delivery_date
+        sql: "{CUBE}.\"PROMISED_DELIVERY_DATE\""
+        type: time
+
+      - name: requested_delivery_date
+        sql: "{CUBE}.\"REQUESTED_DELIVERY_DATE\""
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+      - name: attached_doc_count
+        sql: "{CUBE}.\"ATTACHED_DOC_COUNT\""
+        type: sum
+
+      - name: attached_lines_count
+        sql: "{CUBE}.\"ATTACHED_LINES_COUNT\""
+        type: sum
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+
